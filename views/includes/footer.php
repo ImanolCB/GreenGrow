@@ -1,68 +1,53 @@
 <footer>
     <div class="container-fluid">
-        <div class="row ">
-            <div class="col-md-3" style="background-color: red;">
-                <div class="text-center">
-                    <img src="/assets/img/logo.jpg" width="100" height="100" class="rounded" alt="Logo">
+        <div class="row p-5 pb-2 bg-dark text-white">
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h3 ">Green Grow</p>
+                <p class="text-secondary"> P.º Menéndez Pelayo, 4, 39700 Castro-Urdiales, Cantabria</p>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h5 mb-3">Quienes somos</p>
+                <div class="mb-2">
+                    <a href="#" class="text-secondary text-decoration-none">Quienes somos</a>
+                </div>
+                <div class="mb-2">
+                    <a href="#" class="text-secondary text-decoration-none">Aviso legal</a>
+                </div>
+                <div class="mb-2">
+                    <a href="#" class="text-secondary text-decoration-none">Donde estamos</a>
                 </div>
             </div>
-            <div class="col-md-3 text-center" style="background-color: blue;">
-            <h3>Lista</h3>
-               <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5 ">
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Promociones</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Tienda</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Libros</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Sobre nosotros</a>
-                    </li>
-
-
-                </ul>
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h5 mb-3">Contactar</p>
+                <div class="mb-2">
+                    <a href="#" class="text-secondary text-decoration-none">Centro de soporte</a>
+                </div>
+                <div class="mb-2">
+                    <a href="#" class="text-secondary text-decoration-none">Atención al cliente</a>
+                </div>
             </div>
-            <div class="col-md-3 text-center" style="background-color: blue;">
-            <h3>Lista</h3>
-               <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5 ">
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Promociones</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Tienda</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Libros</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Sobre nosotros</a>
-                    </li>
-
-
-                </ul>
+            <div class="col-xs-12 col-md-6 col-lg-3">
+                <p class="h5 mb-3">Comunidad</p>
+                <div class="mb-2">
+                    <a href="#" class="text-secondary text-decoration-none">
+                        <img src="https://cdn.icon-icons.com/icons2/792/PNG/512/INSTAGRAM_icon-icons.com_65535.png" alt="Instagram" class="img-fluid me-2" style="max-width: 20px;">Instagram
+                    </a>
+                </div>
+                <div class="mb-2">
+                    <a href="#" class="text-secondary text-decoration-none">
+                        <img src="https://cdn.icon-icons.com/icons2/792/PNG/512/YOUTUBE_icon-icons.com_65537.png" alt="Youtube" class="img-fluid me-2" style="max-width: 20px;">Youtube
+                    </a>
+                </div>
+                <div class="mb-2">
+                    <a href="#" class="text-secondary text-decoration-none">
+                        <img src="https://cdn.icon-icons.com/icons2/792/PNG/512/PINTEREST_icon-icons.com_65539.png" alt="Youtube" class="img-fluid me-2" style="max-width: 20px;">Pinterest
+                    </a>
+                </div>
             </div>
-            <div class="col-md-3 text-center" style="background-color: blue;">
-            <h3>Lista</h3>
-               <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5 ">
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Promociones</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Tienda</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Libros</a>
-                    </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active text-nowrap" aria-current="page" href="#">Sobre nosotros</a>
-                    </li>
-
-
-                </ul>
+            <div class="col-xs-12 pt-4">
+                <p class="text-white text-center">Derechos de autor &copy; <?php echo date("Y"); ?> - Todos los derechos reservados</p>
             </div>
+
         </div>
     </div>
 </footer>
