@@ -1,0 +1,32 @@
+main {
+  min-height: 85vh;
+}
+
+.parallax {
+    position: relative;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image:
+    radial-gradient(circle, rgba(255,255,255,0.75) 0%, rgba(73,121,9,0) 60%, rgba(255,223,234,0) 100%),      url("https://images.unsplash.com/photo-1519248964876-9524a73205e8?q=80&w=2641&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    min-height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .textoTitulo {
+    font-size: 100px;
+    color: black;
+    text-align: center;
+    margin: 0;
+    font-weight: bold;
+
+  }
+
+  .textoTitulo p:nth-last-child(1){
+    color: #6c757d;
+    font-size: 50px;
+    font-weight: normal;
+  }
