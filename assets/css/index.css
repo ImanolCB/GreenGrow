@@ -16,17 +16,42 @@ main {
     align-items: center;
   }
   
-  .textoTitulo {
-    font-size: 100px;
-    color: black;
+  .textoTitulo h1{
+    font-size: 5em;
+    color: rgb(110, 171, 94);
     text-align: center;
     margin: 0;
     font-weight: bold;
-
+    text-shadow: 0 8px 8px #44634f;
   }
 
   .textoTitulo p:nth-last-child(1){
-    color: #6c757d;
+    color: #355231;
     font-size: 50px;
     font-weight: normal;
+    font-style: italic;
+    text-shadow: 0 3px 3px #414141;
   }
+
+  .cards-wraper{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px;
+  }
+
+  .card{
+    width: calc(100%/4.75);
+    min-width: 175px;
+    max-width: 400px;
+    margin: 0 0.5em;
+
+  }
+
+  #imagenPromocion{
+    max-width: 200px;
+    max-height: 150px;
+  }
+
+  
