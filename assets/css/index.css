@@ -1,6 +1,4 @@
-main {
-  min-height: 85vh;
-}
+
 
 .parallax {
     position: relative;
@@ -9,44 +7,70 @@ main {
     background-repeat: no-repeat;
     background-size: cover;
     background-image:
-    radial-gradient(circle, rgba(255,255,255,0.75) 0%, rgba(73,121,9,0) 60%, rgba(255,223,234,0) 100%),      url("https://images.unsplash.com/photo-1519248964876-9524a73205e8?q=80&w=2641&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(191,191,191,0.4) 50%, rgba(255,255,255,0) 100%),
+    url("https://images.unsplash.com/photo-1519248964876-9524a73205e8?q=80&w=2641&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     min-height: 60vh;
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .textoTitulo{
+    width: 30vw;
+    min-width: clamp(350px,75%,600px);
   }
   
   .textoTitulo h1{
     font-size: 5em;
-    color: rgb(110, 171, 94);
-    text-align: center;
-    margin: 0;
+    color: #ffffff;
+    text-align: left;
+    margin-left: 5%;
     font-weight: bold;
-    text-shadow: 0 8px 8px #44634f;
+    text-shadow: 0 8px 8px #dadada;
   }
-
+  
   .textoTitulo p:nth-last-child(1){
-    color: #355231;
+    margin-left: 5%;
+    color: #dadada;
     font-size: 50px;
     font-weight: normal;
     font-style: italic;
-    text-shadow: 0 3px 3px #414141;
+  }
+
+  .product-list{
+    width: 60vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
 
   .cards-wraper{
+    margin: 0;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
-    margin: 20px;
   }
 
   .card{
-    width: calc(100%/4.75);
-    min-width: 175px;
-    max-width: 400px;
+    width: clamp(350px, 75% , 750px);
     margin: 0 0.5em;
+    max-height: 500px;
+    transition:.2s all;
+  }
 
+
+  .card-text{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-text p{
+    margin-top: auto;
+    margin-bottom: auto;
+    font: 1.2em sans-serif;
   }
 
   #imagenPromocion{

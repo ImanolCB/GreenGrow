@@ -1,4 +1,7 @@
-
+main {
+    min-height: 85vh;
+  }
+  
 /*HEADER*/
 header{
     box-shadow: 0 0 15px #dddddd;

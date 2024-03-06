@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
-                <img src="./assets/img/logo.jpg" alt="logo" width="80" height="80">
+                <img src="/assets/img/logo.jpg" alt="logo" width="80" height="80">
             </a>
             <!-- <a class="navbar-brand fs-3 fw-bolder text-success" href="#">GreenGrow</a> -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +25,7 @@
                 </ul>
                 <!-- Botones de Iniciar sesión y Registrarse -->
                 <div class="d-flex">
-                    <a class="btn m-2" id="btnMiCuenta" href="#">Mi cuenta</a>
+                    <a class="btn m-2" id="btnMiCuenta" href="views/login/login.php">Mi cuenta</a>
                 </div>
             </div>
         </div>

@@ -12,8 +12,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <!-- CSS -->
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <link rel="stylesheet" href="./assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
 
 </head>
 
@@ -26,16 +26,10 @@
                 <p class="h2Titulo">Cultiva y dale más vida a tu hogar</p>
             </div>
 
-        </section>
-        <section class="container-fluid">
-            <div class="px-2 ps-md-5 ms-md-1 py-4">
-                <h3>Promociones</h3>
-            </div>
             <div class="product-list px-2 ps-md-5 ms-md-1">
-                <?php include 'views/includes/slider2.php' ?>
+                <?php include 'views/includes/slider.php' ?>
             </div>
         </section>
-
 
     </main>
     <?php include 'views/includes/footer.php' ?>
