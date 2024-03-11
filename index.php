@@ -18,7 +18,9 @@
 </head>
 
 <body>
-    <?php /*include 'views/includes/header.php' */ ?>
+    <?php /*include 'views/includes/header.php' */
+    require_once './models/Producto.php';
+    ?>
 
     <!-- HEADER -->
 
@@ -69,16 +71,34 @@
             <h3 class="my-4">Promociones</h3>
             <div class="container">
                 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3">
-                    <div class="col m-10">
-                        <?php echo Producto::crearPromocion(
+                    <div class="col m-10 d-flex justify-content-center">
+                        <?php
+                         echo Producto::crearPromocion(
                             "https://images.unsplash.com/photo-1589893432683-529de88655a1?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
                             "Promocion",
                             "Descripcion de prueba del producto"
                         )
                         ?>
                     </div>
-                    <div class="col m-10">Column</div>
-                    <div class="col m-10">Column</div>
+                    <div class="col m-10 d-flex justify-content-center">
+                        <?php
+                         echo Producto::crearPromocion(
+                            "https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                            "Promocion",
+                            "Descripcion de prueba del producto"
+                        )
+                        ?>
+                    </div>
+                    <div class="col m-10 d-flex justify-content-center">
+                        <?php
+                         echo Producto::crearPromocion(
+                            "https://images.unsplash.com/photo-1589893432683-529de88655a1?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                            "Promocion",
+                            "Descripcion de prueba del producto"
+                        )
+                        ?>
+                    </div>
+
                 </div>
             </div>
         </section>

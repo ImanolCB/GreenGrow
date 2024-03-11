@@ -1,3 +1,10 @@
+
+<?php
+    /**
+     * ! SLIDER DESHABILITADO: SE EMPLEA EL METODO crearPromocion() de Productos en index
+     */
+?>
+
 <!-- <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
 

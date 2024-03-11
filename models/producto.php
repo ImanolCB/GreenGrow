@@ -1,6 +1,6 @@
 <?php
 
-//POJO de Producto
+//POJO de Producto DML
 class Producto
 {
     // Propiedades
@@ -16,7 +16,9 @@ class Producto
 
     // Constructor
 
-    public function constructorVacio(){ }
+    public function constructorVacio()
+    {
+    }
 
 
     public function constructorCompleto($id_producto, $nombre, $descripcion, $altura, $epoca, $tipo, $cuidado, $precio, $promocion)
@@ -141,16 +143,18 @@ class Producto
         ];
     }
 
+    //Método estático para crear una carta de producto
     public static function crearPromocion($imageUrl, $title, $description)
     {
         return "
-            <div class='card bg-dark text-white'>
-                <img src='$imageUrl' class='card-img' alt='...'>
-                <div class='card-img-overlay'>
-                    <h5 class='card-title'>$title</h5>
-                    <p class='card-text'>$description</p>
-                </div>
-            </div>
+        <div class='card' style='width: 18rem;'>
+        <img src='$imageUrl' class='card-img-top' alt='...'>
+        <div class='card-body'>
+          <h5 class='card-title'>$title</h5>
+          <p class='card-text'>$description</p>
+          <a href='#' class='btn btn-primary'>Go somewhere</a>
+        </div>
+      </div>
         ";
     }
 }

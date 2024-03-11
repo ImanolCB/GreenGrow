@@ -19,63 +19,42 @@
   .textoTitulo{
     width: 30vw;
     min-width: clamp(350px,75%,600px);
+    text-align: center;
   }
   
   .textoTitulo h1{
-    font-size: 5em;
+    font-size: 5rem;
     color: #ffffff;
-    text-align: left;
+    
     margin-left: 5%;
     font-weight: bold;
     text-shadow: 0 8px 8px #dadada;
   }
   
-  .textoTitulo p:nth-last-child(1){
+  .textoTitulo p{
     margin-left: 5%;
-    color: #294838;
-    font-size: 50px;
+    color: #000000;
+    font-size: 2.5rem;
     font-weight: normal;
     font-style: italic;
   }
 
-  .product-list{
-    width: 60vw;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .cards-wraper{
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+  .promociones h3{
+    padding: 15px;
+    font-size: 2.5rem;
+    border-bottom: 2px solid #507a64;
+    border-bottom-width: 50% ;
   }
 
   .card{
     width: clamp(350px, 75% , 750px);
-    margin: 0 0.5em;
-    max-height: 500px;
+    margin: 2em 0;
     transition:.2s all;
   }
 
-
-  .card-text{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .card img{
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
   }
-
-  .card-text p{
-    margin-top: auto;
-    margin-bottom: auto;
-    font: 1.2em sans-serif;
-  }
-
-  #imagenPromocion{
-    max-width: 200px;
-    max-height: 150px;
-  }
-
   
