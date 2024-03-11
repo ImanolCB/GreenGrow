@@ -10,7 +10,11 @@ if ($submit !== null) {
         //Boton de formulario en la view de Logeo
         case "Mi cuenta":
             exit();
-            header("Location: ../index.php");
+            header("Location: /controllers/controlador.php");
+            break;
+        //Boton de formulario en la view de Logeo
+        case "Iniciar sesion":
+            echo "Procesando inicio de sesion";
             break;
 
         //Por defecto, al no encontrar coincidencia en en un submit te devuelve al inicio

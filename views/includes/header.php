@@ -25,7 +25,7 @@
                 </ul>
                 <!-- Botones de Iniciar sesión y Registrarse -->
                 <div class="d-flex">
-                    <a class="btn m-2" id="btnMiCuenta" href="views/login/login.php">Mi cuenta</a>
+                    <a class="btn m-2" id="btnMiCuenta" href="/views/login/login.php">Mi cuenta</a>
                 </div>
             </div>
         </div>

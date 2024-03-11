@@ -18,18 +18,61 @@
 </head>
 
 <body>
-    <?php include '../includes/header.php'; ?>
+    <?php /*include '../includes/header.php'; */ ?>
+
+    <!-- HEADER -->
+
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="/assets/img/logo.jpg" alt="logo" width="80" height="80">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5 ">
+                        <li class="nav-item m-2">
+                            <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="#">Promociones</a>
+                        </li>
+                        <li class="nav-item m-2">
+                            <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="#">Tienda</a>
+                        </li>
+                        <li class="nav-item m-2">
+                            <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="#">Libros</a>
+                        </li>
+                        <li class="nav-item m-2">
+                            <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="#">Sobre nosotros</a>
+                        </li>
+                    </ul>
+                    <!-- Botones de Iniciar sesión y Registrarse -->
+                    <?php
+                     /**
+                      * TODO: COMPROBAR SI EL USUARIO ESTA REGISTRADO O NO MOSTRAR EL BOTÓN DE MI CUENTA
+                      */
+                    ?>
+                    <!-- <div class="d-flex">
+                        <a class="btn m-2" id="btnMiCuenta" href="/views/login/login.php">Mi cuenta</a>
+                    </div> -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
 
     <main class="main">
         <section class="container">
             <div class="volver">
                 <a href="/index.php">Volver a Inicio</a>
             </div>
-            <form action="controlador.php" method="post">
+            <form class="form-login" action="../../controllers/controlador.php" method="post">
                 <fieldset>
                     <legend>Inicio de sesión</legend>
+                    <hr><br>
                     <div class="mb-3 row">
-                        <label for="emailLogin" class="col-form-label col-sm-4">Correo electrónico</label>
+                        <label for="emailLogin" class="col-form-label col-sm-4">E-mail</label>
                         <div class="col-sm-8">
                             <input type="email" class="form-control" id="emailLogin" name="emailLogin" placeholder="ejemplo@gmail.com">
                         </div>
@@ -42,7 +85,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-8 offset-sm-4">
-                            <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+                            <button type="submit" class="btn btn-primary">Iniciar sesion</button>
                         </div>
                     </div>
                 </fieldset>
@@ -50,6 +93,10 @@
         </section>
         <aside class="imagenAside"></aside>
     </main>
+
+    <!-- FOOTER -->
+
+
     <?php include '../includes/footer.php'; ?>
 </body>
 

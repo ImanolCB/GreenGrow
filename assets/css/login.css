@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     height: 100vh;
+    background-color: #507a64;
 }
 
 .container{
@@ -16,41 +17,51 @@
 .volver{
     width: 100%;
     margin-top: 10px;
+    margin-bottom: 30px;
     padding: 20px;
 }
 .volver a{
-    padding: 20px;
+    padding: 10px;
     text-decoration: none;
-    color: #507a64;
+    color: #ffffff;
     font-weight: bolder;
-    border: 1px solid #507a64;
+    border: 1px solid #ffffff;
     border-radius: 5px;
 }
 
 .volver a:hover{
     color: #ffffff;
-    background-color: #507a64;
+    background-color: #ffffff6f;
     transition: .3s all;
 }
 
-form {
-    min-width: 300px;
-    max-width: 800px;
-    padding: 20px;
-    border: 1px solid #507a64;
-    border-radius: 10px;
+.row{
+    align-items: center;
 }
+
+.form-login {
+    min-width: 350px;
+    max-width: 900px;
+    padding: 50px;
+    border-radius: 10px;
+    background-color: #ffffff;
+    box-shadow: 0 0 50px #3f5e4a;    
+}
+
+
 legend {
     font-size: 1.2em;
     font-weight: bold;
     color: #507a64;
     margin-bottom: 20px;
 }
-.form-label {
+
+
+.col-form-label {
+    display: flex;
+    flex-wrap: wrap;
     font-weight: bold;
 }
-
-/* Estilos de Bootstrap */
 
 .form-control {
     background-color: #ffffff;
@@ -58,6 +69,7 @@ legend {
     border-color: #507a64;
 }
 .btn-primary {
+    margin: 20px;
     background-color: #507a64;
     border-color: #507a64;
 }
@@ -71,7 +83,7 @@ legend {
     background-size: cover;
     height: 100vh;
     width: 50vw;
-    box-shadow: 0 0 100px #ffffff;
+    box-shadow: 0 0 50px #3f5e4a;
 }
 /* Ajustes para pantallas pequeñas */
 @media (max-width: 768px) {
