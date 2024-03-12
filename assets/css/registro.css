@@ -26,6 +26,7 @@ section {
   margin-bottom: 30px;
   padding: 20px;
 }
+
 .volver a {
   padding: 10px;
   text-decoration: none;
@@ -47,18 +48,6 @@ section {
   text-align: end;
 }
 
-.btnRegistro a {
-  color: #507a64;
-  font-weight: bold;
-  text-decoration: none;
-  padding: 10px;
-}
-
-.btnRegistro a:hover {
-  color: #df9e2f;
-  transition: 0.3s all;
-}
-
 .row {
   align-items: center;
 }
@@ -75,7 +64,7 @@ section {
 legend {
   font-size: 1.2em;
   font-weight: bold;
-  color: #507a64;
+  color: #df9e2f;
   margin-bottom: 20px;
 }
 
@@ -101,7 +90,7 @@ legend {
 }
 
 .imagenAside {
-  background-image: url("https://images.unsplash.com/photo-1525498128493-380d1990a112?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-image: url("https://images.unsplash.com/photo-1650223154483-ccdef5d0e19d?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   background-size: cover;
   height: 100vh;
   width: 50vw;

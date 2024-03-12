@@ -68,8 +68,8 @@ class Usuario
         $this->fecha_alta = $fecha_alta;
     }
 
-
-    public function insertarUsuario(Usuario $usuario, $conexion)
+    //Función para dar de alta un usuario
+    public function insertarUsuario($usuario, $conexion)
     {
         // Obtener los valores del usuario
         $email = $usuario->getEmail();
@@ -89,8 +89,25 @@ class Usuario
         }
     }
 
-    public function verificarUsuario(){
+    //Funcion para verificar si un usuario esta registrado en la BD
+    public function verificarUsuario($usuario, $conexion)
+    {
+        // Obtener los valores del usuario
+        $email = $usuario->getEmail();
+        $password = $usuario->getPassword();
 
+        // Construir la consulta SQL de Select
+        $query = "INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `rol`, `fecha_alta`) VALUES ('0', $email, $password.hash(), '', '')";
+
+        // Ejecutar la consulta
+        $resultado = mysqli_query($conexion, $query);
+
+        // Verificar si la consulta fue exitosa
+        if (!$resultado) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+        } else {
+            echo "Usuario insertado correctamente.";
+        }
     }
 }
 

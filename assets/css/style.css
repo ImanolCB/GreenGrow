@@ -1,5 +1,6 @@
 main {
     min-height: 85vh;
+    transition: 0.2s all;
   }
   
 /*HEADER*/

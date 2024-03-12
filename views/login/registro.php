@@ -13,7 +13,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/login.css">
+    <link rel="stylesheet" href="/assets/css/registro.css">
 
 </head>
 
@@ -63,45 +63,46 @@
     <!-- MAIN -->
 
     <main class="main">
+
         <section>
             <div class="volver">
-                <a href="/index.php">Volver a Inicio</a>
+                <a href="login.php">Volver</a>
             </div>
             <form class="form-login" action="./../../controllers/miControlador.php" method="post">
                 <fieldset>
-                    <legend>Inicio de sesión</legend>
+                    <legend>Registrarme</legend>
                     <hr><br>
+
+
                     <div class="mb-3 row">
-                        <label for="emailLogin" class="col-form-label col-sm-4">E-mail</label>
+                        <label for="emailRegistro" class="col-form-label col-sm-4">E-mail</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="emailLogin" name="emailLogin" placeholder="ejemplo@gmail.com">
+                            <input type="email" class="form-control" id="emailRegistro" name="emailRegistro" placeholder="ejemplo@gmail.com">
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="passwordLogin" class="col-form-label col-sm-4">Contraseña</label>
+                        <label for="passwordRegistro" class="col-form-label col-sm-4">Contraseña</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="passwordLogin" name="passwordLogin" placeholder="Contraseña">
+                            <input type="password" class="form-control" id="passwordRegistro" name="passwordRegistro" placeholder="Contraseña">
                         </div>
                     </div>
-                    <div class="btnRegistro">
-                        <a href="registro.php">Registrarme</a>
+                    <div class="mb-3 row">
+                        <label for="passwordRegistroRep" class="col-form-label col-sm-4">Contraseña</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="passwordRegistroRep" name="passwordRegistroRep" placeholder="Repita la contraseña">
+                        </div>
                     </div>
+
                     <div class="row">
-
-
-                        <?php
-                        /**
-                         * TODO: ERROR EN EL REDIRECCIONAMIENTO AL ACCEDER A LA SESION, NO REDIRECCIONA 
-                         */
-                        ?>
                         <div class="col-sm-8 offset-sm-4">
-                            <button type="submit" name="submit" value="Iniciar sesion" class="btn btn-primary">Iniciar sesion</button>
+                            <button type="submit" name="submit" value="Registrar" class="btn btn-primary">Registrar</button>
                         </div>
                     </div>
+
                 </fieldset>
             </form>
         </section>
-        <!-- <aside class="imagenAside"></aside> -->
+
     </main>
 
     <!-- FOOTER -->
