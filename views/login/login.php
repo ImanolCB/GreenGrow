@@ -67,7 +67,7 @@
             <div class="volver">
                 <a href="/index.php">Volver a Inicio</a>
             </div>
-            <form class="form-login" action="../../controllers/controlador.php" method="post">
+            <form class="form-login" action="./../../controllers/miControlador.php" method="post">
                 <fieldset>
                     <legend>Inicio de sesión</legend>
                     <hr><br>
@@ -84,8 +84,17 @@
                         </div>
                     </div>
                     <div class="row">
+
+
+                    <?php
+                     /**
+                      * TODO: ERROR EN EL REDIRECCIONAMIENTO AL ACCEDER A LA SESION, NO REDIRECCIONA 
+                      */
+                    ?>
+
+
                         <div class="col-sm-8 offset-sm-4">
-                            <button type="submit" class="btn btn-primary">Iniciar sesion</button>
+                            <button type="submit" name="submit" value="Iniciar sesion" class="btn btn-primary">Iniciar sesion</button>
                         </div>
                     </div>
                 </fieldset>
