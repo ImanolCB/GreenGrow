@@ -12,8 +12,8 @@ define ("BD_PASSWORD", "kk");
 
 //Configuraci�n de logitudes minimas del login y el password de los usuario
 //normales
-define ("LONGITUD_MINIMA_LOGIN", 6);
-define ("LONGITUD_MINIMA_PASSWORD", 6);
+// define ("LONGITUD_MINIMA_LOGIN", 6);
+// define ("LONGITUD_MINIMA_PASSWORD", 6);
 
 //Configuraci�n del numero de resultados de paginaci�n por cada pagina
 // define ("PAGINACION", 10);

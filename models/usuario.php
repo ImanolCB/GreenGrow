@@ -10,18 +10,18 @@ class Usuario
     private $rol;
     private $fecha_alta;
 
-    public function constructorVacio()
-    {
-    }
+    // public function constructorVacio()
+    // {
+    // }
 
-    public function constructorCompleto($id_usuario, $email, $password, $rol, $fecha_alta)
-    {
-        $this->id_usuario = $id_usuario;
-        $this->email = $email;
-        $this->password = $password;
-        $this->rol = $rol;
-        $this->fecha_alta = $fecha_alta;
-    }
+    // public function constructorCompleto($id_usuario, $email, $password, $rol, $fecha_alta)
+    // {
+    //     $this->id_usuario = $id_usuario;
+    //     $this->email = $email;
+    //     $this->password = $password;
+    //     $this->rol = $rol;
+    //     $this->fecha_alta = $fecha_alta;
+    // }
 
     public function getIdUsuario()
     {

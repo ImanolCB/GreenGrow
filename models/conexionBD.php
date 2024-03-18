@@ -1,6 +1,6 @@
 <?php
 
-include_once("configuracion.php");
+include_once("./configuracion.php");
 
 class ConexionBD
 {
@@ -13,10 +13,10 @@ class ConexionBD
     //Constructor de la clase
     function __construct()
     {
-        $this->host = BD_SERVIDOR;
-        $this->usuario = BD_USUARIO;
-        $this->password = BD_PASSWORD;
-        $this->bd_nombre = BD_NOMBRE;
+        $this->host = "BD_SERVIDOR";
+        $this->usuario = "BD_USUARIO";
+        $this->password = "BD_PASSWORD";
+        $this->bd_nombre = "BD_NOMBRE";
     }
 
     //Metodo para abrir una conexión a la base de datos

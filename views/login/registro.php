@@ -18,7 +18,11 @@
 </head>
 
 <body>
-    <?php /*include '../includes/header.php'; */ ?>
+    <?php 
+    /*
+    include '../includes/header.php'; 
+     TODO AÑADIR LOS ENLACES A INICIO EN CADA LOGO DEL NAV
+    */ ?>
 
     <!-- HEADER -->
 
