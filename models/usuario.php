@@ -30,7 +30,7 @@ class Usuario
 
     public function getEmail()
     {
-        return $this->email;
+        return (string) $this->email;
     }
 
     public function setEmail($email)
@@ -75,8 +75,11 @@ class Usuario
         $email = $usuario->getEmail();
         $password = $usuario->getPassword();
 
+        // Hashear la contraseña
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
         // Construir la consulta SQL de inserción
-        $query = "INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `rol`, `fecha_alta`) VALUES ('0', $email, $password.hash(), '', '')";
+        $query = "INSERT INTO usuario (id_usuario, email, password) VALUES ('0', '$email', '$hashedPassword')";
 
         // Ejecutar la consulta
         $resultado = mysqli_query($conexion, $query);
@@ -84,8 +87,9 @@ class Usuario
         // Verificar si la consulta fue exitosa
         if (!$resultado) {
             die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return false;
         } else {
-            echo "Usuario insertado correctamente.";
+            return true;
         }
     }
 
@@ -97,7 +101,7 @@ class Usuario
         $password = $usuario->getPassword();
 
         // Construir la consulta SQL de Select
-        $query = "INSERT INTO `usuario` (`id_usuario`, `email`, `password`, `rol`, `fecha_alta`) VALUES ('0', $email, $password.hash(), '', '')";
+        $query = "SELECT email,password,rol FROM usuario WHERE email = '$email' ";
 
         // Ejecutar la consulta
         $resultado = mysqli_query($conexion, $query);
@@ -105,8 +109,23 @@ class Usuario
         // Verificar si la consulta fue exitosa
         if (!$resultado) {
             die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return false;
         } else {
-            echo "Usuario insertado correctamente.";
+            if (mysqli_num_rows($resultado) == 1){
+                $fila = mysqli_fetch_assoc($resultado);
+                $hashedPassword = $fila['password'];
+
+                if (password_verify($password, $hashedPassword)) {
+                    // Si las contraseñas coinciden, el usuarioes valido
+                    return true;
+                } else {
+                    // Si la contraseña no coincide, el usuario no es valido
+                    return false;
+                }
+            }else{
+                //Si hay más de un usuario igual la validación es nula
+                return false;
+            }
         }
     }
 }

@@ -27,16 +27,41 @@ if (isset($_REQUEST['submit'])) {
         switch ($submit) {
                 //Cuando se pulsa el boton de inicio de sesion en login.php
             case "Iniciar sesion":
-                echo "Procesando inicio de sesión";
+                $emailInicioSesion = $_REQUEST['emailLogin'];
+                $passwordInicioSesion = $_REQUEST['passwordLogin'];
+                $usuarioInicioSesion = new Usuario;
+                $usuarioInicioSesion->setEmail($emailInicioSesion);
+                $usuarioInicioSesion->setPassword($passwordInicioSesion);
+                if ($usuarioInicioSesion->verificarUsuario($usuarioInicioSesion, $conn->conectar_bd())) {
+
+                    /**
+                     * TODO: PENDIENTE ALMACENAR EN SESION EL EMAIL Y ROL DE USUARIO
+                     * TODO: SE PRETENDE COMPROBAR QUE SE ACCEDA A MI CUENTA SI HAY USUARIO EN SESION
+                     */
+
+                    header("Location: /../index.php");
+                    exit();
+                } else {
+                    echo "No verificado";
+                }
                 break;
+                //Cuando se pulsa el boton de registrar se realiza el insert en la base de datos
             case "Registrar":
-                $submit = $_REQUEST['submit'];
                 $emailRegistro = $_REQUEST['emailRegistro'];
                 $passwordRegistro = $_REQUEST['passwordRegistro'];
-                $us = new Usuario;
-                $us->setEmail($emailRegistro);
-                $us->setPassword($passwordRegistro);
-                $us->insertarUsuario($us, $conn->conectar_bd());
+                $usuarioRegistro = new Usuario;
+                $usuarioRegistro->setEmail($emailRegistro);
+                $usuarioRegistro->setPassword($passwordRegistro);
+                if ($usuarioRegistro->insertarUsuario($usuarioRegistro, $conn->conectar_bd())) {
+
+                    /**
+                     * TODO: PENDIENTE AÑADIR MENSAJE DE ERROR
+                     */
+
+
+                    header("Location: /../views/login/login.php");
+                    exit();
+                }
                 break;
 
                 //Cuando el boton pulsado no coincide con ningún caso
@@ -47,7 +72,7 @@ if (isset($_REQUEST['submit'])) {
 
         }
     } catch (\Throwable $th) {
-        //throw $th;
+        echo "Mensaje de error catch: " . $th;
     } finally {
         $conn->cerrar_conexion();
     }
