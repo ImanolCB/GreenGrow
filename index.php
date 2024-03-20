@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -9,7 +9,6 @@
     <!-- Bootsrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
@@ -27,7 +26,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="/">
                     <img src="/assets/img/logo.jpg" alt="logo" width="80" height="80">
                 </a>
                 <!-- <a class="navbar-brand fs-3 fw-bolder text-success" href="#">GreenGrow</a> -->
@@ -37,10 +36,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5 ">
                         <li class="nav-item m-2">
-                            <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="#">Promociones</a>
+                            <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="">Promociones</a>
                         </li>
                         <li class="nav-item m-2">
-                            <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="#">Tienda</a>
+                            <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="/views/shop/tienda.php">Tienda</a>
                         </li>
                         <li class="nav-item m-2">
                             <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="#">Libros</a>
@@ -69,65 +68,65 @@
         </section>
         <section class=" promociones text-center">
             <h3>Promociones</h3>
-            
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  row-cols-xxl-5">
-                    <div class="col m-10 d-flex justify-content-center">
-                        <?php
-                         echo Producto::crearPromocion(
-                            "https://images.unsplash.com/photo-1589893432683-529de88655a1?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                            "Promocion",
-                            "Descripcion de prueba del producto"
-                        )
-                        ?>
-                    </div>
-                    <div class="col m-10 d-flex justify-content-center">
-                        <?php
-                         echo Producto::crearPromocion(
-                            "https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                            "Promocion",
-                            "Descripcion de prueba del producto"
-                        )
-                        ?>
-                    </div>
-                    <div class="col m-10 d-flex justify-content-center">
-                        <?php
-                         echo Producto::crearPromocion(
-                            "https://images.unsplash.com/photo-1589893432683-529de88655a1?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                            "Promocion",
-                            "Descripcion de prueba del producto"
-                        )
-                        ?>
-                    </div>
-                    <div class="col m-10 d-flex justify-content-center">
-                        <?php
-                         echo Producto::crearPromocion(
-                            "https://images.unsplash.com/photo-1589893432683-529de88655a1?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                            "Promocion",
-                            "Descripcion de prueba del producto"
-                        )
-                        ?>
-                    </div>
-                    <div class="col m-10 d-flex justify-content-center">
-                        <?php
-                         echo Producto::crearPromocion(
-                            "https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                            "Promocion",
-                            "Descripcion de prueba del producto"
-                        )
-                        ?>
-                    </div>
-                    <div class="col m-10 d-flex justify-content-center">
-                        <?php
-                         echo Producto::crearPromocion(
-                            "https://images.unsplash.com/photo-1589893432683-529de88655a1?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                            "Promocion",
-                            "Descripcion de prueba del producto"
-                        )
-                        ?>
-                    </div>
 
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  row-cols-xxl-5">
+                <div class="col m-10 d-flex justify-content-center">
+                    <?php
+                    echo Producto::crearPromocion(
+                        "https://images.unsplash.com/photo-1589893432683-529de88655a1?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        "Promocion",
+                        "Descripcion de prueba del producto"
+                    )
+                    ?>
                 </div>
-            
+                <div class="col m-10 d-flex justify-content-center">
+                    <?php
+                    echo Producto::crearPromocion(
+                        "https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        "Promocion",
+                        "Descripcion de prueba del producto"
+                    )
+                    ?>
+                </div>
+                <div class="col m-10 d-flex justify-content-center">
+                    <?php
+                    echo Producto::crearPromocion(
+                        "https://images.unsplash.com/photo-1589893432683-529de88655a1?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        "Promocion",
+                        "Descripcion de prueba del producto"
+                    )
+                    ?>
+                </div>
+                <div class="col m-10 d-flex justify-content-center">
+                    <?php
+                    echo Producto::crearPromocion(
+                        "https://images.unsplash.com/photo-1589893432683-529de88655a1?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        "Promocion",
+                        "Descripcion de prueba del producto"
+                    )
+                    ?>
+                </div>
+                <div class="col m-10 d-flex justify-content-center">
+                    <?php
+                    echo Producto::crearPromocion(
+                        "https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        "Promocion",
+                        "Descripcion de prueba del producto"
+                    )
+                    ?>
+                </div>
+                <div class="col m-10 d-flex justify-content-center">
+                    <?php
+                    echo Producto::crearPromocion(
+                        "https://images.unsplash.com/photo-1589893432683-529de88655a1?q=80&w=2488&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+                        "Promocion",
+                        "Descripcion de prueba del producto"
+                    )
+                    ?>
+                </div>
+
+            </div>
+
         </section>
 
     </main>
