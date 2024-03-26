@@ -1,21 +1,17 @@
 <?php 
 
-// Path de las clases y de las paginas estandar
-// define("CLASS_PATH", dirname($_SERVER['PHP_SELF'])."/");
-// define("APPLICATION_PATH", dirname($_SERVER['PHP_SELF'])."/");
-
-//Configuraci�n de la conexion a la base de datos
+//Configuraci�n de la conexion a la base de datos local
 define("BD_HOST", "localhost");
 define("BD_NOMBRE", "greengrow_bd");
 define ("BD_USUARIO", "imanol");
 define ("BD_PASSWORD", "kk");
 
-//Configuraci�n de logitudes minimas del login y el password de los usuario
-//normales
-// define ("LONGITUD_MINIMA_LOGIN", 6);
-// define ("LONGITUD_MINIMA_PASSWORD", 6);
+//Configuraci�n de la conexion a la base de datos remoto
+// define("BD_HOST", "sql206.infinityfree.com");
+// define("BD_NOMBRE", "if0_35732544_greengrow_db");
+// define ("BD_USUARIO", "if0_35732544");
+// define ("BD_PASSWORD", "125a7XDEUE");
 
-//Configuraci�n del numero de resultados de paginaci�n por cada pagina
-// define ("PAGINACION", 10);
+
 
 ?>

@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <?php 
+    <?php
     /*
     include '../includes/header.php'; 
      TODO AÑADIR LOS ENLACES A INICIO EN CADA LOGO DEL NAV
@@ -75,32 +75,32 @@
                 <fieldset>
                     <legend>Registrarme</legend>
                     <hr><br>
-
-
                     <div class="mb-3 row">
                         <label for="emailRegistro" class="col-form-label col-sm-4">E-mail</label>
                         <div class="col-sm-8">
-                            <input type="email" class="form-control" id="emailRegistro" name="emailRegistro" placeholder="ejemplo@gmail.com">
+                            <input type="email" class="form-control" id="emailRegistro" name="emailRegistro" placeholder="ejemplo@gmail.com" required>
                         </div>
                     </div>
                     <div class="mb-3 row">
                         <label for="passwordRegistro" class="col-form-label col-sm-4">Contraseña</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="passwordRegistro" name="passwordRegistro" placeholder="Contraseña">
+                            <input type="password" onkeyup="keyPressPasswordValidacion()" class="form-control" id="passwordRegistro" name="passwordRegistro" placeholder="Contraseña (mayus y símbolo)"  required>
+                            <input type="checkbox" onclick="togglePasswordVisibile('passwordRegistro')"> Mostrar contraseña
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <label for="passwordRegistroRep" class="col-form-label col-sm-4">Contraseña</label>
+                        <label for="passwordRegistroRep" class="col-form-label col-sm-4">Repetir contraseña</label>
                         <div class="col-sm-8">
-                            <input type="password" class="form-control" id="passwordRegistroRep" name="passwordRegistroRep" placeholder="Repita la contraseña">
+                            <input type="password" onkeyup="keyPressPasswordValidacion()" class="form-control" id="passwordRegistroRep" name="passwordRegistroRep" placeholder="Repita la contraseña" required>
+                            <input type="checkbox" onclick="togglePasswordVisibile('passwordRegistroRep')"> Mostrar contraseña
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="col-sm-8 offset-sm-4">
-                            <button type="submit" name="submit" value="Registrar" class="btn btn-primary">Registrar</button>
+                        <div class="row">
+                            <div class="col-sm-8 offset-sm-4">
+
+                                <button type="submit" name="submit" value="Registrar" id="submit" class="btn btn-success " disabled>Registrar</button>
+                            </div>
                         </div>
-                    </div>
 
                 </fieldset>
             </form>
@@ -112,6 +112,7 @@
 
 
     <?php include '../includes/footer.php'; ?>
+    <script src="/assets/js/funcionesPassword.js"></script>
 </body>
 
 </html>
