@@ -49,19 +49,30 @@ if (isset($_REQUEST['submit'])) {
             case "Registrar":
                 $emailRegistro = $_REQUEST['emailRegistro'];
                 $passwordRegistro = $_REQUEST['passwordRegistro'];
+                $passwordRegistroRep = $_REQUEST['passwordRegistroRep'];
                 $usuarioRegistro = new Usuario;
                 $usuarioRegistro->setEmail($emailRegistro);
                 $usuarioRegistro->setPassword($passwordRegistro);
-                if ($usuarioRegistro->insertarUsuario($usuarioRegistro, $conn->conectar_bd())) {
+                //Comprobación de que las contraseñas coinciden
+                if ($passwordRegistro == $passwordRegistroRep) {
+                    //En el caso de que la inserción se haya realizado exitosamente se redirecciona al index
+                    if ($usuarioRegistro->insertarUsuario($usuarioRegistro, $conn->conectar_bd())) {
 
-                    /**
-                     * TODO: PENDIENTE AÑADIR MENSAJE DE ERROR
-                     */
+                        /**
+                         * TODO: PENDIENTE AÑADIR MENSAJE DE ERROR
+                         */
 
 
-                    header("Location: /../views/login/login.php");
-                    exit();
+                        header("Location: /../views/login/login.php");
+                        exit();
+                    }
+                    else{
+                        echo "El usuario no se ha podido registrar en la base de datos";
+                    }
+                } else {
+                    echo "Las contraseñas no coinciden";
                 }
+
                 break;
 
                 //Cuando el boton pulsado no coincide con ningún caso
@@ -73,7 +84,9 @@ if (isset($_REQUEST['submit'])) {
         }
     } catch (\Throwable $th) {
         echo "Mensaje de error catch: " . $th;
-    } finally {
+    }
+    //Al final de cada acción del controlador cierra cualquier conexión que se quede abierta
+    finally {
         $conn->cerrar_conexion();
     }
 } else {

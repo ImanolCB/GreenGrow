@@ -22,13 +22,18 @@ class ConexionBD
     //Metodo para abrir una conexión a la base de datos
     function conectar_bd()
     {
-        $this->con = mysqli_connect($this->host, $this->usuario, $this->password, $this->bd_nombre) or die("Error conectando a la base de datos.". $this->host);
+        $this->con = mysqli_connect($this->host, $this->usuario, $this->password, $this->bd_nombre) or die("Error conectando a la base de datos." . $this->host);
         return $this->con;
     }
 
     //Metodo para cerrar una conexión
     function cerrar_conexion()
     {
-        mysqli_close($this->con);
+        //Comprobación si hay una conexión abierta para evitar cerrar null
+        if ($this->con) {
+            mysqli_close($this->con);
+        } else {
+            echo "La conexión no está abierta.";
+        }
     }
 }

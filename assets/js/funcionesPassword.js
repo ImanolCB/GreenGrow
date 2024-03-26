@@ -13,9 +13,8 @@ function togglePasswordVisibile(inputId) {
   }
 }
 
-function keyPressPasswordValidacion() {
-    var input = document.getElementById("passwordRegistro");
-    var input2 = document.getElementById("passwordRegistroRep");
+function keyPressPasswordValidacion(inputId) {
+    var input = document.getElementById(inputId);
     var mayuscula = /[A-Z]/;
     var simbolo = /[!@#$%^&*()\-_=+[{\]}\\|;:'",<.>/?]/;
 
@@ -25,10 +24,5 @@ function keyPressPasswordValidacion() {
         input.style.color = "green";
     }
 
-    if (input.value !== input2.value || input.value === '') { // Corrección en esta línea
-        document.getElementById("submit").disabled = true;
-    } else {
-        document.getElementById("submit").disabled = false;
-    }
 }
 
