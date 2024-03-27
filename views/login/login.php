@@ -86,13 +86,6 @@
                         <a href="registro.php">Registrarme</a>
                     </div>
                     <div class="row">
-
-
-                        <?php
-                        /**
-                         * TODO: ERROR EN EL REDIRECCIONAMIENTO AL ACCEDER A LA SESION, NO REDIRECCIONA 
-                         */
-                        ?>
                         <div class="col-sm-8 offset-sm-4">
                             <button type="submit" name="submit" value="Iniciar sesion" class="btn btn-primary">Iniciar sesion</button>
                         </div>

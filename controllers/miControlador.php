@@ -36,7 +36,8 @@ if (isset($_REQUEST['submit'])) {
 
                     /**
                      * TODO: PENDIENTE ALMACENAR EN SESION EL EMAIL Y ROL DE USUARIO
-                     * TODO: SE PRETENDE COMPROBAR QUE SE ACCEDA A MI CUENTA SI HAY USUARIO EN SESION
+                     * TODO: SE PRETENDE COMPROBAR QUE SE ACCEDA A "MI CUENTA" SI HAY USUARIO EN SESION
+                     * TODO: HACER UNA REDIRECCIÓN AL VIEW CON LAS PLANTAS DEL USUARIO
                      */
 
                     header("Location: /../index.php");
@@ -57,16 +58,14 @@ if (isset($_REQUEST['submit'])) {
                 if ($passwordRegistro == $passwordRegistroRep) {
                     //En el caso de que la inserción se haya realizado exitosamente se redirecciona al index
                     if ($usuarioRegistro->insertarUsuario($usuarioRegistro, $conn->conectar_bd())) {
+                        header("Location: /../views/login/login.php");
+                        exit();
 
+                    } else {
                         /**
                          * TODO: PENDIENTE AÑADIR MENSAJE DE ERROR
                          */
 
-
-                        header("Location: /../views/login/login.php");
-                        exit();
-                    }
-                    else{
                         echo "El usuario no se ha podido registrar en la base de datos";
                     }
                 } else {

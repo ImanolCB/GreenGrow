@@ -29,7 +29,6 @@
                 <a class="navbar-brand" href="/">
                     <img src="/assets/img/logo.jpg" alt="logo" width="80" height="80">
                 </a>
-                <!-- <a class="navbar-brand fs-3 fw-bolder text-success" href="#">GreenGrow</a> -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -62,88 +61,129 @@
     <main class="main">
 
         <!-- ASIDE -->
-        <?php 
+        <?php
         /**
          * TODO: PENDIENTE AÑADIR EL FORM CON LAS OPCIONES DE FILTROS CORRESPONDIENTES
          * TODO: PENSAR COMO REALIZAR LA CONSULTA SEGÚN LOS FILTROS SELECCIONADOS
          */
         ?>
 
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light aside" style="width: 280px;">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                <span class="fs-4">Filtros</span>
-            </a>
-            <hr>
-            <ul class="nav nav-pills flex-column mb-auto">
-                <li class="nav-item">
-                    <label for="precio" class="col-form-label col-sm-10"><b>Precio</b></label>
-                    <div class="col-sm-12 d-flex justify-content-evenly ">
-                        <input type="range" id="precio" name="precio" min="0" max="200">
-                        <p id="precioMostrado" class="m-0 precioMostrado">0</p>
-                    </div>
-                    <script>
-                        const rango = document.querySelector("#precio");
-                        const precioMostrado = document.querySelector("#precioMostrado");
 
-                        rango.addEventListener("input", (e) => {
-                            precioMostrado.textContent = rango.value;
-                        })
-                    </script>
-                </li>
-                <br>
-                <li>
-                    <label for="tipo" class="col-form-label col-sm-10"><b>Tipo</b></label>
-                    <div class="col-sm-8 flex-column "><br>
-                        <div class="d-flex justify-content-left">
-                            <input type="checkbox" id="tipo" name="tipo" value="arbol"><br>
-                            <label class="m-1">Arbol</label>
+
+        <form action="../../controllers/miControlador.php" method="post">
+            <div id="sidebar" class=" p-3 sidebar d-lg-block">
+
+                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <span class="fs-4">Filtros</span>
+                </a>
+
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto ">
+                    <li class="nav-item d-flex-column">
+                        <label for="precio" class="col-form-label col-sm-10"><b>Precio</b></label>
+                        <div class="col-sm-12 d-flex justify-content-evenly ">
+                            <input type="range" id="precio" name="precio" min="0" max="200" oninput="rangoFiltro()">
+                            <p id="precioMostrado" class="m-0 precioMostrado">0</p>
                         </div>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="tipo" class="col-form-label col-sm-10"><b>Tipo</b></label>
 
-                        <div class="d-flex justify-content-left">
-                            <input type="checkbox" id="tipo" name="tipo" value="arbusto"><br>
-                            <label class="m-1">Arbusto</label>
+                        <div class="col-sm-8 flex-column "><br>
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="tipo" name="tipo" value="arbol"><br>
+                                <label class="m-1">Arbol</label>
+                            </div>
+
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="tipo" name="tipo" value="arbusto"><br>
+                                <label class="m-1">Arbusto</label>
+                            </div>
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="tipo" name="tipo" value="cactus"><br>
+                                <label class="m-1">Cactus</label>
+                            </div>
+
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="tipo" name="tipo" value="flor"><br>
+                                <label class="m-1">Flor</label>
+                            </div>
+
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="tipo" name="tipo" value="exotica"><br>
+                                <label class="m-1">Planta exótica</label>
+                            </div>
+
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="tipo" name="tipo" value="interior"><br>
+                                <label class="m-1">Planta interior</label>
+                            </div>
+
                         </div>
-                        <div class="d-flex justify-content-left">
-                            <input type="checkbox" id="tipo" name="tipo" value="cactus"><br>
-                            <label class="m-1">Cactus</label>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="tipo" class="col-form-label col-sm-10"><b>Cuidado</b></label>
+
+                        <div class="col-sm-8 flex-column "><br>
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="sencillo" name="sencillo" value="sencillo"><br>
+                                <label class="m-1">Sencillo</label>
+                            </div>
+
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="moderado" name="moderado" value="moderado"><br>
+                                <label class="m-1">Moderado</label>
+                            </div>
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="complejo" name="complejo" value="complejo"><br>
+                                <label class="m-1">Complejo</label>
+                            </div>
                         </div>
+                    </li>
+                    <hr>
+                    <li>
+                        <label for="tipo" class="col-form-label col-sm-10"><b>Epoca de floración</b></label>
+                        <div class="col-sm-8 flex-column "><br>
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="primavera" name="primavera" value="primavera"><br>
+                                <label class="m-1">Primavera</label>
+                            </div>
 
-                        <div class="d-flex justify-content-left">
-                            <input type="checkbox" id="tipo" name="tipo" value="flor"><br>
-                            <label class="m-1">Flor</label>
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="verano" name="verano" value="verano"><br>
+                                <label class="m-1">Verano</label>
+                            </div>
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="otono" name="otono" value="otono"><br>
+                                <label class="m-1">Otoño</label>
+                            </div>
+                            <div class="d-flex justify-content-left">
+                                <input type="checkbox" id="invierno" name="invierno" value="invierno"><br>
+                                <label class="m-1">Invierno</label>
+                            </div>
                         </div>
+                    </li>
+                </ul>
+            </div>
+        </form>
 
-                        <div class="d-flex justify-content-left">
-                            <input type="checkbox" id="tipo" name="tipo" value="exotica"><br>
-                            <label class="m-1">Planta exótica</label>
-                        </div>
 
-                        <div class="d-flex justify-content-left">
-                            <input type="checkbox" id="tipo" name="tipo" value="interior"><br>
-                            <label class="m-1">Planta interior</label>
-                        </div>
 
-                    </div>
-                </li>
-
-                <li>
-                    <label for="tipo" class="col-form-label col-sm-10"><b>Cuidado</b></label>
-                </li>
-                <li>
-                    <label for="tipo" class="col-form-label col-sm-10"><b>Epoca de floración</b></label>
-                </li>
-            </ul>
-            <hr>
-        </div>
-
+        <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()"><</button>
 
         <!-- CONTENEDOR -->
-
-
+        <div class="container text-center">
+            <h2>Hola</h2>
+        </div>
     </main>
 
     <!-- FOOTER -->
     <?php include '../includes/footer.php' ?>
+
+    <!-- SCRIPTS -->
+    <script src="../../assets/js/funcionesSideBar.js"></script>
 </body>
 
 </html>

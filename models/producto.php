@@ -143,6 +143,9 @@ class Producto
         ];
     }
 
+
+    
+
     //Método estático para crear una carta de producto
     public static function crearPromocion($imageUrl, $title, $description)
     {
