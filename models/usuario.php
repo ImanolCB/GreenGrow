@@ -109,20 +109,49 @@ class Usuario
         // Verificar si la consulta fue exitosa
         if (!$resultado) {
             die("Error al ejecutar la consulta: " . mysqli_error($conexion));
-            return false;
+            //Devuelve clave valor negativo tanto para la validación como para el rol
+            return ["validado" => false, "rol" => null];
         } else {
-            if (mysqli_num_rows($resultado) == 1){
+            if (mysqli_num_rows($resultado) == 1) {
                 $fila = mysqli_fetch_assoc($resultado);
                 $hashedPassword = $fila['password'];
 
                 if (password_verify($password, $hashedPassword)) {
-                    // Si las contraseñas coinciden, el usuarioes valido
-                    return true;
+                    // Si las contraseñas coinciden, el usuario es valido y se devuelve el estado de validación y el rol
+                    return ["validado" => true, "rol" => $fila['rol']];
                 } else {
                     // Si la contraseña no coincide, el usuario no es valido
-                    return false;
+                    return ["validado" => false, "rol" => null];
                 }
-            }else{
+            } else {
+                // Si hay más de un usuario igual la validación es nula
+                return ["validado" => false, "rol" => null];
+            }
+        }
+    }
+
+
+    //Funcion para el rol de un usuario de la BD
+    public function existeUsuario($usuario, $conexion)
+    {
+        // Obtener los valores del usuario
+        $email = $usuario->getEmail();
+        $password = $usuario->getPassword();
+
+        // Construir la consulta SQL de Select
+        $query = "SELECT email FROM usuario WHERE email = '$email' ";
+
+        // Ejecutar la consulta
+        $resultado = mysqli_query($conexion, $query);
+
+        // Verificar si la consulta fue exitosa
+        if (!$resultado) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return false;
+        } else {
+            if (mysqli_num_rows($resultado) > 0) {
+                return true;
+            } else {
                 //Si hay más de un usuario igual la validación es nula
                 return false;
             }
