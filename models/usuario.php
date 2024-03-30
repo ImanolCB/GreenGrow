@@ -136,7 +136,6 @@ class Usuario
     {
         // Obtener los valores del usuario
         $email = $usuario->getEmail();
-        $password = $usuario->getPassword();
 
         // Construir la consulta SQL de Select
         $query = "SELECT email FROM usuario WHERE email = '$email' ";

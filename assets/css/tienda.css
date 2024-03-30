@@ -13,10 +13,16 @@
     border-bottom-right-radius: 15px;
 }
 #btnSideBar{
+    min-height: 5vh;
+    max-height:100vh;
     min-width: 35px;
     font-weight: bolder;
-    background-color: #e0fcee88;
-    border: #507a64 1px solid;
+    border: #507a6400 1px solid;
+}
+
+#btnSideBar:hover{
+    background-color: #b7b7b788;
+
 }
 
 input[type="checkbox"]{

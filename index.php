@@ -35,7 +35,7 @@
                 </button>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5 ">
                         <li class="nav-item m-2">
-                            <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="">Promociones</a>
+                            <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="/views/shop/promociones.php">Promociones</a>
                         </li>
                         <li class="nav-item m-2">
                             <a class="nav-link active text-nowrap" id="linkNav" aria-current="page" href="/views/shop/tienda.php">Tienda</a>
