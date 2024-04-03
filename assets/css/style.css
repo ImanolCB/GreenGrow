@@ -1,42 +1,47 @@
+body {
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 /*HEADER*/
-header{
-    box-shadow: 0 0 15px #dddddd;
+header {
+  box-shadow: 0 0 15px #dddddd;
 }
 
 .accordion-button:focus {
-    box-shadow: none;
-    background-color: transparent;
-    border-color: rgba(0,0,0,.125);
+  box-shadow: none;
+  background-color: transparent;
+  border-color: rgba(0, 0, 0, 0.125);
 }
 
-#linkNav{
-    border-bottom: 2px solid #507a6400;
+#linkNav {
+  border-bottom: 2px solid #507a6400;
 }
-#linkNav:hover{
-    border-bottom: 2px solid #507a64;
-}
-
-#linkNavPage{
-    border-bottom: 2px solid #507a64;
+#linkNav:hover {
+  border-bottom: 2px solid #507a64;
 }
 
-#btnMiCuenta{
-    color: white;
-    border: 1px solid #507a64;
-    background-color: #507a64;
+#linkNavPage {
+  border-bottom: 2px solid #507a64;
 }
 
-#btnMiCuenta:hover{
-    color: #507a64;
-    border: 1px solid #507a64;
-    background-color: white;
+#btnMiCuenta {
+  color: white;
+  border: 1px solid #507a64;
+  background-color: #507a64;
+}
+
+#btnMiCuenta:hover {
+  color: #507a64;
+  border: 1px solid #507a64;
+  background-color: white;
 }
 
 /*FOOTER*/
-#linkFooter{
-    color: #6c757d;
+#linkFooter {
+  color: #6c757d;
 }
-#linkFooter:hover{
-    color: white;
+#linkFooter:hover {
+  color: white;
 }

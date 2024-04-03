@@ -1,63 +1,67 @@
-
-body{
+body {
   overflow-x: hidden;
 }
 
 .parallax {
-    position: relative;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-image:
-    linear-gradient(90deg, rgba(0,0,0,0.4) 0%, rgba(191,191,191,0.4) 50%, rgba(255,255,255,0) 100%),
+  position: relative;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.4) 0%,
+      rgba(191, 191, 191, 0.4) 50%,
+      rgba(255, 255, 255, 0) 100%
+    ),
     url("https://images.unsplash.com/photo-1604184313000-de10e6bb3c09?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
-  .textoTitulo{
-    width: 30vw;
-    min-width: clamp(350px,75%,600px);
-    text-align: center;
-  }
-  
-  .textoTitulo h1{
-    font-size: 5rem;
-    color: #ffffff;
-    
-    margin-left: 5%;
-    font-weight: bold;
-    text-shadow: 0 3px 3px #dadada;
-  }
-  
-  .textoTitulo p{
-    margin-left: 5%;
-    color: #000000;
-    font-size: 2.5rem;
-    font-weight: normal;
-    font-style: italic;
-  }
+.textoTitulo {
+  width: 30vw;
+  min-width: clamp(350px, 75%, 600px);
+  text-align: center;
+}
 
-  .promociones h3{
-    padding: 35px;
-    font-size: 2.5rem;
-    border-bottom: 2px solid #e6e6e6;
-    border-bottom-width: 50% ;
-  }
+.textoTitulo h1 {
+  font-family: "Indie Flower", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 8rem;
+  color: #ffffff;
+  margin-left: 5%;
+  font-weight: bold;
+  text-shadow: 0 0 5px #0000007c;
+}
 
-  .card{
-    width: clamp(350px, 75% , 750px);
-    margin: 2em 0;
-    transition:.2s all;
-  }
+.textoTitulo p {
+  margin-left: 5%;
+  color: #000000;
+  font-size: 2.5rem;
+  font-weight: normal;
+  font-style: italic;
+}
 
-  .card img{
-    height: 200px;
-    object-fit: cover;
-    object-position: center;
-  }
-  
+.promociones h3 {
+  padding: 35px;
+  font-size: 2.5rem;
+  border-bottom: 2px solid #e6e6e6;
+  border-bottom-width: 50%;
+}
+
+.card {
+  width: clamp(350px, 75%, 750px);
+  margin: 2em 0;
+  transition: 0.2s all;
+}
+
+.card img {
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
+}
