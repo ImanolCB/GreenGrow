@@ -10,6 +10,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+    <?php
+    require_once '../../views/includes/fonts.php';
+    ?>
+
     <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/tienda.css">
@@ -173,21 +177,45 @@
 
         <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()"><</button>
 
+        <?php 
+        
+        /**
+         * TODO: HACER EL FORMULARIO PARA LOS BOTONES DE SUBMIT DE CADA PRODUCTO Y DEL CARRITO
+         * TODO: HACER EL INCLUDE PARA CADA PRODUCTO CARGADO CON LOS DATOS OBTENIDOS DE LA CONSULTA DE PRODUCTOS
+         */
+
+        ?>
+
                 <!-- CONTENEDOR -->
                 <div class="container text-center">
-                    <h2>Hola</h2>
+                    <div class="carrito w-100 d-flex justify-content-md-end">
+                        <!--Carrito  -->
+                    <button type="submit" value="carrito" class="btn position-relative m-4">
+                        <img height="30px" src="https://cdn.icon-icons.com/icons2/906/PNG/512/shopping-cart_icon-icons.com_69913.png" alt="carrito">
+                        <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            9
+                        </span>
+                    </button>
+                    </div>
+                    
+                    <!-- Buscador -->
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <input type="text" class="form-control"  aria-describedby="button-addon2">
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
                     </div>
+
+
                     <div class="row row-cols-1 row-cols-md-3 g-4">
 
                         <div class="col">
                             <div class="card h-100">
-                                <img src="https://images.unsplash.com/photo-1477554193778-9562c28588c0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
+                                <img src="https://images.unsplash.com/photo-1659669631986-984af011e09e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                    <h5 class="card-title">Jazmin</h5>
+                                    <p class="card-text text-start m-2">Cuidado: sencillo.</p>
+                                    <p class="card-text text-start m-2">Tipo: flor.</p>
+                                    <p class="card-text text-start m-2">Altura: 80cm.</p>
+                                    <p class="card-text text-start m-2">Floración: verano.</p>
                                     <p class="d-inline-flex gap-1">
                                         <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
                                     </p>
@@ -195,13 +223,12 @@
                                         <div class="col">
                                             <div class="collapse multi-collapse" id="multiCollapseExample1">
                                                 <div class="card card-body">
-                                                    Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                                                </div>
+                                                    El género Jasminum, cuyas alrededor de 200 especies reciben el nombre común de jazmín, son oriundas de las regiones tropicales y subtropicales del Viejo Mundo y ampliamente cultivadas. Crecen como arbustos y otras como trepadoras sobre otras plantas o guiadas sobre estructuras. </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card-footer">
-                                        <small class="text-body-secondary">Last updated 3 mins ago</small>
+                                        <small class="text-body-secondary">30€</small>
                                     </div>
                                 </div>
                             </div>
