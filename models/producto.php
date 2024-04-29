@@ -143,7 +143,84 @@ class Producto
         ];
     }
 
+    /**
+     * ! Arreglar el funcionamiento de la consulta
+     */
 
+     //Metodo para obtener los productos de la base de datos en un array
+     public static function consultarProductos($conexion)
+     {
+         // Construir la consulta SQL de Select
+         $query = 'SELECT * FROM producto';
+ 
+         // Ejecutar la consulta
+         $resultado = mysqli_query($conexion, $query);
+ 
+         // Verificar si la consulta fue exitosa
+         if (!$resultado) {
+             die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+             return "Error al ejecutar la consulta: " . mysqli_error($conexion);
+         } else {
+             $arrayProductos = [];
+             //Muentras tenga resultados se le asocia a una fila un resultado y se hace un objeto
+             while ($fila = mysqli_fetch_assoc($resultado)) {
+                 $id = $fila['id_producto'];
+                 $nombre = $fila['nombre'];
+                 $descripcion = $fila['descripcion'];
+                 $altura = $fila['altura'];
+                 $epoca = $fila['epoca'];
+                 $tipo = $fila['tipo'];
+                 $cuidado = $fila['cuidado'];
+                 $precio = $fila['precio'];
+                 $promocion = $fila['promocion'];
+ 
+                 $producto = new Producto($id, $nombre, $descripcion, $altura, $epoca, $tipo,  $cuidado, $precio, $promocion);
+                 array_push($arrayProductos, $producto);
+             }
+             return $arrayProductos;
+         }
+     }
+ 
+     //Método para crear la estructura de productos
+ 
+     public static function crearProductos($arrayProductos)
+     {
+         $html = '';
+ 
+         foreach ($arrayProductos as $producto) {
+             $html .= "
+         
+             <div class='col'>
+             <div class='card h-100'>
+                 <img src='https://images.unsplash.com/photo-1477554193778-9562c28588c0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' class='card-img-top'alt=''..'>
+                 <div class='card-body'>
+                     <h5 class='card-title'>" . $producto->getNombre() . "</h5>
+                     <p class='card-text'>" . $producto->getCuidado() . "</p>
+                     <p class='card-text'>" . $producto->getTipo() . "</p>
+                     <p class='card-text'>" . $producto->getAltura() . "</p>
+                     <p class='card-text'>" . $producto->getEpoca() . "</p>
+                     <p class='d-inline-flex gap-1'>
+                         <a class='btn btn-primary' data-bs-toggle='collapse' href='#multiCollapseExample3' role='button' aria-expanded='false' aria-controls='multiCollapseExample1'>Toggle first element</a>
+                     </p>
+                     <div class='row'>
+                         <div class='col'>
+                             <div class='collapse multi-collapse' id='multiCollapseExample3'>
+                                 <div class='card card-body'>
+                                     Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class='card-footer'>
+                         <small class='text-body-secondary'>Last updated 3 mins ago</small>
+                     </div>
+                 </div>
+             </div>
+         </div>
+             ";
+         }
+         return $html;
+     }
     
 
     //Método estático para crear una carta de producto

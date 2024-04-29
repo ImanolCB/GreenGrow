@@ -15,17 +15,19 @@ header {
 }
 
 #linkNav {
-  border-bottom: 2px solid #507a6400;
+  margin: auto;
+  font-size: large;
+  border-radius: 0;
+  border: 2px solid #507a6400;
+  color: #507a64;
+  background-color: #ffffff00;
 }
 #linkNav:hover {
   border-bottom: 2px solid #507a64;
 }
 
-#linkNavPage {
-  border-bottom: 2px solid #507a64;
-}
-
 #btnMiCuenta {
+  margin: auto;
   color: white;
   border: 1px solid #507a64;
   background-color: #507a64;

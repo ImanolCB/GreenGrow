@@ -8,6 +8,8 @@ require_once '../models/Usuario.php';
 
 //Creación de una conexión a la BD
 $conn = new ConexionBD();
+//Almacenamiento del listado de productos
+// $listaProductos = Producto::consultarProductos($conn->conectar_bd());
 
 // Comprueba si se ha enviado algún submit
 if (isset($_REQUEST['submit'])) {
@@ -79,9 +81,44 @@ if (isset($_REQUEST['submit'])) {
                         echo "Las contraseñas no coinciden";
                     }
                 }
-
-
                 break;
+
+                //Cuando se pulse "Mi cuenta" en la barra de navegacion
+            case "Mi cuenta":
+                if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
+                    header("Location: /../views/login/login.php");
+                    exit(); //Asegura de salir del script después de la redirección
+                }else{
+                    // header("Location: /../index.php");
+                    header("Location: /../views/login/login.php");
+                    exit(); //Asegura de salir del script después de la redirección
+                }
+                break;
+
+                //Cuando se pulsa Promociones en la barra de navegacion
+                case "Promociones":
+                    if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
+                        header("Location: /../views/shop/promociones.php");
+                        exit(); //Asegura de salir del script después de la redirección
+                    }else{
+                        // header("Location: /../index.php");
+                        header("Location: /../views/shop/promociones.php");
+                        exit(); //Asegura de salir del script después de la redirección
+                    }
+                    break;
+
+                //Cuando se pulsa Promociones en la barra de navegacion
+                case "Tienda":
+                    if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
+                        header("Location: /../views/shop/tienda.php");
+                        exit(); //Asegura de salir del script después de la redirección
+                    }else{
+                        // header("Location: /../index.php");
+                        header("Location: /../views/shop/tienda.php");
+                        exit(); //Asegura de salir del script después de la redirección
+                    }
+                    break;
+
                 //Cuando el boton pulsado no coincide con ningún caso
             default:
                 // Si el submit no coincide con ninguno de los casos anteriores, redirige al index

@@ -10,8 +10,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+    <!-- Required php -->
     <?php
     require_once '../../views/includes/fonts.php';
+    require_once './../../models/Producto.php';
+    require_once './../../models/conexionBD.php';
+
     ?>
 
     <!-- CSS -->
@@ -21,9 +25,6 @@
 </head>
 
 <body>
-    <?php /*include 'views/includes/header.php' */
-    require_once './../../models/Producto.php';
-    ?>
 
     <!-- HEADER -->
 
@@ -175,39 +176,54 @@
 
 
 
-        <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()"><</button>
+        <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()"> < </button>
 
-        <?php 
-        
-        /**
-         * TODO: HACER EL FORMULARIO PARA LOS BOTONES DE SUBMIT DE CADA PRODUCTO Y DEL CARRITO
-         * TODO: HACER EL INCLUDE PARA CADA PRODUCTO CARGADO CON LOS DATOS OBTENIDOS DE LA CONSULTA DE PRODUCTOS
-         */
+                <?php
 
-        ?>
+                /**
+                 * TODO: HACER EL FORMULARIO PARA LOS BOTONES DE SUBMIT DE CADA PRODUCTO Y DEL CARRITO
+                 * TODO: HACER EL INCLUDE PARA CADA PRODUCTO CARGADO CON LOS DATOS OBTENIDOS DE LA CONSULTA DE PRODUCTOS
+                 */
+
+                ?>
 
                 <!-- CONTENEDOR -->
                 <div class="container text-center">
                     <div class="carrito w-100 d-flex justify-content-md-end">
                         <!--Carrito  -->
-                    <button type="submit" value="carrito" class="btn position-relative m-4">
-                        <img height="30px" src="https://cdn.icon-icons.com/icons2/906/PNG/512/shopping-cart_icon-icons.com_69913.png" alt="carrito">
-                        <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            9
-                        </span>
-                    </button>
+                        <button type="submit" value="carrito" class="btn position-relative m-4">
+                            <img height="30px" src="https://cdn.icon-icons.com/icons2/906/PNG/512/shopping-cart_icon-icons.com_69913.png" alt="carrito">
+                            <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                9
+                            </span>
+                        </button>
                     </div>
-                    
+
                     <!-- Buscador -->
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control"  aria-describedby="button-addon2">
+                        <input type="text" class="form-control" aria-describedby="button-addon2">
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
                     </div>
 
 
                     <div class="row row-cols-1 row-cols-md-3 g-4">
 
-                        <div class="col">
+
+                        <?php
+                        //Creación de una conexión a la BD
+                        $conn = new ConexionBD();
+                        //Almacenamiento del listado de productos
+                        $listaProductos = Producto::consultarProductos($conn->conectar_bd());
+                        //Construir las tarjetas de productos
+                        Producto::crearProductos($listaProductos);
+                        // echo "$conn";
+                        echo "$listaProductos" ;
+
+
+                        ?>
+
+
+                        <!-- <div class="col">
                             <div class="card h-100">
                                 <img src="https://images.unsplash.com/photo-1659669631986-984af011e09e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
                                 <div class="card-body">
@@ -382,7 +398,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
     </main>
 
