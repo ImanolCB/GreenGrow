@@ -27,7 +27,7 @@
 <body>
 
     <!-- HEADER -->
-    <?php include '../includes/header.php';?>
+    <?php include '../includes/header.php'; ?>
 
     <!-- MAIN -->
 
@@ -144,7 +144,8 @@
 
 
 
-        <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()"> < </button>
+        <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()">
+            < </button>
 
                 <?php
 
@@ -173,200 +174,21 @@
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
                     </div>
 
-
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-
+                    <!-- Contenedor de productos -->
+                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
 
                         <?php
                         //Creación de una conexión a la BD
                         $conn = new ConexionBD();
+
                         //Almacenamiento del listado de productos
                         $listaProductos = Producto::consultarProductos($conn->conectar_bd());
-                        //Construir las tarjetas de productos
-                        Producto::crearProductos($listaProductos);
-                        // echo "$conn";
-                        echo "$listaProductos" ;
 
+                        //Construir las tarjetas de productos
+                        echo Producto::crearProductos($listaProductos);
 
                         ?>
 
-
-                        <!-- <div class="col">
-                            <div class="card h-100">
-                                <img src="https://images.unsplash.com/photo-1659669631986-984af011e09e?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Jazmin</h5>
-                                    <p class="card-text text-start m-2">Cuidado: sencillo.</p>
-                                    <p class="card-text text-start m-2">Tipo: flor.</p>
-                                    <p class="card-text text-start m-2">Altura: 80cm.</p>
-                                    <p class="card-text text-start m-2">Floración: verano.</p>
-                                    <p class="d-inline-flex gap-1">
-                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-                                    </p>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample1">
-                                                <div class="card card-body">
-                                                    El género Jasminum, cuyas alrededor de 200 especies reciben el nombre común de jazmín, son oriundas de las regiones tropicales y subtropicales del Viejo Mundo y ampliamente cultivadas. Crecen como arbustos y otras como trepadoras sobre otras plantas o guiadas sobre estructuras. </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-body-secondary">30€</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="https://images.unsplash.com/photo-1477554193778-9562c28588c0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="d-inline-flex gap-1">
-                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample2" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-                                    </p>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample2">
-                                                <div class="card card-body">
-                                                    Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-body-secondary">Last updated 3 mins ago</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="https://images.unsplash.com/photo-1477554193778-9562c28588c0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="d-inline-flex gap-1">
-                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample3" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-                                    </p>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample3">
-                                                <div class="card card-body">
-                                                    Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-body-secondary">Last updated 3 mins ago</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="https://images.unsplash.com/photo-1477554193778-9562c28588c0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="d-inline-flex gap-1">
-                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample4" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-                                    </p>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample4">
-                                                <div class="card card-body">
-                                                    Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-body-secondary">Last updated 3 mins ago</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="https://images.unsplash.com/photo-1477554193778-9562c28588c0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="d-inline-flex gap-1">
-                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample5" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-                                    </p>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample5">
-                                                <div class="card card-body">
-                                                    Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-body-secondary">Last updated 3 mins ago</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="https://images.unsplash.com/photo-1477554193778-9562c28588c0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="d-inline-flex gap-1">
-                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample6" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-                                    </p>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample6">
-                                                <div class="card card-body">
-                                                    Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-body-secondary">Last updated 3 mins ago</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card h-100">
-                                <img src="https://images.unsplash.com/photo-1477554193778-9562c28588c0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                    <p class="d-inline-flex gap-1">
-                                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample7" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-                                    </p>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="collapse multi-collapse" id="multiCollapseExample7">
-                                                <div class="card card-body">
-                                                    Some placeholder content for the first collapse component of this multi-collapse example. This panel is hidden by default but revealed when the user activates the relevant trigger.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="card-footer">
-                                        <small class="text-body-secondary">Last updated 3 mins ago</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
                     </div>
     </main>
 

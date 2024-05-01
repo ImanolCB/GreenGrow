@@ -1,4 +1,8 @@
-<?php session_start() ?>
+<?php session_start();
+//Declaracion por defecto de los datos de rol de usuario
+// $_SESSION['usermail'] = null;
+// $_SESSION['user_rol'] = null;
+?>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container-fluid">
@@ -43,7 +47,8 @@
                             <!-- Muestra el nombre del usuario cuando esta registrado -->
                             <div class="d-flex m-2 text-secondary fst-italic">
                                 <?php
-                                if ($_SESSION['usermail'] != null) {
+                                $usuario = $_SESSION['usermail'];
+                                if ($usuario != null) {
                                     //Primera letra mayúscula y el nombre antes del @
                                     echo ucfirst(explode( '@',$_SESSION['usermail'] )[0]);
                                 }

@@ -13,15 +13,11 @@ class Producto
     public $cuidado;
     public $precio;
     public $promocion;
+    public $url;
 
     // Constructor
 
-    public function constructorVacio()
-    {
-    }
-
-
-    public function constructorCompleto($id_producto, $nombre, $descripcion, $altura, $epoca, $tipo, $cuidado, $precio, $promocion)
+    public function __construct($id_producto = null, $nombre = null, $descripcion = null, $altura = null, $epoca = null, $tipo = null, $cuidado = null, $precio = null, $promocion = null, $url = null)
     {
         $this->id_producto = $id_producto;
         $this->nombre = $nombre;
@@ -32,7 +28,10 @@ class Producto
         $this->cuidado = $cuidado;
         $this->precio = $precio;
         $this->promocion = $promocion;
+        $this->url = $url;
     }
+
+
 
     // Métodos de acceso (getters)
     public function getIdProducto()
@@ -78,6 +77,11 @@ class Producto
     public function getPromocion()
     {
         return $this->promocion;
+    }
+
+    public function getUrl()
+    {
+        return $this->url;
     }
 
 
@@ -127,81 +131,99 @@ class Producto
         $this->promocion = $promocion;
     }
 
-    // Método para obtener la información del producto como un array con clave valor (asociativo)
-    public function obtenerInfo()
+    public function setUrl($url)
     {
-        return [
-            'id_producto' => $this->id_producto,
-            'nombre' => $this->nombre,
-            'descripcion' => $this->descripcion,
-            'altura' => $this->altura,
-            'epoca' => $this->epoca,
-            'tipo' => $this->tipo,
-            'cuidado' => $this->cuidado,
-            'precio' => $this->precio,
-            'promocion' => $this->promocion
-        ];
+        $this->promocion = $url;
     }
+
+    public function toString()
+    {
+        return "Producto: [id_producto=" . $this->id_producto . ", nombre=" . $this->nombre . ", descripcion=" . $this->descripcion . ", altura=" . $this->altura . ", epoca=" . $this->epoca . ", tipo=" . $this->tipo . ", cuidado=" . $this->cuidado . ", precio=" . $this->precio . ", promocion=" . $this->promocion . ", url=" . $this->url . "]";
+    }
+
 
     /**
      * ! Arreglar el funcionamiento de la consulta
      */
 
-     //Metodo para obtener los productos de la base de datos en un array
-     public static function consultarProductos($conexion)
-     {
-         // Construir la consulta SQL de Select
-         $query = 'SELECT * FROM producto';
- 
-         // Ejecutar la consulta
-         $resultado = mysqli_query($conexion, $query);
- 
-         // Verificar si la consulta fue exitosa
-         if (!$resultado) {
-             die("Error al ejecutar la consulta: " . mysqli_error($conexion));
-             return "Error al ejecutar la consulta: " . mysqli_error($conexion);
-         } else {
-             $arrayProductos = [];
-             //Muentras tenga resultados se le asocia a una fila un resultado y se hace un objeto
-             while ($fila = mysqli_fetch_assoc($resultado)) {
-                 $id = $fila['id_producto'];
-                 $nombre = $fila['nombre'];
-                 $descripcion = $fila['descripcion'];
-                 $altura = $fila['altura'];
-                 $epoca = $fila['epoca'];
-                 $tipo = $fila['tipo'];
-                 $cuidado = $fila['cuidado'];
-                 $precio = $fila['precio'];
-                 $promocion = $fila['promocion'];
- 
-                 $producto = new Producto($id, $nombre, $descripcion, $altura, $epoca, $tipo,  $cuidado, $precio, $promocion);
-                 array_push($arrayProductos, $producto);
-             }
-             return $arrayProductos;
-         }
-     }
- 
-     //Método para crear la estructura de productos
- 
-     public static function crearProductos($arrayProductos)
-     {
-         $html = '';
- 
-         foreach ($arrayProductos as $producto) {
-             $html .= "
+    //Metodo para obtener los productos de la base de datos en un array
+    public static function consultarProductos($conexion)
+    {
+        // Preparar la consulta SQL de Select
+        $query = "SELECT * FROM producto ";
+
+        // Preparar la declaración
+        $stmt = mysqli_prepare($conexion, $query);
+
+        // Ejecutar la declaración
+        mysqli_stmt_execute($stmt);
+
+        // Obtener resultados
+        $resultado = mysqli_stmt_get_result($stmt);
+
+        // Verificar si la consulta fue exitosa
+        if (!$resultado) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return "Error al ejecutar la consulta: " . mysqli_error($conexion);
+        } else {
+            $arrayProductos = [];
+            //Muentras tenga resultados se le asocia a una fila un resultado y se hace un objeto
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                // var_dump($fila);
+                $id = $fila['id_producto'];
+                $nombre = $fila['nombre'];
+                $descripcion = $fila['descripcion'];
+                $altura = $fila['altura'];
+                $epoca = $fila['epoca'];
+                $tipo = $fila['tipo'];
+                $cuidado = $fila['cuidado'];
+                $precio = $fila['precio'];
+                $promocion = $fila['promocion'];
+                $url = $fila['url'];
+
+                $producto = new Producto;
+                $producto->__construct(
+                    $id,
+                    $nombre,
+                    $descripcion,
+                    $altura,
+                    $epoca,
+                    $tipo,
+                    $cuidado,
+                    $precio,
+                    $promocion,
+                    $url
+                );
+                array_push($arrayProductos, $producto);
+            }
+            // Verificar qué datos se están agregando al array
+
+
+            // var_dump($arrayProductos);
+            return $arrayProductos;
+        }
+    }
+
+    //Método para crear la estructura de productos
+
+    public static function crearProductos($arrayProductos)
+    {
+        $html = '';
+
+        foreach ($arrayProductos as $producto) {
+            $html .= "
          
              <div class='col'>
              <div class='card h-100'>
-                 <img src='https://images.unsplash.com/photo-1477554193778-9562c28588c0?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' class='card-img-top'alt=''..'>
-                 <div class='card-body'>
-                     <h5 class='card-title'>" . $producto->getNombre() . "</h5>
-                     <p class='card-text'>" . $producto->getCuidado() . "</p>
-                     <p class='card-text'>" . $producto->getTipo() . "</p>
-                     <p class='card-text'>" . $producto->getAltura() . "</p>
-                     <p class='card-text'>" . $producto->getEpoca() . "</p>
-                     <p class='d-inline-flex gap-1'>
-                         <a class='btn btn-primary' data-bs-toggle='collapse' href='#multiCollapseExample3' role='button' aria-expanded='false' aria-controls='multiCollapseExample1'>Toggle first element</a>
-                     </p>
+                 <img src=' " . $producto->getUrl() . " ' class='card-img-top'alt='". $producto->getNombre() . "' title='" . $producto->getNombre() . "'>
+                 <div class='card-body mt-2  '>
+                     <h5 class='card-title mb-4'>"   . $producto->getNombre() . "</h5>
+                     <p class='card-text text-start m-1'><span>Nivel de cuidado: </span>" . $producto->getCuidado() . "</p>
+                     <p class='card-text text-start m-1'><span>Tipo de planta: </span>" . $producto->getTipo() . "</p>
+                     <p class='card-text text-start m-1'><span>Altura máxima: </span>" . $producto->getAltura() . "</p>
+                     <p class='card-text text-start m-1'><span>Época de floración: </span>" . $producto->getEpoca() . "</p>
+                     <p class='card-text text-start mt-3'><span></span>" . $producto->getDescripcion() . "</p>
+                     
                      <div class='row'>
                          <div class='col'>
                              <div class='collapse multi-collapse' id='multiCollapseExample3'>
@@ -218,10 +240,10 @@ class Producto
              </div>
          </div>
              ";
-         }
-         return $html;
-     }
-    
+        }
+        return $html;
+    }
+
 
     //Método estático para crear una carta de producto
     public static function crearPromocion($imageUrl, $title, $description)
