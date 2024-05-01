@@ -27,7 +27,7 @@ header {
 }
 
 #btnMiCuenta {
-  margin: auto;
+  align-items: center;
   color: white;
   border: 1px solid #507a64;
   background-color: #507a64;

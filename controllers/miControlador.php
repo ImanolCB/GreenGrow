@@ -6,6 +6,10 @@ require_once '../models/conexionBD.php';
 require_once '../models/Producto.php';
 require_once '../models/Usuario.php';
 
+//Declaracion por defecto de los datos de rol de usuario
+// $_SESSION['usermail'] = null;
+// $_SESSION['user_rol'] = null;
+
 //Creación de una conexión a la BD
 $conn = new ConexionBD();
 //Almacenamiento del listado de productos

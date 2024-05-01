@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container-fluid">
@@ -15,13 +16,13 @@
             if ($current_page != 'index.php') {
             ?>
                 <form class="form-nav w-100" action="./../../controllers/miControlador.php" method="post">
-                
+
                 <?php
             } else {
                 ?>
                     <form class="form-nav w-100" action="./controllers/miControlador.php" method="post">
                     <?php } ?>
-
+                    <!-- Lista de los enlaces de las distintas partes de la página -->
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0 fs-5 ">
                             <li class="nav-item m-2">
@@ -38,21 +39,33 @@
                                 <button id="linkNav" type="submit" name="submit" value="Sobre nosotros" class="btn btn-primary">Sobre nosotros</button>
                             </li>
                         </ul>
-
-                        <?php
-                        // Obtiene el nombre del archivo en el que esta el usuario actualmente
-                        $current_page = basename($_SERVER['PHP_SELF']);
-
-                        // Verifica si estamos en la página de inicio de sesión o registro
-                        if ($current_page != 'login.php' && $current_page != 'registro.php') {
-                            // Mostrará el botón dependiendo si estoy en el menu de inicio de sesión o no
-                        ?>
-                            <div class="d-flex">
-                                <button id="btnMiCuenta" type="submit" name="submit" value="Mi cuenta" class="btn btn-primary">Mi cuenta</button>
+                        <div class="d-flex m-3">
+                            <!-- Muestra el nombre del usuario cuando esta registrado -->
+                            <div class="d-flex m-2 text-secondary fst-italic">
+                                <?php
+                                if ($_SESSION['usermail'] != null) {
+                                    //Primera letra mayúscula y el nombre antes del @
+                                    echo ucfirst(explode( '@',$_SESSION['usermail'] )[0]);
+                                }
+                                ?>
                             </div>
+                        
                         <?php
-                        }
-                        ?>
+                            // Obtiene el nombre del archivo en el que esta el usuario actualmente
+                            $current_page = basename($_SERVER['PHP_SELF']);
+
+                            // Verifica si estamos en la página de inicio de sesión o registro
+                            if ($current_page != 'login.php' && $current_page != 'registro.php') {
+                                // Mostrará el botón dependiendo si estoy en el menu de inicio de sesión o no
+                            ?>
+                                <div class="d-flex">
+                                    <button id="btnMiCuenta" type="submit" name="submit" value="Mi cuenta" class="btn btn-primary">Mi cuenta</button>
+                                </div>
+                            <?php
+                            }
+                            ?>
+
+                        </div>
                     </div>
                     </form>
         </div>
