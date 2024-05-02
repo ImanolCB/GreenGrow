@@ -1,7 +1,10 @@
 <?php session_start();
 //Declaracion por defecto de los datos de rol de usuario
-// $_SESSION['usermail'] = null;
-// $_SESSION['user_rol'] = null;
+if ($_SESSION['usermail'] == null && $_SESSION['user_rol'] == null ) {
+    
+    $_SESSION['usermail'] = null;
+    $_SESSION['user_rol'] = null;
+}
 ?>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">

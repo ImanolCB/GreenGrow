@@ -26,14 +26,19 @@ header {
   border-bottom: 2px solid #507a64;
 }
 
-#btnMiCuenta {
+#btnCarrito{
+  background-color: transparent;
+  border: 0px solid;
+}
+
+.btn {
   align-items: center;
   color: white;
   border: 1px solid #507a64;
   background-color: #507a64;
 }
 
-#btnMiCuenta:hover {
+.btn:hover {
   color: #507a64;
   border: 1px solid #507a64;
   background-color: white;

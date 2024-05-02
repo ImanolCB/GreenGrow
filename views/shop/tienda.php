@@ -157,25 +157,68 @@
                 ?>
 
                 <!-- CONTENEDOR -->
-                <div class="container text-center">
-                    <div class="carrito w-100 d-flex justify-content-md-end">
-                        <!--Carrito  -->
-                        <button type="submit" value="carrito" class="btn position-relative m-4">
-                            <img height="30px" src="https://cdn.icon-icons.com/icons2/906/PNG/512/shopping-cart_icon-icons.com_69913.png" alt="carrito">
-                            <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                9
-                            </span>
-                        </button>
-                    </div>
 
+                <?php
+                //Gestión de productos añadidos en el carrito (Almacena id)
+                
+                if (isset($_REQUEST['anadir'])) {
+                        Producto::anadirProductoACesta($_SESSION['carrito'], $_REQUEST['cantidad'], $_REQUEST['anadir']);
+                }
+                echo $_REQUEST['carrito'];
+                ?>
+
+                <div class="container text-center">
+                    
                     <!-- Buscador -->
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" aria-describedby="button-addon2">
+                    <div class="input-group mt-3">
+                        <input id="busqueda" type="text" class="form-control" placeholder="Buscar productos..." aria-describedby="button-addon2">
                         <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
                     </div>
 
+                    <div class="carrito w-100 d-flex justify-content-md-end">
+                        <!--Carrito  -->
+                        <form action="./../../controllers/miControlador.php" method="post">
+                            <button type="submit" name="submit" value="carrito" id="btnCarrito" class=" position-relative m-4">
+                                <img height="30px" src="https://cdn.icon-icons.com/icons2/906/PNG/512/shopping-cart_icon-icons.com_69913.png" alt="carrito">
+                                <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    <?php 
+                                         if (isset($_SESSION['carrito'])) {
+                                            echo count($_SESSION['carrito']);
+                                        } else {
+                                            echo 5;
+                                        }
+                                    ?>
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+
+
                     <!-- Contenedor de productos -->
-                    <div class="row row-cols-1 row-cols-md-3 row-cols-lg-4 g-4 justify-content-center">
+                    <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-4 justify-content-evenly">
+
+                        <div class='col'>
+                            <div class='card h-100'>
+                                <img src=' https://images.unsplash.com/photo-1608094920984-5b54ce1bb792?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D ' class='card-img-top' alt='test' title='test'>
+                                <div class='card-body mt-2  '>
+                                    <h5 class='card-title mb-4 d-flex flex-row justify-content-between'>TEST <span class='text-black p-1 border border-success rounded-1'>14.66€</span></h5>
+                                    <p class='card-text text-start m-1'><span>Nivel de cuidado: </span>TEST</p>
+                                    <p class='card-text text-start m-1'><span>Tipo de planta: </span>TEST</p>
+                                    <p class='card-text text-start m-1'><span>Altura máxima: </span>TEST</p>
+                                    <p class='card-text text-start m-1'><span>Época de floración: </span>TEST</p>
+                                    <p class='card-text text-start mt-3'><span></span>TESTTESTTESTTESTTESTTESTTESTTEST</p>
+
+                                    <div class='card-footer bg-transparent '>
+                                        <form action="./tienda.php" method="post">
+                                            <div data-mdb-input-init class="form-outline d-flex flex-row justify-content-evenly align-items-center">
+                                                <input type="number" id="typeNumber" name="cantidad" value="1" class="form-control" min="0" max="5" placeholder="Cantidad" />
+                                                <button id="1" type="submit" name="anadir" value="1" class="btn btn-primary m-2">Añadir</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <?php
                         //Creación de una conexión a la BD
@@ -189,6 +232,7 @@
 
                         ?>
 
+
                     </div>
     </main>
 
@@ -197,6 +241,7 @@
 
     <!-- SCRIPTS -->
     <script src="../../assets/js/funcionesSideBar.js"></script>
+
 </body>
 
 </html>
