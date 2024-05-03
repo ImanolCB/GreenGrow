@@ -214,7 +214,7 @@ class Producto
             $html .= "
          
              <div class='col'>
-             <div class='card h-100'>
+             <div class='card h-100' id='". $producto->getIdProducto() ."'>
                  <img src=' " . $producto->getUrl() . " ' class='card-img-top'alt='". $producto->getNombre() . "' title='" . $producto->getNombre() . "'>
                  <div class='card-body mt-2  '>
                      <h5 class='card-title mb-4 d-flex flex-row justify-content-between'>"   . $producto->getNombre() . "<span class='text-black p-1 border border-success rounded-1'>" . $producto->getPrecio() . " €</span></h5>
@@ -225,10 +225,11 @@ class Producto
                      <p class='card-text text-start mt-3'><span></span>" . $producto->getDescripcion() . "</p>
                      
                      <div class='card-footer bg-transparent '>
-                     <form action='". basename($_SERVER['PHP_SELF']) ."' method='post'>
+                     <form action='../../controllers/miControlador.php' method='post'>
                          <div data-mdb-input-init class='form-outline d-flex flex-row justify-content-evenly align-items-center'>
                          <input type='number' id='typeNumber' name='cantidad' value='1' class='form-control' min='0' max='5' placeholder='Cantidad' />
-                         <button id='" . $producto->getIdProducto() . "' type='submit' name='anadir' value='" . $producto->getIdProducto() . "' class='btn btn-primary m-2'>Añadir</button>
+                         <input type='hidden' name='id-producto' value='" . $producto->getIdProducto() . "' id='" . $producto->getIdProducto() . "'>
+                         <button id='" . $producto->getIdProducto() . "' type='submit' name='submit' value='anadir' class='btn btn-primary m-2'>Añadir</button>
                          </div>
                      </form>
                  </div>
@@ -242,12 +243,12 @@ class Producto
 
     //Metodo para añadir producto a cesta
     public static function anadirProductoACesta($arrayCesta, $cantidad, $id_producto){
-        
+        $nuevoArray = [];
         for ($i=0; $i < $cantidad ; $i++) { 
             array_push($arrayCesta, $id_producto);
         }
-        var_dump($arrayCesta);
-        return ($arrayCesta);
+        $nuevoArray = $arrayCesta;
+        $_SESSION['carrito'] = $nuevoArray;
     }
 
 

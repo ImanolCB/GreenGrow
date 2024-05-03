@@ -1,6 +1,6 @@
 <?php session_start();
 //Declaracion por defecto de los datos de rol de usuario
-if ($_SESSION['usermail'] == null && $_SESSION['user_rol'] == null ) {
+if (!isset($_SESSION['usermail']) && !isset($_SESSION['user_rol']) ) {
     
     $_SESSION['usermail'] = null;
     $_SESSION['user_rol'] = null;
@@ -19,6 +19,7 @@ if ($_SESSION['usermail'] == null && $_SESSION['user_rol'] == null ) {
             <?php
             // Obtiene el nombre de la ruta del archivo en el que esta el usuario actualmente
             $current_page = basename($_SERVER['PHP_SELF']);
+            echo basename($_SERVER['PHP_SELF']);
             // Verifica si estamos en la página inical o subdirectorio
             if ($current_page != 'index.php') {
             ?>

@@ -31,11 +31,12 @@
 
     <main>
         <?php
-        if ($_SESSION['carrito'] == null) {
-            echo "Carrito vacío";
-        }else{
-            echo "<h2> " . $_SESSION['carrito'] . "</h2>";
+        //Recorre el array de ID's de productos
+        foreach ($_SESSION['carrito'] as $productoId) {
+            echo "ID del producto: " . $productoId . "<br>";
         }
+        echo "</br> " . "EMAIL " . $_SESSION['usermail'];
+        echo "</br> " . "ROL " . $_SESSION['user_rol'];
         ?>
     </main>
 

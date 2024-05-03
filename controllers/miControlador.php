@@ -111,19 +111,35 @@ if (isset($_REQUEST['submit'])) {
 
                 //Cuando se pulsa Promociones en la barra de navegacion
             case "Tienda":
-                if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
-                    header("Location: /../views/shop/tienda.php");
-                    exit(); //Asegura de salir del script después de la redirección
+
+                // Construir la URL con la variable $listaProductos como parámetro
+                $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
+                $urlTienda = "/../views/shop/tienda.php?" . $listaProductosQuery;
+                header("Location: " . $urlTienda);
+                exit(); // Asegura de salir del script después de la redirección
+
+
+                break;
+
+                //Cuando se pulsa añadir en un producto
+            case "anadir":
+                if (!isset($_SESSION['carrito'])) {
+                    $_SESSION['carrito'] = [];
+                    Producto::anadirProductoACesta($_SESSION['carrito'], $_REQUEST['cantidad'], $_REQUEST['id-producto']);
                 } else {
-                    // header("Location: /../index.php");
-                    header("Location: /../views/shop/tienda.php");
-                    exit(); //Asegura de salir del script después de la redirección
+                    Producto::anadirProductoACesta($_SESSION['carrito'], $_REQUEST['cantidad'], $_REQUEST['id-producto']);
                 }
+
+                // Construir la URL con la variable $listaProductos como parámetro
+                $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
+                $urlTienda = "/../views/shop/tienda.php?" . $listaProductosQuery;
+                header("Location: " . $urlTienda);
+                exit(); //Asegura de salir del script después de la redirección
                 break;
 
                 //Cuando se pulsa el Carrito de Tienda
             case "carrito":
-                header("Location: /../views/shop/carrito.php");
+                header("Location: /../../views/shop/carrito.php");
                 exit(); //Asegura de salir del script después de la redirección
                 break;
 
