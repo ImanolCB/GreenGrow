@@ -19,7 +19,7 @@ if (!isset($_SESSION['usermail']) && !isset($_SESSION['user_rol']) ) {
             <?php
             // Obtiene el nombre de la ruta del archivo en el que esta el usuario actualmente
             $current_page = basename($_SERVER['PHP_SELF']);
-            echo basename($_SERVER['PHP_SELF']);
+            // echo basename($_SERVER['PHP_SELF']);
             // Verifica si estamos en la página inical o subdirectorio
             if ($current_page != 'index.php') {
             ?>
