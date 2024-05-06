@@ -178,7 +178,9 @@
                                 <img height="30px" src="https://cdn.icon-icons.com/icons2/906/PNG/512/shopping-cart_icon-icons.com_69913.png" alt="carrito">
                                 <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                                     <?php
-                                    echo count($_SESSION['carrito']);
+                                    if (isset($_SESSION['carrito'])) {
+                                        echo count($_SESSION['carrito']);
+                                    }else echo 0
                                     ?>
                                 </span>
                             </button>
