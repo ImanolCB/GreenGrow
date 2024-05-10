@@ -14,6 +14,7 @@
     <?php
     require_once '../../views/includes/fonts.php';
     require_once './../../models/Producto.php';
+    require_once './../../models/carro.php';
     require_once './../../models/conexionBD.php';
 
     ?>
@@ -31,35 +32,34 @@
 
     <main>
         <div class="container p-4">
+        <form action="../../controllers/miControlador.php" method="post">
+            <button type="submit" name="submit" value="Volver a tienda" id="btnVolverTienda" class="btn position-relative m-4">Volver</button>
+        </form>
             <div class="row p-5 ">
                 <div class="col-md-4 order-md-2 mb-4">
                     <h4 class="d-flex justify-content-between align-items-center mb-3"> <span class="text-muted">Carrito</span> <span class="badge badge-secondary badge-pill">3</span> </h4>
                     <ul class="list-group mb-3">
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">Nombre del producto</h6>
-                                <small class="text-muted">Breve descripción</small>
-                            </div> <span class="text-muted">$12</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">segundo producto</h6>
-                                <small class="text-muted">Breve descripción</small>
-                            </div> <span class="text-muted">$8</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between lh-condensed">
-                            <div>
-                                <h6 class="my-0">tercer artículo</h6>
-                                <small class="text-muted">Breve descripción</small>
-                            </div> <span class="text-muted">$5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between bg-light">
-                            <div class="text-success">
-                                <h6 class="my-0">Código promocional</h6>
-                                <small>CÓDIGO DE EJEMPLO</small>
-                            </div> <span class="text-success">-$5</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between"> <span>Total (€)</span> <strong>$20</strong> </li>
+
+                        <?php
+                        //Obtención de array de productos del controlador
+                        if (isset($_GET['listaProductos'])) {
+                            $listaProductosSerializado = $_GET['listaProductos'];
+                            $listaProductos = unserialize($listaProductosSerializado);
+                        }
+                        //Array que almacena los objetos de productos que se tienen que pintar
+                        $productosCarrito = [];
+
+                        //Doble bucle para comparar los id con los productos diponibles 
+                        foreach($listaProductos as $producto)
+                            foreach($_SESSION['carrito'] as $idProducto){
+                                if ($idProducto == $producto->id_producto) {
+                                    array_push($productosCarrito,$producto);
+                                }
+                            }
+                        //Método para imprimir la estructura HTML con los datos de productos y calcular el total
+                        echo Carro::mostrarProductoCarroPorId($productosCarrito);
+                        ?>
+
                     </ul>
                     <form class="card p-2">
                         <div class="input-group">
@@ -89,7 +89,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="mb-3">
                             <label for="email">Correo electrónico</label>
                             <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com">
@@ -99,14 +99,14 @@
                         </div>
                         <div class="mb-3">
                             <label for="address">Dirección</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 calle principal" required="">
+                            <input type="text" class="form-control" id="address" placeholder="1234 calle principal, Ciudad" required="">
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="address2">Provincia</label>
-                            <input type="text" class="form-control" id="address2" placeholder="apartamento o suite">
+                            <input type="text" class="form-control" id="address2" placeholder="Cantabria">
                         </div>
                         <h4 class="mb-3">Pago</h4>
                         <div class="d-block my-3">
@@ -115,7 +115,7 @@
                                 <label class="custom-control-label" for="credit">Tarjeta de crédito</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="debit" name="paymentMethod" type="radio" disabled class="custom-control-input" >
+                                <input id="debit" name="paymentMethod" type="radio" disabled class="custom-control-input">
                                 <label class="custom-control-label" for="debit">Tarjeta de débito</label>
                             </div>
                             <div class="custom-control custom-radio">
@@ -167,12 +167,12 @@
 
 
         <?php
-        //Recorre el array de ID's de productos
-        foreach ($_SESSION['carrito'] as $productoId) {
-            echo "ID del producto: " . $productoId . "<br>";
-        }
-        echo "</br> " . "EMAIL " . $_SESSION['usermail'];
-        echo "</br> " . "ROL " . $_SESSION['user_rol'];
+        // //Recorre el array de ID's de productos
+        // foreach ($_SESSION['carrito'] as $productoId) {
+        //     echo "ID del producto: " . $productoId . "<br>";
+        // }
+        // echo "</br> " . "EMAIL " . $_SESSION['usermail'];
+        // echo "</br> " . "ROL " . $_SESSION['user_rol'];
         ?>
     </main>
 

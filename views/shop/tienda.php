@@ -46,9 +46,9 @@
         <form action="../../controllers/miControlador.php" method="post">
             <div id="sidebar" class=" p-3 sidebar d-lg-block">
 
-                <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                <!-- <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"> -->
                     <span class="fs-4">Filtros</span>
-                </a>
+                <!-- </a> -->
 
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto ">
@@ -138,14 +138,14 @@
                             </div>
                         </div>
                     </li>
+                    <button type="submit" name="submit" value="Filtrar" class="btn btn-primary">Filtrar</button>
                 </ul>
             </div>
         </form>
 
 
 
-        <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()">
-            < </button>
+        <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()">< </button>
 
                 <?php
 
@@ -163,33 +163,35 @@
 
                 ?>
 
-                <div class="container text-center">
+                <div class="d-md-flex flex-column ">
 
-                    <!-- Buscador -->
-                    <div class="input-group mt-3">
-                        <input id="busqueda" type="text" class="form-control" placeholder="Buscar productos..." aria-describedby="button-addon2">
-                        <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
-                    </div>
+                    <div class="container d-flex justify-content-center align-items-center mt-4 mb-4">
+                        <!-- Buscador -->
+                        <div class="input-group">
+                            <input id="busqueda" type="text" class="form-control" placeholder="Buscar productos..." aria-describedby="button-addon2">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
+                        </div>
 
-                    <div class="carrito w-100 d-flex justify-content-md-end">
-                        <!--Carrito  -->
-                        <form action="../../controllers/miControlador.php" method="post">
-                            <button type="submit" name="submit" value="carrito" id="btnCarrito" class=" position-relative m-4">
-                                <img height="30px" src="https://cdn.icon-icons.com/icons2/906/PNG/512/shopping-cart_icon-icons.com_69913.png" alt="carrito">
-                                <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    <?php
-                                    if (isset($_SESSION['carrito'])) {
-                                        echo count($_SESSION['carrito']);
-                                    }else echo 0
-                                    ?>
-                                </span>
-                            </button>
-                        </form>
+                        <div class="carrito d-flex align-items-center">
+                            <!--Carrito  -->
+                            <form action="../../controllers/miControlador.php" method="post">
+                                <button type="submit" name="submit" value="carrito" id="btnCarrito" class=" position-relative m-4">
+                                    <img height="30px" src="https://cdn.icon-icons.com/icons2/906/PNG/512/shopping-cart_icon-icons.com_69913.png" alt="carrito">
+                                    <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        <?php
+                                        if (isset($_SESSION['carrito'])) {
+                                            echo count($_SESSION['carrito']);
+                                        } else echo 0
+                                        ?>
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
 
 
                     <!-- Contenedor de productos -->
-                    <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-4 justify-content-evenly">
+                    <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-3 justify-content-center">
 
                         <?php
                         //Obtención de array de productos del controlador
@@ -201,9 +203,8 @@
                         //Construir las tarjetas de productos
                         echo Producto::crearProductos($listaProductos);
                         ?>
-
-
                     </div>
+                </div>
     </main>
 
     <!-- FOOTER -->

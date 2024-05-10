@@ -20,7 +20,8 @@ if (isset($_REQUEST['submit'])) {
     try {
         // Realiza acciones según el valor del submit
         switch ($submit) {
-                //Cuando se pulsa el boton de inicio de sesion en login.php
+
+            //Cuando se pulsa el boton de inicio de sesion en login.php
             case "Iniciar sesion":
                 $emailInicioSesion = $_REQUEST['emailLogin'];
                 $passwordInicioSesion = $_REQUEST['passwordLogin'];
@@ -50,7 +51,7 @@ if (isset($_REQUEST['submit'])) {
                     exit();
                 }
                 break;
-                //Cuando se pulsa el boton de registrar se realiza el insert en la base de datos
+            //Cuando se pulsa el boton de registrar se realiza el insert en la base de datos
             case "Registrar":
                 $emailRegistro = $_REQUEST['emailRegistro'];
                 $passwordRegistro = $_REQUEST['passwordRegistro'];
@@ -85,7 +86,7 @@ if (isset($_REQUEST['submit'])) {
                 }
                 break;
 
-                //Cuando se pulse "Mi cuenta" en la barra de navegacion
+            //Cuando se pulse "Mi cuenta" en la barra de navegacion
             case "Mi cuenta":
                 if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
                     header("Location: /../views/login/login.php");
@@ -97,19 +98,19 @@ if (isset($_REQUEST['submit'])) {
                 }
                 break;
 
-                //Cuando se pulsa Promociones en la barra de navegacion
+            //Cuando se pulsa Promociones en la barra de navegacion
             case "Promociones":
+                //Comprobación que el usuario esta iniciado
                 if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
-                    header("Location: /../views/shop/promociones.php");
+                    header("Location: /../index.php");
                     exit(); //Asegura de salir del script después de la redirección
                 } else {
-                    // header("Location: /../index.php");
                     header("Location: /../views/shop/promociones.php");
                     exit(); //Asegura de salir del script después de la redirección
                 }
                 break;
 
-                //Cuando se pulsa Promociones en la barra de navegacion
+            //Cuando se pulsa Promociones en la barra de navegacion
             case "Tienda":
 
                 // Construir la URL con la variable $listaProductos como parámetro
@@ -121,7 +122,7 @@ if (isset($_REQUEST['submit'])) {
 
                 break;
 
-                //Cuando se pulsa añadir en un producto
+            //Cuando se pulsa añadir en un producto
             case "anadir":
                 if (!isset($_SESSION['carrito'])) {
                     $_SESSION['carrito'] = [];
@@ -137,11 +138,22 @@ if (isset($_REQUEST['submit'])) {
                 exit(); //Asegura de salir del script después de la redirección
                 break;
 
-                //Cuando se pulsa el Carrito de Tienda
+            //Cuando se pulsa el Carrito de Tienda
             case "carrito":
-                header("Location: /../../views/shop/carrito.php");
+                // Construir la URL con la variable $listaProductos como parámetro
+                $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
+                $urlCarro = "/../views/shop/carrito.php?" . $listaProductosQuery;
+                header("Location: " . $urlCarro);
                 exit(); //Asegura de salir del script después de la redirección
                 break;
+
+            //Cuando se pulsa el botón de volver a la página anterior
+            case "Volver a tienda":
+                $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
+                $urlTienda = "/../views/shop/tienda.php?" . $listaProductosQuery;
+                header("Location: " . $urlTienda);
+                exit(); //Asegura de salir del script después de la redirección
+
 
                 //Cuando el boton pulsado no coincide con ningún caso
             default:

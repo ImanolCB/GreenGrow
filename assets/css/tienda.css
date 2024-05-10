@@ -29,12 +29,20 @@ input[type="checkbox"] {
   margin: 10px;
 }
 
+/* .input-group {
+  max-height: 40px;
+  margin: 10px;
+} */
+
 img {
   max-height: 250px;
+  filter: contrast(90%);
+  transition: .3s ease-in-out;
+
 }
 
 span {
-  color: #df9f2f9e;
+  color: #e3b462;
   font-weight: bold;
 }
 
@@ -63,4 +71,9 @@ span {
     45deg,
     rgba(57, 143, 99, 0.145) 0%,rgba(0, 0, 0, 0) 30%
   );
+
+  img{
+    filter:contrast(98%);
+  }
+
 }

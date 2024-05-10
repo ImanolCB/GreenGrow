@@ -1,5 +1,5 @@
 <footer>
-    <div class="container-fluid">
+    <div class="container-fluid mt-4">
         <div class="row p-5 pb-2 bg-dark text-white">
             <div class="col-xs-12 col-md-6 col-lg-3">
                 <p class="h3 ">Green Grow</p>
