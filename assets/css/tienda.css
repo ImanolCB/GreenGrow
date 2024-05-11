@@ -12,6 +12,8 @@
   min-width: 250px;
   flex-direction: column;
   border-bottom-right-radius: 15px;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px #dddddd;
 }
 #btnSideBar {
   min-height: 5vh;
@@ -29,11 +31,6 @@ input[type="checkbox"] {
   margin: 10px;
 }
 
-/* .input-group {
-  max-height: 40px;
-  margin: 10px;
-} */
-
 img {
   max-height: 250px;
   filter: contrast(90%);
@@ -47,7 +44,7 @@ span {
 }
 
 .card-body p {
-  max-height: 50px;
+  max-height: 60px;
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;
@@ -60,6 +57,8 @@ span {
 }
 
 .card{
+  background-color: #ffff;
+    max-width: 350px;
     transition: .3s all;
 }
 
@@ -69,7 +68,7 @@ span {
   background: rgb(0, 0, 0);
   background: linear-gradient(
     45deg,
-    rgba(57, 143, 99, 0.145) 0%,rgba(0, 0, 0, 0) 30%
+    rgba(57, 143, 99, 0.145) 0%,rgb(255, 255, 255) 30%
   );
 
   img{

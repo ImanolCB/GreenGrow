@@ -19,6 +19,10 @@
 
     ?>
 
+    <!-- Script PayPal -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AXtYoa5e_weOoyVnQSHGrsJcwWpN__WLAzF0f7a0XULa3gfAsgy0UFGw92cxLiaKaNWMZsts9L9PdWS-&currency=EUR"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/tienda.css">
@@ -32,9 +36,9 @@
 
     <main>
         <div class="container p-4">
-        <form action="../../controllers/miControlador.php" method="post">
-            <button type="submit" name="submit" value="Volver a tienda" id="btnVolverTienda" class="btn position-relative m-4">Volver</button>
-        </form>
+            <form action="../../controllers/miControlador.php" method="post">
+                <button type="submit" name="submit" value="Volver a tienda" id="btnVolverTienda" class="btn position-relative m-4">Volver</button>
+            </form>
             <div class="row p-5 ">
                 <div class="col-md-4 order-md-2 mb-4">
                     <h4 class="d-flex justify-content-between align-items-center mb-3"> <span class="text-muted">Carrito</span> <span class="badge badge-secondary badge-pill">3</span> </h4>
@@ -49,13 +53,15 @@
                         //Array que almacena los objetos de productos que se tienen que pintar
                         $productosCarrito = [];
 
-                        //Doble bucle para comparar los id con los productos diponibles 
-                        foreach($listaProductos as $producto)
-                            foreach($_SESSION['carrito'] as $idProducto){
-                                if ($idProducto == $producto->id_producto) {
-                                    array_push($productosCarrito,$producto);
+                        if (isset($_SESSION['carrito'])) {
+                            //Doble bucle para comparar los id con los productos diponibles 
+                            foreach ($listaProductos as $producto)
+                                foreach ($_SESSION['carrito'] as $idProducto) {
+                                    if ($idProducto == $producto->id_producto) {
+                                        array_push($productosCarrito, $producto);
+                                    }
                                 }
-                            }
+                        }
                         //Método para imprimir la estructura HTML con los datos de productos y calcular el total
                         echo Carro::mostrarProductoCarroPorId($productosCarrito);
                         ?>
@@ -104,12 +110,12 @@
                                 Please enter your shipping address.
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-5">
                             <label for="address2">Provincia</label>
                             <input type="text" class="form-control" id="address2" placeholder="Cantabria">
                         </div>
                         <h4 class="mb-3">Pago</h4>
-                        <div class="d-block my-3">
+                        <!-- <div class="d-block my-3">
                             <div class="custom-control custom-radio">
                                 <input id="credit" name="paymentMethod" type="radio" disabled class="custom-control-input">
                                 <label class="custom-control-label" for="credit">Tarjeta de crédito</label>
@@ -122,8 +128,8 @@
                                 <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
                                 <label class="custom-control-label" for="paypal">Paypal</label>
                             </div>
-                        </div>
-                        <div class="row">
+                        </div> -->
+                        <!-- <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="cc-name">Nombre en la tarjeta</label>
                                 <input type="text" class="form-control" id="cc-name" placeholder="" required="">
@@ -139,8 +145,8 @@
                                     Credit card number is required
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
+                        </div> -->
+                        <!-- <div class="row">
                             <div class="col-md-3 mb-3">
                                 <label for="cc-expiration">Vencimiento</label>
                                 <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
@@ -155,9 +161,45 @@
                                     Security code required
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <hr class="mb-4">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Continuar a la comprobación</button>
+                        <!-- <button class="btn btn-primary btn-lg btn-block" type="submit">Continuar a la comprobación</button> -->
+                        <div id="paypal-button-container" class="mt-4"></div>
+                        <script>
+                            paypal.Buttons({
+                                style: {
+                                    color: 'blue',
+                                    shape: 'pill',
+                                    label: 'pay'
+                                },
+                                createOrder: function(data, actions) {
+                                    return actions.order.create({
+                                        purchase_units: [{
+                                            amount: {
+                                                value: 10
+                                            }
+                                        }]
+                                    });
+                                },
+                                onApprove: function(data, actions) {
+                                    actions.order.capture().then(function(detalles) {
+                                        console.log(detalles);
+                                        Swal.fire({
+                                            position: "center",
+                                            icon: "success",
+                                            title: "Your work has been saved",
+                                            showConfirmButton: false,
+                                            timer: 1500
+                                        });
+                                    });
+                                },
+
+                                onCancel: function(data) {
+                                    alert('Pago cancelado')
+                                    console.log(data);
+                                }
+                            }).render('#paypal-button-container')
+                        </script>
                     </form>
                 </div>
             </div>

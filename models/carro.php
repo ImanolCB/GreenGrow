@@ -13,8 +13,8 @@ class Carro
   {
     $html = " ";
     $total = 0;
+    if ($productosCarrito != null) {
       foreach ($productosCarrito as $producto){
-        
         $html .= "
         
           <li class='list-group-item d-flex justify-content-between lh-condensed'>
@@ -27,7 +27,11 @@ class Carro
 
           $total = $total + (float) $producto->precio;
       }
-      $html .= "<li class='list-group-item d-flex justify-content-between'> <span>Total (€)</span> <strong>" .$total . " €</strong> </li>";
+    }
+    else{
+      $html .= "<li class='list-group-item d-flex justify-content-between lh-condensed'>No hay productos añadidos</li>";
+    }
+    $html .= "<li class='list-group-item d-flex justify-content-between'> <span>Total (€)</span> <strong>" .$total . " €</strong> </li>";
       return $html;
     
   }
