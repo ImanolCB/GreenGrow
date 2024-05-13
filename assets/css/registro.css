@@ -79,15 +79,12 @@ legend {
   color: #507a64;
   border-color: #507a64;
 }
-.btn-success {
+ .btn-success {
   margin-top: 50px;
   background-color: #507a64;
   border-color: #507a64;
 }
-.btn-success:hover {
-  background-color: #3f5e4a;
-  border-color: #3f5e4a;
-}
+
 
 .row{
   display: flex;

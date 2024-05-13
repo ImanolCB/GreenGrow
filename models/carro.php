@@ -32,7 +32,7 @@ class Carro
       $html .= "<li class='list-group-item d-flex justify-content-between lh-condensed'>No hay productos añadidos</li>";
     }
     $html .= "<li class='list-group-item d-flex justify-content-between'> <span>Total (€)</span> <strong>" .$total . " €</strong> </li>";
-      return $html;
+      return [$html, $total];
     
   }
 }
