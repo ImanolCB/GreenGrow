@@ -37,6 +37,7 @@
             <form class="form-login" action="./../../controllers/miControlador.php" method="post">
                 <fieldset>
                     <legend>Inicio de sesión</legend>
+                    <p class="text-warning">Necesario para realizar pedidos</p>
                     <hr><br>
                     <div class="mb-3 row">
                         <label for="emailLogin" class="col-form-label col-sm-4">E-mail</label>

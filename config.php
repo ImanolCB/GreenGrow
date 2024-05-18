@@ -1,0 +1,2 @@
+<?php
+define('MY_ROOT_PATH', realpath(dirname(__FILE__)));

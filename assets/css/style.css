@@ -3,6 +3,9 @@
   font-weight: 400;
   font-style: normal;
 }
+main{
+  min-height: 80vh;
+}
 /*HEADER*/
 header {
   box-shadow: 0 0 15px #dddddd;
@@ -38,10 +41,22 @@ header {
   background-color: #507a64;
 }
 
+.btnRed {
+  align-items: center;
+  color: white;
+  border: 1px solid #ee6f66;
+  background-color: #cd544b;
+}
+
 .btn:hover {
   color: #507a64;
   border: 1px solid #507a64;
   background-color: white;
+}
+.btnRed:hover {
+  color: #000000;
+  border: 1px solid #000000;
+  background-color: #cd2d22;
 }
 
 /*FOOTER*/
