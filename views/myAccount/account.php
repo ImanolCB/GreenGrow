@@ -12,15 +12,17 @@
 
     <!-- Required php -->
     <?php
-    require_once '../../views/includes/fonts.php';
-    require_once './../../models/Producto.php';
-    // require_once './../../models/conexionBD.php';
-
+    // require_once '../../views/includes/fonts.php';
+    // require_once './../../models/Producto.php';
+    // // require_once './../../models/conexionBD.php';
     ?>
+
+    <!-- Script alert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/style.css">
-    <!-- <link rel="stylesheet" href="/assets/css/tienda.css"> -->
+    <link rel="stylesheet" href="/assets/css/account.css">
 
 </head>
 
@@ -51,39 +53,54 @@
                     <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
                 </div>
                 <button type="submit" name="submit" value="plantaAdd" id="btnPlantaAdd" class="btn position-relative m-4">Añadir planta</button>
-
-                <!-- Acordeon -->
-                <!-- I1 -->
-                <div class="accordion accordion-flush mt-4" id="accordionFlushExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="flush-1">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                Mi cactus del balcón
-                            </button>
-                        </h2>
-                        <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-
-
-                            <div class="container mt-4 ">
-                                <h4 class="pt-4 ">Anotaciones</h4>
-                                <hr>
-                                <div class="row justify-content-between text-center">
-                                    <div class="flex col-sm-3">
-                                        <p class="fs-6 text-justify">
-                                            Nos esforzamos por ofrecer las mejores plantas, garantizando que lleguen a tu puerta en perfecto estado.
-                                            Nuestro compromiso es que disfrutes de la mejor experiencia de compra y que cada planta que adquieras se convierta en una parte esencial de tu hogar.
-                                        </p>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <img src="https://images.unsplash.com/photo-1560453456-387820618020?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-responsive m-3 shadow-md" style="width:100%" alt="Image">
-                                    </div>
+            </form>
+            <!-- Acordeon -->
+            <!-- I1 -->
+            <div class="accordion accordion-flush mt-4" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-1">
+                        <button class="accordion-button collapsed pt-4 fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Mi cactus del balcón
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="container mt-4 ">
+                            <h4 class="pt-4 fs-6 ">Anotaciones</h4>
+                            <hr>
+                            <div class="row justify-content-between text-center">
+                                <div class="flex col-sm-8">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Fecha de anotación</th>
+                                                <th scope="col">Last</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr id="ID DE ANOTACION">
+                                                <td>Mark</td>
+                                                <td>Otto</td>
+                                                <td>
+                                                    <button class="btn ver m-1" id="btnAnotacion-ID" value="CONTENIDO DE ANOTACION" onclick="ver(this.value)">Ver</button>
+                                                    <button class="btn btnRed m-1" id="btnAnotacion" value="Borrar anotacion">Eliminar</button>
+                                                </td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-sm-3">
+                                    <img src="https://images.unsplash.com/photo-1560453456-387820618020?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-responsive m-3 shadow-md" style="width:100%" alt="Image">
                                 </div>
                             </div>
-                            <button type="submit" name="submit" value="plantaDelete" id="btnPlantaDelete" class="btn btnRed position-relative m-4">Eliminar</button>
                         </div>
+                        <form action="../../controllers/miControlador.php" method="post">
+                            <button type="submit" name="submit" value="plantaDelete" id="btnPlantaDelete" class="btn btnRed position-relative m-4">Eliminar</button>
+                        </form>
                     </div>
                 </div>
-            </form>
+            </div>
+            
         </section>
 
 
@@ -95,7 +112,7 @@
     <?php include '../includes/footer.php' ?>
 
     <!-- SCRIPTS -->
-    <script src="../../assets/js/funcionesSideBar.js"></script>
+    <script src="../../assets/js/verAnotacion.js"></script>
 
 </body>
 

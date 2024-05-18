@@ -1,0 +1,12 @@
+.accordion-button {
+    color: black;
+  border: 1px solid #507a64;
+  border-radius: 125px;
+  background-color: white;
+}
+
+.accordion-button:hover {
+  color: #507a64;
+  border: 1px solid #507a64;
+  background: radial-gradient(circle, rgba(80,122,100,0) 0%, rgba(80, 122, 100, 0.135) 100%);
+}

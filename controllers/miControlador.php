@@ -37,6 +37,7 @@ if (isset($_REQUEST['submit'])) {
                     // Inicio de sesión para almacenar los datos del usuario 
                     $_SESSION['usermail'] = $emailInicioSesion;
                     $_SESSION['user_rol'] = $resultadoVerificacion["rol"];
+                    $_SESSION['user_id'] = $resultadoVerificacion["id"];
 
                     // echo "EMAIL " . $_SESSION['usermail'];
                     // echo "ROL " . $_SESSION['user_rol'];
@@ -97,6 +98,12 @@ if (isset($_REQUEST['submit'])) {
                     exit(); //Asegura de salir del script después de la redirección
                 }
                 break;
+            case "Cerrar sesion":
+                $_SESSION = array();
+                session_destroy();
+                header("Location: /../index.php");
+                exit();
+                break;
 
                 //Cuando se pulsa Promociones en la barra de navegacion
             case "Promociones":
@@ -129,6 +136,9 @@ if (isset($_REQUEST['submit'])) {
 
                 //Cuando se pulsa añadir en un producto
             case "anadir":
+                //Almacenamiento del listado de productos
+                $listaProductos = Producto::consultarProductos($conn->conectar_bd());
+
                 if (!isset($_SESSION['carrito'])) {
                     $_SESSION['carrito'] = [];
                     Producto::anadirProductoACesta($_SESSION['carrito'], $_REQUEST['cantidad'], $_REQUEST['id-producto']);
@@ -145,6 +155,9 @@ if (isset($_REQUEST['submit'])) {
 
                 //Cuando se pulsa el Carrito de Tienda
             case "carrito":
+                //Almacenamiento del listado de productos
+                $listaProductos = Producto::consultarProductos($conn->conectar_bd());
+
                 if ($_SESSION['usermail'] != null && $_SESSION['user_rol'] != null) {
                     // Construir la URL con la variable $listaProductos como parámetro
                     $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
@@ -160,11 +173,18 @@ if (isset($_REQUEST['submit'])) {
 
                 //Cuando se pulsa el botón de volver a la página anterior
             case "Volver a tienda":
+                //Almacenamiento del listado de productos
+                $listaProductos = Producto::consultarProductos($conn->conectar_bd());
+
                 $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
                 $urlTienda = "/../views/shop/tienda.php?" . $listaProductosQuery;
                 header("Location: " . $urlTienda);
                 exit(); //Asegura de salir del script después de la redirección
 
+                // case "plantaAdd":
+
+
+                // break;
 
                 //Cuando el boton pulsado no coincide con ningún caso
             default:

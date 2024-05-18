@@ -1,9 +1,10 @@
 <?php session_start();
 //Declaracion por defecto de los datos de rol de usuario
-if (!isset($_SESSION['usermail']) && !isset($_SESSION['user_rol']) ) {
-    
+if (!isset($_SESSION['usermail']) && !isset($_SESSION['user_rol'])) {
+
     $_SESSION['usermail'] = null;
     $_SESSION['user_rol'] = null;
+    $_SESSION['user_id'] = null;
 }
 ?>
 <header>
@@ -54,23 +55,31 @@ if (!isset($_SESSION['usermail']) && !isset($_SESSION['user_rol']) ) {
                                 $usuario = $_SESSION['usermail'];
                                 if ($usuario != null) {
                                     //Primera letra mayúscula y el nombre antes del @
-                                    echo ucfirst(explode( '@',$_SESSION['usermail'] )[0]);
+                                    echo ucfirst(explode('@', $_SESSION['usermail'])[0]);
                                 }
                                 ?>
                             </div>
-                        
-                        <?php
+
+                            <?php
                             // Obtiene el nombre del archivo en el que esta el usuario actualmente
                             $current_page = basename($_SERVER['PHP_SELF']);
 
                             // Verifica si estamos en la página de inicio de sesión o registro
                             if ($current_page != 'login.php' && $current_page != 'registro.php') {
                                 // Mostrará el botón dependiendo si estoy en el menu de inicio de sesión o no
+                                if ($current_page != 'account.php') {
                             ?>
-                                <div class="d-flex">
-                                    <button id="btnMiCuenta" type="submit" name="submit" value="Mi cuenta" class="btn btn-primary">Mi cuenta</button>
-                                </div>
+                                    <div class="d-flex">
+                                        <button id="btnMiCuenta" type="submit" name="submit" value="Mi cuenta" class="btn btn-primary">Mi cuenta</button>
+                                    </div>
+
+                                <?php } else { ?>
+
+                                    <div class="d-flex">
+                                        <button id="btnCerrarSesion" type="submit" name="submit" value="Cerrar sesion" class="btnRed btn  btn-primary">Cerrar sesion</button>
+                                    </div>
                             <?php
+                                }
                             }
                             ?>
 

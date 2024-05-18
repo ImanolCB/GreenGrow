@@ -19,7 +19,7 @@
 
     ?>
 
-    <!-- Script PayPal -->
+    <!-- Script PayPal y alert-->
     <script src="https://www.paypal.com/sdk/js?client-id=AXtYoa5e_weOoyVnQSHGrsJcwWpN__WLAzF0f7a0XULa3gfAsgy0UFGw92cxLiaKaNWMZsts9L9PdWS-&currency=EUR"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -99,7 +99,7 @@
 
                         <div class="mb-3">
                             <label for="email">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email" placeholder="tu@ejemplo.com">
+                            <input type="email" class="form-control" id="email" value="<?php echo $_SESSION['usermail'] ?>" placeholder="tu@ejemplo.com">
                             <div class="invalid-feedback">
                                 Please enter a valid email address for shipping updates.
                             </div>
@@ -113,56 +113,9 @@
                         </div>
                         <div class="mb-5">
                             <label for="address2">Provincia</label>
-                            <input type="text" class="form-control" id="address2" placeholder="Cantabria">
+                            <input type="text" class="form-control" id="address2" value="Cantabria" placeholder="Cantabria">
                         </div>
-                        <!-- <h4 class="mb-3">Pago</h4> -->
-                        <!-- <div class="d-block my-3">
-                            <div class="custom-control custom-radio">
-                                <input id="credit" name="paymentMethod" type="radio" disabled class="custom-control-input">
-                                <label class="custom-control-label" for="credit">Tarjeta de crédito</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input id="debit" name="paymentMethod" type="radio" disabled class="custom-control-input">
-                                <label class="custom-control-label" for="debit">Tarjeta de débito</label>
-                            </div>
-                            <div class="custom-control custom-radio">
-                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
-                                <label class="custom-control-label" for="paypal">Paypal</label>
-                            </div>
-                        </div> 
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-name">Nombre en la tarjeta</label>
-                                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-                                <small class="text-muted">Nombre completo como se muestra en la tarjeta</small>
-                                <div class="invalid-feedback">
-                                    Name on card is required
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-number">Número de Tarjeta de Crédito</label>
-                                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-                                <div class="invalid-feedback">
-                                    Credit card number is required
-                                </div>
-                            </div>
-                        </div> 
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="cc-expiration">Vencimiento</label>
-                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
-                                <div class="invalid-feedback">
-                                    Expiration date required
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="cc-cvv">CVV</label>
-                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-                                <div class="invalid-feedback">
-                                    Security code required
-                                </div>
-                            </div>
-                        </div>-->
+                        
                         <img src="../../assets/img/carrito.gif" class="m-2" width="150" alt="Carro de compras">
                         <h4 class="mb-3 mt-4">Pago</h4>
                         
@@ -180,7 +133,6 @@
                                     return actions.order.create({
                                         purchase_units: [{
                                             amount: {
-                                                // value: 24
                                                 value: <?php echo (float)$carrito[1] ?>
                                             }
                                         }]
@@ -189,6 +141,7 @@
                                 onApprove: function(data, actions) {
                                     actions.order.capture().then(function(detalles) {
                                         console.log(detalles);
+                                        console.log(<?php echo $_SESSION['user_id'] ?>);
                                         Swal.fire({
                                             position: "center",
                                             icon: "success",
@@ -196,6 +149,11 @@
                                             showConfirmButton: false,
                                             timer: 1500
                                         });
+                                        window.location.href = "/../views/shop/validarPago.php";
+                                        /**
+                                         * TODO:VACIAR CARRO
+                                         */
+                                        
                                     });
                                 },
 
@@ -209,18 +167,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
-        <?php
-        // //Recorre el array de ID's de productos
-        // foreach ($_SESSION['carrito'] as $productoId) {
-        //     echo "ID del producto: " . $productoId . "<br>";
-        // }
-        // echo "</br> " . "EMAIL " . $_SESSION['usermail'];
-        // echo "</br> " . "ROL " . $_SESSION['user_rol'];
-        ?>
     </main>
 
     <!-- FOOTER -->
