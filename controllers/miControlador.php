@@ -10,8 +10,6 @@ require_once '../models/Usuario.php';
 
 //Creación de una conexión a la BD
 $conn = new ConexionBD();
-// //Almacenamiento del listado de productos
-// $listaProductos = Producto::consultarProductos($conn->conectar_bd());
 
 // Comprueba si se ha enviado algún submit
 if (isset($_REQUEST['submit'])) {
@@ -21,7 +19,7 @@ if (isset($_REQUEST['submit'])) {
         // Realiza acciones según el valor del submit
         switch ($submit) {
 
-                //Cuando se pulsa el boton de inicio de sesion en login.php
+            //Cuando se pulsa el boton de inicio de sesion en login.php
             case "Iniciar sesion":
                 $emailInicioSesion = $_REQUEST['emailLogin'];
                 $passwordInicioSesion = $_REQUEST['passwordLogin'];
@@ -52,7 +50,7 @@ if (isset($_REQUEST['submit'])) {
                     exit();
                 }
                 break;
-                //Cuando se pulsa el boton de registrar se realiza el insert en la base de datos
+            //Cuando se pulsa el boton de registrar se realiza el insert en la base de datos
             case "Registrar":
                 $emailRegistro = $_REQUEST['emailRegistro'];
                 $passwordRegistro = $_REQUEST['passwordRegistro'];
@@ -87,7 +85,7 @@ if (isset($_REQUEST['submit'])) {
                 }
                 break;
 
-                //Cuando se pulse "Mi cuenta" en la barra de navegacion
+            //Cuando se pulse "Mi cuenta" en la barra de navegacion
             case "Mi cuenta":
                 if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
                     header("Location: /../views/login/login.php");
@@ -105,7 +103,7 @@ if (isset($_REQUEST['submit'])) {
                 exit();
                 break;
 
-                //Cuando se pulsa Promociones en la barra de navegacion
+            //Cuando se pulsa Promociones en la barra de navegacion
             case "Promociones":
                 //Comprobación que el usuario esta iniciado
                 if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
@@ -117,7 +115,7 @@ if (isset($_REQUEST['submit'])) {
                 }
                 break;
 
-                //Cuando se pulsa Promociones en la barra de navegacion
+            //Cuando se pulsa Promociones en la barra de navegacion
             case "Tienda":
                 //Almacenamiento del listado de productos
                 $listaProductos = Producto::consultarProductos($conn->conectar_bd());
@@ -134,7 +132,7 @@ if (isset($_REQUEST['submit'])) {
                 header("Location: /../views/about/about.php");
                 exit(); //Asegura de salir del script después de la redirección
 
-                //Cuando se pulsa añadir en un producto
+            //Cuando se pulsa añadir en un producto
             case "anadir":
                 //Almacenamiento del listado de productos
                 $listaProductos = Producto::consultarProductos($conn->conectar_bd());
@@ -153,7 +151,7 @@ if (isset($_REQUEST['submit'])) {
                 exit(); //Asegura de salir del script después de la redirección
                 break;
 
-                //Cuando se pulsa el Carrito de Tienda
+            //Cuando se pulsa el Carrito de Tienda
             case "carrito":
                 //Almacenamiento del listado de productos
                 $listaProductos = Producto::consultarProductos($conn->conectar_bd());
@@ -171,7 +169,7 @@ if (isset($_REQUEST['submit'])) {
 
                 break;
 
-                //Cuando se pulsa el botón de volver a la página anterior
+            //Cuando se pulsa el botón de volver a la página anterior
             case "Volver a tienda":
                 //Almacenamiento del listado de productos
                 $listaProductos = Producto::consultarProductos($conn->conectar_bd());
@@ -181,12 +179,7 @@ if (isset($_REQUEST['submit'])) {
                 header("Location: " . $urlTienda);
                 exit(); //Asegura de salir del script después de la redirección
 
-                // case "plantaAdd":
-
-
-                // break;
-
-                //Cuando el boton pulsado no coincide con ningún caso
+            //Cuando el boton pulsado no coincide con ningún caso
             default:
                 // Si el submit no coincide con ninguno de los casos anteriores, redirige al index
                 header("Location: /../index.php");
@@ -199,6 +192,7 @@ if (isset($_REQUEST['submit'])) {
     }
 } else {
     // Si no se envió ningún formulario, redirecciona al index
+    
     header("Location: /../index.php");
-    exit(); //Asegura de salir del script después de la redirección
+    exit(); //Asegura de salir del script después de la redirección    
 }

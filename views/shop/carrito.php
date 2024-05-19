@@ -36,9 +36,11 @@
 
     <main>
         <div class="container p-4">
+
             <form action="../../controllers/miControlador.php" method="post">
                 <button type="submit" name="submit" value="Volver a tienda" id="btnVolverTienda" class="btn position-relative m-4">Volver</button>
             </form>
+
             <div class="row p-5 ">
                 <div class="col-md-4 order-md-2 mb-4">
                     <h4 class="d-flex justify-content-between align-items-center mb-3"> <span class="text-muted">Carrito</span> <span class="badge badge-secondary badge-pill">3</span> </h4>
@@ -79,18 +81,18 @@
                 </div>
                 <div class="col-md-8 order-md-1">
                     <h4 class="mb-3">Dirección de Envio</h4>
-                    <form class="needs-validation" novalidate="">
+                    <form id="autoForm" action="../../controllers/miControlador.php" method="POST">
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label for="firstName">Nombre de pila</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Nombre" value="" required="">
+                                <input type="text" class="form-control" id="firstName" placeholder="Nombre" name="nombre" required>
                                 <div class="invalid-feedback">
                                     Valid first name is required.
                                 </div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label for="lastName">Apellido</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Apellido" value="" required="">
+                                <input type="text" class="form-control" id="lastName" placeholder="Apellido" name="apellido" required>
                                 <div class="invalid-feedback">
                                     Valid last name is required.
                                 </div>
@@ -99,29 +101,33 @@
 
                         <div class="mb-3">
                             <label for="email">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email" value="<?php echo $_SESSION['usermail'] ?>" placeholder="tu@ejemplo.com">
+                            <input type="email" class="form-control" id="email" name="email" value="<?php echo $_SESSION['usermail'] ?>" placeholder="tu@ejemplo.com" required>
                             <div class="invalid-feedback">
                                 Please enter a valid email address for shipping updates.
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="address">Dirección</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 calle principal, Ciudad" required="">
+                            <input type="text" class="form-control" id="address" placeholder="1234 calle principal, Ciudad" name="direccion" required>
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
                             </div>
                         </div>
                         <div class="mb-5">
                             <label for="address2">Provincia</label>
-                            <input type="text" class="form-control" id="address2" value="Cantabria" placeholder="Cantabria">
+                            <input type="text" class="form-control" id="address2" name="provincia" value="Cantabria" placeholder="Cantabria" required>
                         </div>
-                        
+
                         <img src="../../assets/img/carrito.gif" class="m-2" width="150" alt="Carro de compras">
                         <h4 class="mb-3 mt-4">Pago</h4>
-                        
                         <hr class="mb-4">
-                        <!-- <button class="btn btn-primary btn-lg btn-block" type="submit">Realizar compra</button>  -->
+
+
+                        <!-- PayPal -->
                         <div id="paypal-button-container" class="mt-4"></div>
+                        <?php
+                        $pagoRealizado = false
+                        ?>
                         <script>
                             paypal.Buttons({
                                 style: {
@@ -139,9 +145,24 @@
                                     });
                                 },
                                 onApprove: function(data, actions) {
+                                    //Url de la direccion a la que se mandan los datos en formato JSON
+                                    let URL = '../../controllers/miControladorPago.php'
+
+                                    <?php ?>
+                                    <?php
+//                                             // Construir la URL con la variable $productosCarrito como parámetro
+                                            $productosCarritoQuery = http_build_query(['productosCarrito' => serialize($productosCarrito)]);
+                                            $provinciaQuery = http_build_query(['provincia' => serialize($provincia)]);
+                                            $urlCarro = "../../controllers/miControladorPago.php?" . $productosCarritoQuery;
+                                            header("Location: " . $urlCarro);
+                                            exit(); //Asegura de salir del script después de la redirección
+                                        ?>
+
                                     actions.order.capture().then(function(detalles) {
+
                                         console.log(detalles);
                                         console.log(<?php echo $_SESSION['user_id'] ?>);
+                                        //Alerta de compra realizada
                                         Swal.fire({
                                             position: "center",
                                             icon: "success",
@@ -149,12 +170,23 @@
                                             showConfirmButton: false,
                                             timer: 1500
                                         });
-                                        window.location.href = "/../views/shop/validarPago.php";
-                                        /**
-                                         * TODO:VACIAR CARRO
-                                         */
+                                        //Se envian los detalles de pago al controlador con formato JSON
+                                        return fetch(URL, {
+                                            method: 'post',
+                                            headers: {
+                                                'content-type': 'application/json'
+                                            },
+                                            body: JSON.stringify({
+                                                detalles: detalles
+                                            })
+                                        })
+
                                         
+
+                                        // document.getElementById('autoForm').submit();
+                                        // window.location.href = "../../controllers/miControladorPago.php";
                                     });
+                                    
                                 },
 
                                 onCancel: function(data) {
