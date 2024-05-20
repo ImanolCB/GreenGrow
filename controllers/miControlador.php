@@ -2,9 +2,9 @@
 
 session_start();
 
-require_once '../models/conexionBD.php';
-require_once '../models/Producto.php';
-require_once '../models/Usuario.php';
+require_once './../models/conexionBD.php';
+require_once './../models/Producto.php';
+require_once './../models/Usuario.php';
 
 
 
@@ -41,7 +41,7 @@ if (isset($_REQUEST['submit'])) {
                     // echo "ROL " . $_SESSION['user_rol'];
 
                     // Redirigir a la página de inicio
-                    header("Location: /../index.php");
+                    header("Location: ./../index.php");
                     exit();
                 } else {
                     // Si la verificación falla, mostrar mensaje de error y redirigir
@@ -71,7 +71,7 @@ if (isset($_REQUEST['submit'])) {
                     if ($passwordRegistro == $passwordRegistroRep) {
                         //En el caso de que la inserción se haya realizado exitosamente se redirecciona al index
                         if ($usuarioRegistro->insertarUsuario($usuarioRegistro, $conn->conectar_bd())) {
-                            header("Location: /../views/login/login.php");
+                            header("Location: ./../views/login/login.php");
                             exit();
                         } else {
                             /**
@@ -88,18 +88,18 @@ if (isset($_REQUEST['submit'])) {
             //Cuando se pulse "Mi cuenta" en la barra de navegacion
             case "Mi cuenta":
                 if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
-                    header("Location: /../views/login/login.php");
+                    header("Location: ./../views/login/login.php");
                     exit(); //Asegura de salir del script después de la redirección
                 } else {
                     // header("Location: /../index.php");
-                    header("Location: /../views/myAccount/account.php");
+                    header("Location: ./../views/myAccount/account.php");
                     exit(); //Asegura de salir del script después de la redirección
                 }
                 break;
             case "Cerrar sesion":
                 $_SESSION = array();
                 session_destroy();
-                header("Location: /../index.php");
+                header("Location: ./../index.php");
                 exit();
                 break;
 
@@ -107,10 +107,10 @@ if (isset($_REQUEST['submit'])) {
             case "Promociones":
                 //Comprobación que el usuario esta iniciado
                 if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
-                    header("Location: /../index.php");
+                    header("Location: ./../index.php");
                     exit(); //Asegura de salir del script después de la redirección
                 } else {
-                    header("Location: /../views/shop/promociones.php");
+                    header("Location: ./../views/shop/promociones.php");
                     exit(); //Asegura de salir del script después de la redirección
                 }
                 break;
@@ -121,15 +121,17 @@ if (isset($_REQUEST['submit'])) {
                 $listaProductos = Producto::consultarProductos($conn->conectar_bd());
 
                 // Construir la URL con la variable $listaProductos como parámetro
-                $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
-                $urlTienda = "/../views/shop/tienda.php?" . $listaProductosQuery;
+                $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)[0]]);
+                $urlTienda = "./../views/shop/tienda.php?" . $listaProductosQuery;
                 header("Location: " . $urlTienda);
+                // $_SESSION['queryProductos'] = $listaProductos;
+                // header("Location: ./../views/shop/tienda.php");
                 exit(); // Asegura de salir del script después de la redirección
 
 
                 break;
             case "Sobre nosotros":
-                header("Location: /../views/about/about.php");
+                header("Location: ./../views/about/about.php");
                 exit(); //Asegura de salir del script después de la redirección
 
             //Cuando se pulsa añadir en un producto
@@ -144,10 +146,14 @@ if (isset($_REQUEST['submit'])) {
                     Producto::anadirProductoACesta($_SESSION['carrito'], $_REQUEST['cantidad'], $_REQUEST['id-producto']);
                 }
 
-                // Construir la URL con la variable $listaProductos como parámetro
+                // // Construir la URL con la variable $listaProductos como parámetro
                 $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
-                $urlTienda = "/../views/shop/tienda.php?" . $listaProductosQuery;
+                $urlTienda = "./../views/shop/tienda.php?" . $listaProductosQuery;
                 header("Location: " . $urlTienda);
+
+                // $_SESSION['queryProductos'] = $listaProductos;
+                // header("Location: ./../views/shop/tienda.php");
+
                 exit(); //Asegura de salir del script después de la redirección
                 break;
 
@@ -159,11 +165,15 @@ if (isset($_REQUEST['submit'])) {
                 if ($_SESSION['usermail'] != null && $_SESSION['user_rol'] != null) {
                     // Construir la URL con la variable $listaProductos como parámetro
                     $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
-                    $urlCarro = "/../views/shop/carrito.php?" . $listaProductosQuery;
+                    $urlCarro = "./../views/shop/carrito.php?" . $listaProductosQuery;
                     header("Location: " . $urlCarro);
+
+                //     $_SESSION['queryProductos'] = $listaProductos;
+                // header("Location: ./../views/shop/tienda.php");
+
                     exit(); //Asegura de salir del script después de la redirección
                 } else {
-                    header("Location: /../views/login/login.php");
+                    header("Location: ./../views/login/login.php");
                     exit(); //Asegura de salir del script después de la redirección
                 }
 
@@ -174,15 +184,21 @@ if (isset($_REQUEST['submit'])) {
                 //Almacenamiento del listado de productos
                 $listaProductos = Producto::consultarProductos($conn->conectar_bd());
 
+                //Compresion de los datos
+                
                 $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
-                $urlTienda = "/../views/shop/tienda.php?" . $listaProductosQuery;
+                $urlTienda = "./../views/shop/tienda.php?" . $listaProductosQuery;
                 header("Location: " . $urlTienda);
+
+                // $_SESSION['queryProductos'] = $listaProductos;
+                // header("Location: ./../views/shop/tienda.php");
+
                 exit(); //Asegura de salir del script después de la redirección
 
             //Cuando el boton pulsado no coincide con ningún caso
             default:
                 // Si el submit no coincide con ninguno de los casos anteriores, redirige al index
-                header("Location: /../index.php");
+                header("Location: ./../index.php");
                 exit(); //Asegura de salir del script después de la redirección
         }
     } catch (\Throwable $th) {
@@ -193,6 +209,6 @@ if (isset($_REQUEST['submit'])) {
 } else {
     // Si no se envió ningún formulario, redirecciona al index
     
-    header("Location: /../index.php");
+    header("Location: ./../index.php");
     exit(); //Asegura de salir del script después de la redirección    
 }

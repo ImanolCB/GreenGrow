@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -5,29 +6,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Grow - Tienda</title>
-    <link rel="shortcut icon" href="/assets/img/logo.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="./../../assets/img/logo.png" type="image/x-icon">
     <!-- Bootsrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <!-- Required php -->
     <?php
-    require_once '../../views/includes/fonts.php';
-    require_once './../../models/Producto.php';
+    require_once './../../views/includes/fonts.php';
+    require_once './../../models/producto.php';
     // require_once './../../models/conexionBD.php';
 
     ?>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/tienda.css">
+    <link rel="stylesheet" href="./../../assets/css/style.css">
+    <link rel="stylesheet" href="./../../assets/css/tienda.css">
 
 </head>
 
 <body>
 
     <!-- HEADER -->
-    <?php include '../includes/header.php'; ?>
+    <?php include './../includes/header.php'; ?>
 
     <!-- MAIN -->
 
@@ -174,7 +175,7 @@
 
                         <div class="carrito d-flex align-items-center">
                             <!--Carrito  -->
-                            <form action="../../controllers/miControlador.php" method="post">
+                            <form action="./../../controllers/miControlador.php" method="post">
                                 <button type="submit" name="submit" value="carrito" id="btnCarrito" class=" position-relative m-4">
                                     <img height="30px" src="https://cdn.icon-icons.com/icons2/906/PNG/512/shopping-cart_icon-icons.com_69913.png" alt="carrito">
                                     <span id="contadorCarrito" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
@@ -194,24 +195,38 @@
                     <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-3 justify-content-center p-4">
 
                         <?php
+                        /**
+                         * TODO: Gestionar el tamaño de URL
+                         */
                         //Obtención de array de productos del controlador
                         if (isset($_GET['listaProductos'])) {
                             $listaProductosSerializado = $_GET['listaProductos'];
                             $listaProductos = unserialize($listaProductosSerializado);
+                            echo "<pre>";
+                            echo var_dump($listaProductos);
+                            echo "</pre>";
                         }
 
-                        //Construir las tarjetas de productos
-                        echo Producto::crearProductos($listaProductos);
+                        // if (isset($_SESSION['queryProductos'])) {
+                        //     //Construir las tarjetas de productos
+                        //     $listaProductos = $_SESSION['queryProductos'];
+                        //     echo "<pre>";
+                        //     echo var_dump($listaProductos);
+                        //     echo "</pre>";
+                        //     echo Producto::crearProductos($listaProductos); 
+                        //     $_SESSION['queryProductos'] = [];
+                        // }
+
                         ?>
                     </div>
                 </div>
     </main>
 
     <!-- FOOTER -->
-    <?php include '../includes/footer.php' ?>
+    <?php include './../includes/footer.php' ?>
 
     <!-- SCRIPTS -->
-    <script src="../../assets/js/funcionesSideBar.js"></script>
+    <script src="./../../assets/js/funcionesSideBar.js"></script>
 
 </body>
 

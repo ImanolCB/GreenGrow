@@ -1,4 +1,4 @@
-<?php session_start();
+<?php
 //Declaracion por defecto de los datos de rol de usuario
 if (!isset($_SESSION['usermail']) && !isset($_SESSION['user_rol'])) {
 
@@ -6,20 +6,27 @@ if (!isset($_SESSION['usermail']) && !isset($_SESSION['user_rol'])) {
     $_SESSION['user_rol'] = null;
     $_SESSION['user_id'] = null;
 }
+// Obtiene el nombre de la ruta del archivo en el que esta el usuario actualmente
+$current_page = basename($_SERVER['PHP_SELF']);
 ?>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="/assets/img/logo.jpg" alt="logo" width="80" height="80">
-            </a>
+            <?php if ($current_page != 'index.php') { ?>
+                <a class="navbar-brand" href="./../../index.php">
+                    <img src="./../../assets/img/logo.png" alt="logo" width="80" height="80">
+                </a>
+                <?php }else {?>
+                <a class="navbar-brand" href="./index.php">
+                    <img src="./assets/img/logo.png" alt="logo" width="80" height="80">
+                </a>
+                <?php } ?>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <?php
-            // Obtiene el nombre de la ruta del archivo en el que esta el usuario actualmente
-            $current_page = basename($_SERVER['PHP_SELF']);
+            
             // echo basename($_SERVER['PHP_SELF']);
             // Verifica si estamos en la página inical o subdirectorio
             if ($current_page != 'index.php') {

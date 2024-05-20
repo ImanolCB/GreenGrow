@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -144,7 +145,7 @@
 
                 <!-- CONTENEDOR -->
                 <div class="container text-center">
-                    <h2>Hola</h2>
+                    <h2>En desarrollo ...</h2>
                 </div>
     </main>
 

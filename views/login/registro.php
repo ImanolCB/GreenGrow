@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -12,19 +13,19 @@
 
      <!-- Required PHP -->
     <?php 
-        require_once '../../views/includes/fonts.php';
+        require_once './../../views/includes/fonts.php';
     ?>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/registro.css">
+    <link rel="stylesheet" href="./../../assets/css/style.css">
+    <link rel="stylesheet" href="./../../assets/css/registro.css">
 
 </head>
 
 <body>
 
     <!-- HEADER -->
-    <?php include '../includes/header.php';?>
+    <?php include './../includes/header.php';?>
 
 
     <!-- MAIN -->
@@ -74,8 +75,8 @@
     <!-- FOOTER -->
 
 
-    <?php include '../includes/footer.php'; ?>
-    <script src="/assets/js/funcionesPassword.js"></script>
+    <?php include './../includes/footer.php'; ?>
+    <script src="./../../assets/js/funcionesPassword.js"></script>
 </body>
 
 </html>
