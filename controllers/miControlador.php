@@ -118,14 +118,13 @@ if (isset($_REQUEST['submit'])) {
             //Cuando se pulsa Promociones en la barra de navegacion
             case "Tienda":
                 //Almacenamiento del listado de productos
-                $listaProductos = Producto::consultarProductos($conn->conectar_bd());
-
+                // $listaProductos = Producto::consultarProductos($conn->conectar_bd());
                 // Construir la URL con la variable $listaProductos como parámetro
-                $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)[0]]);
-                $urlTienda = "./../views/shop/tienda.php?" . $listaProductosQuery;
-                header("Location: " . $urlTienda);
+                // $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
+                // $urlTienda = "./../views/shop/tienda.php?" . $listaProductosQuery;
+                // header("Location: " . $urlTienda);
                 // $_SESSION['queryProductos'] = $listaProductos;
-                // header("Location: ./../views/shop/tienda.php");
+                header("Location: ./../views/shop/tienda.php");
                 exit(); // Asegura de salir del script después de la redirección
 
 
@@ -147,12 +146,11 @@ if (isset($_REQUEST['submit'])) {
                 }
 
                 // // Construir la URL con la variable $listaProductos como parámetro
-                $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
-                $urlTienda = "./../views/shop/tienda.php?" . $listaProductosQuery;
-                header("Location: " . $urlTienda);
-
+                // $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
+                // $urlTienda = "./../views/shop/tienda.php?" . $listaProductosQuery;
+                // header("Location: " . $urlTienda);
                 // $_SESSION['queryProductos'] = $listaProductos;
-                // header("Location: ./../views/shop/tienda.php");
+                header("Location: ./../views/shop/tienda.php");
 
                 exit(); //Asegura de salir del script después de la redirección
                 break;
@@ -164,12 +162,12 @@ if (isset($_REQUEST['submit'])) {
 
                 if ($_SESSION['usermail'] != null && $_SESSION['user_rol'] != null) {
                     // Construir la URL con la variable $listaProductos como parámetro
-                    $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
-                    $urlCarro = "./../views/shop/carrito.php?" . $listaProductosQuery;
-                    header("Location: " . $urlCarro);
+                    // $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
+                    // $urlCarro = "./../views/shop/carrito.php?" . $listaProductosQuery;
+                    // header("Location: " . $urlCarro);
 
                 //     $_SESSION['queryProductos'] = $listaProductos;
-                // header("Location: ./../views/shop/tienda.php");
+                header("Location: ./../views/shop/carrito.php");
 
                     exit(); //Asegura de salir del script después de la redirección
                 } else {
@@ -182,16 +180,14 @@ if (isset($_REQUEST['submit'])) {
             //Cuando se pulsa el botón de volver a la página anterior
             case "Volver a tienda":
                 //Almacenamiento del listado de productos
-                $listaProductos = Producto::consultarProductos($conn->conectar_bd());
-
+                // $listaProductos = Producto::consultarProductos($conn->conectar_bd());
                 //Compresion de los datos
-                
-                $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
-                $urlTienda = "./../views/shop/tienda.php?" . $listaProductosQuery;
-                header("Location: " . $urlTienda);
+                // $listaProductosQuery = http_build_query(['listaProductos' => serialize($listaProductos)]);
+                // $urlTienda = "./../views/shop/tienda.php?" . $listaProductosQuery;
+                // header("Location: " . $urlTienda);
 
                 // $_SESSION['queryProductos'] = $listaProductos;
-                // header("Location: ./../views/shop/tienda.php");
+                header("Location: ./../views/shop/tienda.php");
 
                 exit(); //Asegura de salir del script después de la redirección
 

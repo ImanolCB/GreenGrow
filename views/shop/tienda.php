@@ -15,7 +15,7 @@
     <?php
     require_once './../../views/includes/fonts.php';
     require_once './../../models/producto.php';
-    // require_once './../../models/conexionBD.php';
+    require_once './../../models/conexionBD.php';
 
     ?>
 
@@ -195,17 +195,15 @@
                     <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-3 justify-content-center p-4">
 
                         <?php
-                        /**
-                         * TODO: Gestionar el tamaño de URL
-                         */
+                        
                         //Obtención de array de productos del controlador
-                        if (isset($_GET['listaProductos'])) {
-                            $listaProductosSerializado = $_GET['listaProductos'];
-                            $listaProductos = unserialize($listaProductosSerializado);
-                            echo "<pre>";
-                            echo var_dump($listaProductos);
-                            echo "</pre>";
-                        }
+                        // if (isset($_GET['listaProductos'])) {
+                        //     $listaProductosSerializado = $_GET['listaProductos'];
+                        //     $listaProductos = unserialize($listaProductosSerializado);
+                        //     echo "<pre>";
+                        //     echo var_dump($listaProductos);
+                        //     echo "</pre>";
+                        // }
 
                         // if (isset($_SESSION['queryProductos'])) {
                         //     //Construir las tarjetas de productos
@@ -213,7 +211,9 @@
                         //     echo "<pre>";
                         //     echo var_dump($listaProductos);
                         //     echo "</pre>";
-                        //     echo Producto::crearProductos($listaProductos); 
+                        $conn = new ConexionBD;
+                        $listaProductos = Producto::consultarProductos($conn->conectar_bd());
+                        echo Producto::crearProductos($listaProductos); 
                         //     $_SESSION['queryProductos'] = [];
                         // }
 

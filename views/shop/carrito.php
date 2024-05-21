@@ -25,8 +25,8 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <link rel="stylesheet" href="/assets/css/tienda.css">
+    <link rel="stylesheet" href="./../../assets/css/style.css">
+    <link rel="stylesheet" href="./../../assets/css/tienda.css">
 
 </head>
 
@@ -48,11 +48,13 @@
                     <ul class="list-group mb-3">
 
                         <?php
-                        //Obtención de array de productos del controlador
-                        if (isset($_GET['listaProductos'])) {
-                            $listaProductosSerializado = $_GET['listaProductos'];
-                            $listaProductos = unserialize($listaProductosSerializado);
-                        }
+                        // //Obtención de array de productos del controlador
+                        // if (isset($_GET['listaProductos'])) {
+                        //     $listaProductosSerializado = $_GET['listaProductos'];
+                        //     $listaProductos = unserialize($listaProductosSerializado);
+                        // }
+                        $conn = new ConexionBD;
+                        $listaProductos = Producto::consultarProductos($conn->conectar_bd());
                         //Array que almacena los objetos de productos que se tienen que pintar
                         $productosCarrito = [];
 
@@ -148,16 +150,6 @@
                                 onApprove: function(data, actions) {
                                     //Url de la direccion a la que se mandan los datos en formato JSON
                                     let URL = '../../controllers/miControladorPago.php'
-
-                                    <?php ?>
-                                    <?php
-//                                             // Construir la URL con la variable $productosCarrito como parámetro
-                                            $productosCarritoQuery = http_build_query(['productosCarrito' => serialize($productosCarrito)]);
-                                            $provinciaQuery = http_build_query(['provincia' => serialize($provincia)]);
-                                            $urlCarro = "../../controllers/miControladorPago.php?" . $productosCarritoQuery;
-                                            header("Location: " . $urlCarro);
-                                            exit(); //Asegura de salir del script después de la redirección
-                                        ?>
 
                                     actions.order.capture().then(function(detalles) {
 
