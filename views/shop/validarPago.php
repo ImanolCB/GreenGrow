@@ -14,12 +14,13 @@
 
     <!-- Required PHP -->
     <?php
-    // require_once './views/includes/fonts.php';
-    // require_once './models/producto.php';
+    require_once './../../models/Producto.php';
+    require_once './../../models/carro.php';
+    require_once './../../models/conexionBD.php';
     ?>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="./..//assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/index.css">
 
 </head>
@@ -27,7 +28,7 @@
 <body>
 
     <!-- HEADER -->
-    <?php include '../includes/header.php'; ?>
+    <?php include './../includes/header.php'; ?>
 
     <!-- MAIN -->
 
@@ -42,14 +43,14 @@
         </p>
         <hr>
 
-        <form action="../../controllers/miControlador.php" method="post">
+        <form action="./../../controllers/miControlador.php" method="post">
             <button type="submit" name="submit" value="Volver a tienda" id="btnVolverTienda" class="btn position-relative m-4">Volver</button>
         </form>
 
 
 
     </main>
-    <?php include '../includes/footer.php' ?>
+    <?php include './../includes/footer.php' ?>
 </body>
 
 </html>

@@ -44,11 +44,11 @@
 
 
 
-        <form action="../../controllers/miControlador.php" method="post">
+        <form action="./../../controllers/miControlador.php" method="post">
             <div id="sidebar" class=" p-3 sidebar d-lg-block">
 
                 <!-- <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"> -->
-                    <span class="fs-4">Filtros</span>
+                <span class="fs-4">Filtros</span>
                 <!-- </a> -->
 
                 <hr>
@@ -146,7 +146,8 @@
 
 
 
-        <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()">< </button>
+        <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()">
+            < </button>
 
                 <?php
 
@@ -195,28 +196,9 @@
                     <div class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-3 justify-content-center p-4">
 
                         <?php
-                        
-                        //Obtención de array de productos del controlador
-                        // if (isset($_GET['listaProductos'])) {
-                        //     $listaProductosSerializado = $_GET['listaProductos'];
-                        //     $listaProductos = unserialize($listaProductosSerializado);
-                        //     echo "<pre>";
-                        //     echo var_dump($listaProductos);
-                        //     echo "</pre>";
-                        // }
-
-                        // if (isset($_SESSION['queryProductos'])) {
-                        //     //Construir las tarjetas de productos
-                        //     $listaProductos = $_SESSION['queryProductos'];
-                        //     echo "<pre>";
-                        //     echo var_dump($listaProductos);
-                        //     echo "</pre>";
-                        $conn = new ConexionBD;
-                        $listaProductos = Producto::consultarProductos($conn->conectar_bd());
-                        echo Producto::crearProductos($listaProductos); 
-                        //     $_SESSION['queryProductos'] = [];
-                        // }
-
+                            $conn = new ConexionBD;
+                            $listaProductos = Producto::consultarProductos($conn->conectar_bd());
+                            echo Producto::crearProductos($listaProductos);
                         ?>
                     </div>
                 </div>

@@ -41,7 +41,7 @@ class Carro
   }
 
   // Funcion para insertar el carrito en la base de datos
-  public static function insertarCarrito($productosCarrito, $conexion, $idUsuario, $metodoPago, $direccion, $provincia)
+  public static function insertarCarrito($productosCarrito, $conexion, $idUsuario, $metodoPago, $direccion, $provincia, $estado)
   {
 
     // Iniciar la transacción, con begin se realizan varias operaciones a la vez pudiendo hacer commit alñ final o cancelar con rollback
@@ -67,7 +67,7 @@ class Carro
 
       // 3. Registrar la transacción
       $fechaTransaccion = date('Y-m-d');
-      $estado = 'pagado'; // O 'pendiente', según sea necesario
+      
 
       $query = "
             INSERT INTO transaccion (id_cesta, metodo, direccion, provincia, estado, fecha_transaccion) 
