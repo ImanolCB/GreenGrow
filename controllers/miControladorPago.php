@@ -16,15 +16,14 @@ $json = file_get_contents('php://input');
 $datos = json_decode($json, true);
 
 echo '<pre>';
-print_r ($datos);
-print_r ($_SESSION['carrito']);
+print_r($datos) . '<br>';
+print_r($_SESSION['carrito']);
 echo '</pre>';
 //Obtencion de los objetos del carro
 $userId = $_SESSION['user_id'];
 $productosCarrito = $_SESSION['carrito'];
 
-if(is_array($datos)){
-    // $productosCarrito = $datos['productosCarrito'];
+if (is_array($datos)) {
     $metodoPago = 'paypal';
     $direccion = $datos['direccion'];
     $provincia = $datos['provincia'];
@@ -32,10 +31,6 @@ if(is_array($datos)){
     $estado;
     if ($status == 'COMPLETED') {
         $estado = 'pagado';
-    }else $estado = 'pendiente';
+    } else $estado = 'pendiente';
     Carro::insertarCarrito($productosCarrito, $conn->conectar_bd(), $userId, $metodoPago, $direccion, $provincia, $estado);
 }
-
-
-
-

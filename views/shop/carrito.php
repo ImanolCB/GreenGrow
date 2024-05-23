@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Green Grow - Tienda</title>
-    <link rel="shortcut icon" href="./../../assets/img/logo.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="./../../assets/img/logo.png" type="image/x-icon">
     <!-- Bootsrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
@@ -55,14 +55,13 @@
 
                         if (isset($_SESSION['carrito'])) {
                             //Doble bucle para comparar los id con los productos diponibles 
-                            foreach ($listaProductos as $producto){
+                            foreach ($listaProductos as $producto) {
                                 foreach ($_SESSION['carrito'] as $idProducto) {
                                     if ($idProducto == $producto->id_producto) {
                                         array_push($productosCarrito, $producto);
                                     }
                                 }
                             }
-                                
                         }
                         //Método para imprimir la estructura HTML con los datos de productos y calcular el total
                         $carrito = Carro::mostrarProductoCarroPorId($productosCarrito);
@@ -160,7 +159,7 @@
                                         showConfirmButton: false,
                                         timer: 1500
                                     });
-
+                                    //Envio de datos al controlador de pago
                                     return fetch('./../../controllers/miControladorPago.php', {
                                         method: 'post',
                                         headers: {
@@ -171,9 +170,23 @@
                                             direccion: document.getElementById('address').value,
                                             provincia: document.getElementById('address2').value,
                                         })
-                                    })
+                                    }).then(function(response) {
+                                        if (response.ok) {
+                                            <?php $_SESSION['carrito'] = []; ?>
+                                            // Redirige a la página de confirmación solo si la solicitud fetch fue exitosa
+                                            window.location.href = "./../../views/shop/validarPago.php";
+                                        } else {
+                                            // Manejar el error si la solicitud fetch falla
+                                            console.error('Error al procesar el pago');
+                                            window.location.href = "./../../views/error/error.php";
+                                        }
+                                    }).catch(function(error) {
+                                        console.error('Error en la solicitud fetch:', error);
+                                        window.location.href = "./../../views/error/error.php";
+                                    });
+                                    // window.location.href = "./../../views/shop/validarPago.php";
                                     // Redirige a la página de confirmación
-                                    window.location.href = "./../../controllers/miControladorPago.php";
+                                    // window.location.href = "./../../controllers/miControladorPago.php";
                                 })
 
                             },
