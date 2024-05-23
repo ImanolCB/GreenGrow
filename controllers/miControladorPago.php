@@ -17,12 +17,14 @@ $datos = json_decode($json, true);
 
 echo '<pre>';
 print_r ($datos);
+print_r ($_SESSION['carrito']);
 echo '</pre>';
 //Obtencion de los objetos del carro
 $userId = $_SESSION['user_id'];
+$productosCarrito = $_SESSION['carrito'];
 
 if(is_array($datos)){
-    $productosCarrito = $datos['productosCarrito'];
+    // $productosCarrito = $datos['productosCarrito'];
     $metodoPago = 'paypal';
     $direccion = $datos['direccion'];
     $provincia = $datos['provincia'];

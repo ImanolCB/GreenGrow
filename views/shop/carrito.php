@@ -55,12 +55,14 @@
 
                         if (isset($_SESSION['carrito'])) {
                             //Doble bucle para comparar los id con los productos diponibles 
-                            foreach ($listaProductos as $producto)
+                            foreach ($listaProductos as $producto){
                                 foreach ($_SESSION['carrito'] as $idProducto) {
                                     if ($idProducto == $producto->id_producto) {
                                         array_push($productosCarrito, $producto);
                                     }
                                 }
+                            }
+                                
                         }
                         //Método para imprimir la estructura HTML con los datos de productos y calcular el total
                         $carrito = Carro::mostrarProductoCarroPorId($productosCarrito);
@@ -145,7 +147,6 @@
                             },
                             onApprove: function(data, actions) {
 
-                                let productosCarrito = <?php $productosCarrito ?>
                                 actions.order.capture().then(function(detalles) {
 
                                     console.log(detalles);
@@ -155,7 +156,7 @@
                                     Swal.fire({
                                         position: "center",
                                         icon: "success",
-                                        title: "Your work has been saved",
+                                        title: "Pago realizado",
                                         showConfirmButton: false,
                                         timer: 1500
                                     });
@@ -169,15 +170,8 @@
                                             detalles: detalles,
                                             direccion: document.getElementById('address').value,
                                             provincia: document.getElementById('address2').value,
-                                            productosCarrito: productosCarrito
                                         })
                                     })
-
-                                    $_POST['direccion'] = document.getElementById('address').value;
-                                    $_POST['provincia'] = document.getElementById('address2').value;
-                                    // document.addEventListener("DOMContentLoaded", function() {
-                                    //     document.getElementById('autoForm').submit();
-                                    // });
                                     // Redirige a la página de confirmación
                                     window.location.href = "./../../controllers/miControladorPago.php";
                                 })

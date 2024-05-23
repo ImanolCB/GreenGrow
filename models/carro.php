@@ -56,11 +56,16 @@ class Carro
 
       // Obtener el id_cesta generado para utilizar en cesta-producto
       $idCesta = $conexion->insert_id;
-
+      echo ('idCesta : ' . $idCesta);
+      if (!$idCesta) {
+        throw new Exception("Error obteniendo el ID de la cesta: " . $conexion->error);
+      }
+      
       //Insertar productos en la cesta-producto con sentencias preparadas para evitar inyeccion
       $query = "INSERT INTO `cesta-producto` (id_cesta, id_producto) VALUES (?, ?)";
       $stmt = $conexion->prepare($query);
       foreach ($productosCarrito as $productoId) {
+        echo ('idProducto : ' . $productoId);
         $stmt->bind_param("ii", $idCesta, $productoId);
         $stmt->execute();
       }
@@ -98,7 +103,7 @@ class Carro
     }
   }
 
-  //Función para dar de alta un usuario
+  //Función para mostrar el objeto producto segun su id
   public static function mostrarProductoCarroPorId($productosCarrito)
   {
     $html = " ";
