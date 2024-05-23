@@ -53,6 +53,19 @@
                         //Array que almacena los objetos de productos que se tienen que pintar
                         $productosCarrito = [];
 
+                        //Comprobación si se ha eliminado algún producto de la lista del carrito
+                        if (isset($_REQUEST['quitar'])) {
+                            $elementoAEliminar = $_REQUEST['quitar'];
+                            
+                            $index = array_search($elementoAEliminar, $_SESSION['carrito']);
+
+                            if ($index !== false) {
+                                unset($_SESSION['carrito'][$index]);
+                                // Reindexar el array para evitar saltos en los índices
+                                $_SESSION['carrito'] = array_values($_SESSION['carrito']);
+                            }
+                        }
+
                         if (isset($_SESSION['carrito'])) {
                             //Doble bucle para comparar los id con los productos diponibles 
                             foreach ($listaProductos as $producto) {
@@ -80,47 +93,47 @@
                 </div>
                 <div class="col-md-8 order-md-1">
                     <h4 class="mb-3">Dirección de Envio</h4>
-                    <form id="autoForm" action="./../../controllers/miControlador.php" method="POST">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="firstName">Nombre de pila</label>
-                                <input type="text" class="form-control" id="firstName" placeholder="Nombre" name="nombre" required>
-                                <div class="invalid-feedback">
-                                    Valid first name is required.
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="lastName">Apellido</label>
-                                <input type="text" class="form-control" id="lastName" placeholder="Apellido" name="apellido" required>
-                                <div class="invalid-feedback">
-                                    Valid last name is required.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="email">Correo electrónico</label>
-                            <input type="email" class="form-control" id="email" name="email" value="<?php echo $_SESSION['usermail'] ?>" placeholder="tu@ejemplo.com" required>
+                    <!-- <form id="autoForm" action="./../../controllers/miControlador.php" method="POST"> -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName">Nombre de pila</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="Nombre" name="nombre" required>
                             <div class="invalid-feedback">
-                                Please enter a valid email address for shipping updates.
+                                Valid first name is required.
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="address">Dirección</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 calle principal, Ciudad" name="direccion" required>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName">Apellido</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="Apellido" name="apellido" required>
                             <div class="invalid-feedback">
-                                Please enter your shipping address.
+                                Valid last name is required.
                             </div>
                         </div>
-                        <div class="mb-5">
-                            <label for="address2">Provincia</label>
-                            <input type="text" class="form-control" id="address2" name="provincia" value="Cantabria" placeholder="Cantabria" required>
-                        </div>
+                    </div>
 
-                        <img src="./../../assets/img/carrito.gif" class="m-2" width="150" alt="Carro de compras">
-                        <h4 class="mb-3 mt-4">Pago</h4>
-                        <hr class="mb-4">
-                    </form>
+                    <div class="mb-3">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" class="form-control" id="email" name="email" value="<?php echo $_SESSION['usermail'] ?>" placeholder="tu@ejemplo.com" required>
+                        <div class="invalid-feedback">
+                            Please enter a valid email address for shipping updates.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address">Dirección</label>
+                        <input type="text" class="form-control" id="address" placeholder="1234 calle principal, Ciudad" name="direccion" required>
+                        <div class="invalid-feedback">
+                            Please enter your shipping address.
+                        </div>
+                    </div>
+                    <div class="mb-5">
+                        <label for="address2">Provincia</label>
+                        <input type="text" class="form-control" id="address2" name="provincia" value="Cantabria" placeholder="Cantabria" required>
+                    </div>
+
+                    <img src="./../../assets/img/carrito.gif" class="m-2" width="150" alt="Carro de compras">
+                    <h4 class="mb-3 mt-4">Pago</h4>
+                    <hr class="mb-4">
+                    <!-- </form> -->
 
 
                     <!-- PayPal -->
@@ -172,7 +185,7 @@
                                         })
                                     }).then(function(response) {
                                         if (response.ok) {
-                                            <?php $_SESSION['carrito'] = []; ?>
+                                            <?php  ?>
                                             // Redirige a la página de confirmación solo si la solicitud fetch fue exitosa
                                             window.location.href = "./../../views/shop/validarPago.php";
                                         } else {
@@ -206,7 +219,7 @@
     <?php include './../includes/footer.php' ?>
 
     <!-- SCRIPTS -->
-    <script src="./../../assets/js/funcionesSideBar.js"></script>
+    <script src="./../../assets/js/botonPagoPaypal.js"></script>
 
 </body>
 

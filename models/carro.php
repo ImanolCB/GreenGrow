@@ -109,6 +109,8 @@ class Carro
     $html = " ";
     $total = 0;
     if ($productosCarrito != null) {
+      //Ordenacion de array 
+      sort($productosCarrito);
       foreach ($productosCarrito as $producto) {
         $html .= "
         
@@ -117,6 +119,9 @@ class Carro
                   <h6 class='my-0'>" . $producto->nombre . "</h6>
                   <small class='text-muted'>" . $producto->descripcion . "</small>
               </div> <span class='text-muted'>" . $producto->precio . "€</span>
+              <form action='./../../views/shop/carrito.php' method='post'>
+                <button type='submit' name='quitar' value='$producto->id_producto' id='btnVolverTienda' class='btnRed btn position-relative m-4'>Quitar</button>
+            </form>
           </li>
           ";
 

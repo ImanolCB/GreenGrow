@@ -1,6 +1,4 @@
-<?php
-
-session_start();
+<?php session_start();
 
 require_once '../models/conexionBD.php';
 require_once '../models/Producto.php';
@@ -33,4 +31,5 @@ if (is_array($datos)) {
         $estado = 'pagado';
     } else $estado = 'pendiente';
     Carro::insertarCarrito($productosCarrito, $conn->conectar_bd(), $userId, $metodoPago, $direccion, $provincia, $estado);
+    $_SESSION['carrito'] = [];
 }

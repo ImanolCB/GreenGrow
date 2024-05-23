@@ -165,7 +165,6 @@ if (isset($_REQUEST['submit'])) {
             case "Volver a tienda":
 
                 header("Location: ./../views/shop/tienda.php");
-
                 exit(); //Asegura de salir del script después de la redirección
 
                 //Cuando el boton pulsado no coincide con ningún caso

@@ -32,7 +32,9 @@
 
     <!-- MAIN -->
 
-    <main class="main mt-4">
+    <main class="main container mt-4">
+        <p class="fs-4"><b>Compra realizada correctamente </b></p>
+        <hr>
         <p>Fecha de entrega aproximada:
             <?php
             $fecha_actual = new DateTime();
@@ -41,10 +43,9 @@
             echo $fecha_formateada;
             ?>
         </p>
-        <hr>
 
         <form action="./../../controllers/miControlador.php" method="post">
-            <button type="submit" name="submit" value="Volver a tienda" id="btnVolverTienda" class="btn position-relative m-4">Volver</button>
+            <button type="submit" name="submit" value="Volver a tienda" id="btnVolverTienda" class="btn position-relative m-4">Aceptar</button>
         </form>
 
 
