@@ -149,15 +149,6 @@
         <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()">
             < </button>
 
-                <?php
-
-                /**
-                 * TODO: HACER EL FORMULARIO PARA LOS BOTONES DE SUBMIT DE CADA PRODUCTO Y DEL CARRITO
-                 * TODO: HACER EL INCLUDE PARA CADA PRODUCTO CARGADO CON LOS DATOS OBTENIDOS DE LA CONSULTA DE PRODUCTOS
-                 */
-
-                ?>
-
                 <!-- CONTENEDOR -->
 
                 <?php

@@ -79,6 +79,64 @@ class Transaccion {
     public function setFechaTransaccion($fecha_transaccion) {
         $this->fecha_transaccion = $fecha_transaccion;
     }
+
+    public static function consultarTransaccion($conexion)
+    {
+        // Preparar la consulta SQL de Select
+        $query = "SELECT * FROM usuario ";
+
+        // Preparar la declaración
+        $stmt = mysqli_prepare($conexion, $query);
+
+        // Ejecutar la declaración
+        mysqli_stmt_execute($stmt);
+
+        // Obtener resultados
+        $resultado = mysqli_stmt_get_result($stmt);
+
+        /**
+         * TODO: PENDIENTE HACER CONSULTA A 3 TABLAS PARA TRANSACCION
+         * TODO: PENDIENTE FUNCIONES DE UPDATE ROL Y ESTADO TRANSACCION
+         */
+
+        // Verificar si la consulta fue exitosa
+        if (!$resultado) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return "Error al ejecutar la consulta: " . mysqli_error($conexion);
+        } else {
+            $html = "";
+            // $arrayUsuarios = [];
+            //Muentras tenga resultados se le asocia a una fila un resultado y se hace un objeto
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                // var_dump($fila);
+                $id = $fila['id_usuario'];
+                $email = $fila['email'];
+                $password = $fila['password'];
+                $rol = $fila['rol'];
+                $fecha_alta = $fila['fecha_alta'];
+
+                $usuario = new Usuario($id, $email, $password, $rol, $fecha_alta);
+                $rolUs = '';
+                if($usuario->getRol() == 'administrador'){$rolUs = 'Adm';} else $rolUs = 'Usu';
+
+                $html .= "
+                <tr class = 'align-middle text-center'>
+                    <td>" . $usuario->getIdUsuario() ." </td>
+                    <td>" . $usuario->getEmail() ." </td>
+                    <td>" . $rolUs ." </td>
+                    <td>" . $usuario->getFechaAlta() ." </td>
+                    <td> 
+                        <button type='submit' name='cambiar' value='". $usuario->getIdUsuario() . "' class='btn btn-primary'>Cambiar rol</button>
+                        <button type='submit' name='eliminar' value='". $usuario->getIdUsuario() . "' class='btnRed btn btn-primary'>Eliminar</button>
+                    </td>
+                </tr>
+                ";
+                // array_push($arrayUsuarios, $usuario);
+            }
+            // var_dump($arrayProductos);
+            return $html;
+        }
+    }
 }
 
 ?>

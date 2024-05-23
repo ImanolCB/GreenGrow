@@ -23,9 +23,9 @@ if (isset($_REQUEST['submit'])) {
             case "Iniciar sesion":
                 $emailInicioSesion = $_REQUEST['emailLogin'];
                 $passwordInicioSesion = $_REQUEST['passwordLogin'];
-                $usuarioInicioSesion = new Usuario;
-                $usuarioInicioSesion->setEmail($emailInicioSesion);
-                $usuarioInicioSesion->setPassword($passwordInicioSesion);
+                $usuarioInicioSesion = new Usuario(0,$emailInicioSesion,$passwordInicioSesion,null,null);
+                // $usuarioInicioSesion->setEmail($emailInicioSesion);
+                // $usuarioInicioSesion->setPassword($passwordInicioSesion);
 
                 // Verificar el usuario
                 $resultadoVerificacion = $usuarioInicioSesion->verificarUsuario($usuarioInicioSesion, $conn->conectar_bd());
@@ -55,9 +55,9 @@ if (isset($_REQUEST['submit'])) {
                 $emailRegistro = $_REQUEST['emailRegistro'];
                 $passwordRegistro = $_REQUEST['passwordRegistro'];
                 $passwordRegistroRep = $_REQUEST['passwordRegistroRep'];
-                $usuarioRegistro = new Usuario;
-                $usuarioRegistro->setEmail($emailRegistro);
-                $usuarioRegistro->setPassword($passwordRegistro);
+                $usuarioRegistro = new Usuario(0,$emailRegistro,$passwordRegistro,null,null);
+                // $usuarioRegistro->setEmail($emailRegistro);
+                // $usuarioRegistro->setPassword($passwordRegistro);
 
                 // Verificación de que el usuario todavía no está registrado
                 $resultadoExistencia = $usuarioRegistro->existeUsuario($usuarioRegistro, $conn->conectar_bd());
@@ -88,12 +88,19 @@ if (isset($_REQUEST['submit'])) {
                 //Cuando se pulse "Mi cuenta" en la barra de navegacion
             case "Mi cuenta":
                 if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
+
                     header("Location: ./../views/login/login.php");
                     exit(); //Asegura de salir del script después de la redirección
+
                 } else {
-                    // header("Location: /../index.php");
-                    header("Location: ./../views/myAccount/account.php");
-                    exit(); //Asegura de salir del script después de la redirección
+                    if ($_SESSION['user_rol'] == 'administrador') {
+                        header("Location: ./../views/myAccount/panelControl.php");
+                        exit(); //Asegura de salir del script después de la redirección
+                    } else {
+                        // header("Location: /../index.php");
+                        header("Location: ./../views/myAccount/account.php");
+                        exit(); //Asegura de salir del script después de la redirección
+                    }
                 }
                 break;
             case "Cerrar sesion":
