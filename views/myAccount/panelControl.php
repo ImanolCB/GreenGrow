@@ -18,6 +18,7 @@
     <?php
     // require_once './../views/includes/fonts.php';
     require_once './../../models/Usuario.php';
+    require_once './../../models/Transaccion.php';
     require_once './../../models/conexionBD.php';
     $conn = new ConexionBD;
     ?>
@@ -71,10 +72,14 @@
     <!-- MAIN -->
 
     <main class="main mt-4">
-        <div class="container mt-5">
+
+        <input type="checkbox" name="TBusuario" id="chUsuario"> Tabla Usuario
+        <input type="checkbox" name="TBtransaccion" id="chTransaccion" checked> Tabla Transacciones
+
+        <div class="container d-flex flex-column align-items-center justify-content-center mt-5">
             <h1 class="text-center mb-4">Panel de Control</h1>
-            <div class="row">
-                <div class="col-md-6">
+            <div class="row" id="tablaUsuario">
+                <div class="col-md-12">
                     <h2 class="text-center">Usuarios</h2>
                     <table class="table table-bordered table-striped">
                         <thead class="thead-custom">
@@ -90,22 +95,23 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="col-md-6">
+            </div>
+            <div class="row" id="tablaTransaccion">
+                <div class="col-md-12">
                     <h2 class="text-center">Pedidos</h2>
                     <table class="table table-bordered table-striped">
                         <thead class="thead-custom">
                             <tr>
-                                <th>ID</th>
-                                <th>Email</th>
-                                <th>Direccion</th>
-                                <th>Provincia</th>
                                 <th>Fecha</th>
+                                <th>Email</th>
+                                <th>Producto</th>
+                                <th>Direccion</th>
                                 <th>Cantidad</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
                         <tbody id="ordersTable">
-                            <!-- Datos de pedidos serán insertados aquí -->
+                            <?php echo Transaccion::consultarTransaccion($conn->conectar_bd()) ?>
                         </tbody>
                     </table>
                 </div>
