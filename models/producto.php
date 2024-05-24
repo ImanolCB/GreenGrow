@@ -142,9 +142,6 @@ class Producto
     }
 
 
-    /**
-     * ! Arreglar el funcionamiento de la consulta
-     */
 
     //Metodo para obtener los productos de la base de datos en un array
     public static function consultarProductos($conexion)
@@ -214,10 +211,10 @@ class Producto
             $html .= "
          
              <div class='col'>
-             <div class='card h-100' id='". $producto->getIdProducto() ."'>
-                 <img src=' " . $producto->getUrl() . " ' class='card-img-top'alt='". $producto->getNombre() . "' title='" . $producto->getNombre() . "'>
+             <div class='card h-100' id='" . $producto->getIdProducto() . "'>
+                 <img src=' " . $producto->getUrl() . " ' class='card-img-top'alt='" . $producto->getNombre() . "' title='" . $producto->getNombre() . "'>
                  <div class='card-body mt-2  '>
-                     <h5 class='card-title mb-4 d-flex flex-row justify-content-between'>"   . $producto->getNombre() . "<span class='text-black p-1 border border-success rounded-1'>" . number_format($producto->getPrecio(), 2, ',', '.' ) . " €</span></h5>
+                     <h5 class='card-title mb-4 d-flex flex-row justify-content-between'>"   . $producto->getNombre() . "<span class='text-black p-1 border border-success rounded-1'>" . number_format($producto->getPrecio(), 2, ',', '.') . " €</span></h5>
                      <p class='card-text text-start m-1'><span>Nivel de cuidado: </span>" . $producto->getCuidado() . "</p>
                      <p class='card-text text-start m-1'><span>Tipo de planta: </span>" . $producto->getTipo() . "</p>
                      <p class='card-text text-start m-1'><span>Altura máxima: </span>" . $producto->getAltura() . "</p>
@@ -242,9 +239,10 @@ class Producto
     }
 
     //Metodo para añadir producto a cesta
-    public static function anadirProductoACesta($arrayCesta, $cantidad, $id_producto){
+    public static function anadirProductoACesta($arrayCesta, $cantidad, $id_producto)
+    {
         $nuevoArray = [];
-        for ($i=0; $i < $cantidad ; $i++) { 
+        for ($i = 0; $i < $cantidad; $i++) {
             array_push($arrayCesta, $id_producto);
         }
         $nuevoArray = $arrayCesta;
@@ -253,17 +251,73 @@ class Producto
 
 
     //Método estático para crear una carta de producto
-    public static function crearPromocion($imageUrl, $title, $description)
+    public static function crearPromocion($conexion, $cantidad)
     {
-        return "
-        <div class='card' style='width: 18rem;'>
-        <img src='$imageUrl' class='card-img-top' alt='...'>
-        <div class='card-body'>
-          <h5 class='card-title'>$title</h5>
-          <p class='card-text'>$description</p>
-          <a href='#' class='btn btn-primary'>Go somewhere</a>
-        </div>
-      </div>
+        if ($cantidad != 0) {
+            // Preparar la consulta SQL de Select
+            $query = "SELECT * FROM producto WHERE promocion like 'si' LIMIT 4";
+        }else{
+            // Preparar la consulta SQL de Select
+            $query = "SELECT * FROM producto WHERE promocion like 'si'";
+        }
+
+        // Preparar la declaración
+        $stmt = mysqli_prepare($conexion, $query);
+
+        // Ejecutar la declaración
+        mysqli_stmt_execute($stmt);
+
+        // Obtener resultados
+        $resultado = mysqli_stmt_get_result($stmt);
+
+        // Verificar si la consulta fue exitosa
+        if (!$resultado) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return "Error al ejecutar la consulta: " . mysqli_error($conexion);
+        } else {
+            $html = "";
+            
+            //Muentras tenga resultados se le asocia a una fila un resultado y se hace un objeto
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $id = $fila['id_producto'];
+                $nombre = $fila['nombre'];
+                $descripcion = $fila['descripcion'];
+                $altura = $fila['altura'];
+                $epoca = $fila['epoca'];
+                $tipo = $fila['tipo'];
+                $cuidado = $fila['cuidado'];
+                $precio = $fila['precio'];
+                $promocion = $fila['promocion'];
+                $url = $fila['url'];
+
+                $producto = new Producto;
+                $producto->__construct(
+                    $id,
+                    $nombre,
+                    $descripcion,
+                    $altura,
+                    $epoca,
+                    $tipo,
+                    $cuidado,
+                    $precio,
+                    $promocion,
+                    $url
+                );
+
+                $html .= "
+                    <div class='col d-flex justify-content-center'>
+                      <div class='card' style='width: 18rem;'>
+                        <img src='" . $producto ->getUrl() . "' class='card-img-top' alt='...'>
+                        <div class='card-body'>
+                          <h5 class='card-title'>" . $producto ->getNombre() . "</h5>
+                          <p class='card-text'>" . $producto ->getDescripcion() . "</p>
+                          
+                        </div>
+                      </div>
+                    </div>
         ";
+            }
+            return $html;
+        }
     }
 }

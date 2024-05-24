@@ -23,14 +23,14 @@ body {
 }
 
 .textoTitulo {
-  width: 30vw;
+  /* width: 30vw; */
   min-width: clamp(350px, 75%, 600px);
   text-align: left;
   
 }
 
 .textoTitulo h1 {
-  font-size: 8rem;
+  font-size: 6rem;
   font-family: "Indie Flower", cursive;
   font-weight: 400;
   font-style: normal;

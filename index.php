@@ -15,6 +15,7 @@
     <?php
     require_once './views/includes/fonts.php';
     require_once './models/producto.php';
+    require_once './models/conexionBD.php';
     ?>
 
     <!-- CSS -->
@@ -32,32 +33,24 @@
 
     <main class="main">
         <section class="parallax">
-            <div class="textoTitulo">
-                <!-- <h1>Green Grow</h1> -->
+            <div class="textoTitulo w-full d-flex justify-content-between">
+                <!-- <h1 class="m-auto">Green Grow</h1> -->
                 <p class="text-uppercase">Cultiva y dale más vida a tu hogar</p>
             </div>
         </section>
         <section class=" promociones text-center">
             <h3>Promociones</h3>
 
-            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  row-cols-xxl-5">
-
+            <div class="m-auto justify-content-evenly row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  row-cols-xxl-5">
                 <?php
                 /**
                  * Bucle que genera 5 estructuras de promociones
                  */
-                for ($i = 0; $i < 5; $i++) {
-                    echo '<div class="col m-10 d-flex justify-content-center">';
-                    echo Producto::crearPromocion(
-                        "https://images.unsplash.com/photo-1485955900006-10f4d324d411?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                        "Promocion",
-                        "Descripcion de prueba del producto"
-                    );
-                    echo '</div>';
-                }
+                $conn = new ConexionBD;
+                    echo Producto::crearPromocion($conn->conectar_bd(),1);
                 ?>
-
             </div>
+            
 
         </section>
 
