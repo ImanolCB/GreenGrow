@@ -12,6 +12,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Required PHP -->
     <?php
     // require_once './../views/includes/fonts.php';
@@ -28,13 +30,40 @@
 
 <body>
 
-<?php 
+    <?php if (isset($_SESSION['mensaje'])) : ?>
+        <script>
+            Swal.fire({
+                position: 'top-start',
+                icon: 'success',
+                title: '<?php echo $_SESSION['mensaje']; ?>',
+                showConfirmButton: false,
+                timer: 1500
+            });
+        </script>
+        <?php unset($_SESSION['mensaje']); ?>
+    <?php endif; ?>
+
+    <?php
+
+    //Cuando se pulsa cambiar rol
     if (isset($_REQUEST['cambiar'])) {
         $id = intval($_REQUEST['cambiar']);
-
-        Usuario::actualizarRolUsuario($id ,$conn->conectar_bd());
+        Usuario::actualizarRolUsuario($id, $conn->conectar_bd());
+        $_SESSION['mensaje'] = 'El rol se ha modificado';
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit();
     }
-?>
+    //Cuando se pulsa eliminar usuario
+    if (isset($_REQUEST['eliminar'])) {
+
+        $id = intval($_REQUEST['eliminar']);
+        Usuario::borrarUsuario($id, $conn->conectar_bd());
+        $_SESSION['mensaje'] = 'El usuario se ha eliminado';
+
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit();
+    }
+    ?>
 
     <!-- HEADER -->
     <?php include '../includes/header.php'; ?>
@@ -42,47 +71,47 @@
     <!-- MAIN -->
 
     <main class="main mt-4">
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Panel de Control</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <h2 class="text-center">Usuarios</h2>
-                <table class="table table-bordered table-striped">
-                    <thead class="thead-custom">
-                        <tr>
-                            <th>ID</th>
-                            <th>Email</th>
-                            <th>Rol</th>
-                            <th>Registrado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="usersTable">
-                        <?php echo Usuario::consultarUsuarios($conn->conectar_bd())?>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-6">
-                <h2 class="text-center">Pedidos</h2>
-                <table class="table table-bordered table-striped">
-                    <thead class="thead-custom">
-                        <tr>
-                            <th>ID</th>
-                            <th>Email</th>
-                            <th>Direccion</th>
-                            <th>Provincia</th>
-                            <th>Fecha</th>
-                            <th>Cantidad</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ordersTable">
-                        <!-- Datos de pedidos serán insertados aquí -->
-                    </tbody>
-                </table>
+        <div class="container mt-5">
+            <h1 class="text-center mb-4">Panel de Control</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    <h2 class="text-center">Usuarios</h2>
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-custom">
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Registrado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTable">
+                            <?php echo Usuario::consultarUsuarios($conn->conectar_bd()) ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <h2 class="text-center">Pedidos</h2>
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-custom">
+                            <tr>
+                                <th>ID</th>
+                                <th>Email</th>
+                                <th>Direccion</th>
+                                <th>Provincia</th>
+                                <th>Fecha</th>
+                                <th>Cantidad</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordersTable">
+                            <!-- Datos de pedidos serán insertados aquí -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
-        
+
     </main>
     <?php include '../includes/footer.php' ?>
 </body>

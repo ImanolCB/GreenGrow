@@ -244,4 +244,32 @@ class Usuario
         $stmt->close();
     }
 
+    //Función para eliminar usuario de la base de datos
+    public static function borrarUsuario($id_usuario, $conexion) {
+        // Verificar conexión
+        if ($conexion->connect_error) {
+            die("Conexión fallida: " . $conexion->connect_error);
+        }
+    
+        // Consulta SQL para eliminar el usuario
+        $sql = "DELETE FROM usuario WHERE id_usuario = ?";
+        if ($stmt = $conexion->prepare($sql)) {
+            $stmt->bind_param("i", $id_usuario);
+    
+            // Ejecutar la consulta
+            if ($stmt->execute()) {
+                if ($stmt->affected_rows > 0) {
+                    echo "Usuario con ID $id_usuario eliminado exitosamente.";
+                } else {
+                    echo "No se encontró ningún usuario con el ID $id_usuario.";
+                }
+            } else {
+                echo "Error al ejecutar la consulta de eliminación: " . $stmt->error;
+            }
+    
+            $stmt->close();
+        } else {
+            echo "Error al preparar la consulta de eliminación: " . $conexion->error;
+        }
+    }
 }

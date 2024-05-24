@@ -74,7 +74,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                             // Verifica si estamos en la página de inicio de sesión o registro
                             if ($current_page != 'login.php' && $current_page != 'registro.php') {
                                 // Mostrará el botón dependiendo si estoy en el menu de inicio de sesión o no
-                                if ($current_page != 'account.php') {
+                                if ($current_page != 'account.php' && $current_page != 'panelControl.php') {
                             ?>
                                     <div class="d-flex">
                                         <button id="btnMiCuenta" type="submit" name="submit" value="Mi cuenta" class="btn btn-primary">Mi cuenta</button>
