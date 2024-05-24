@@ -83,7 +83,7 @@ class Transaccion {
     public static function consultarTransaccion($conexion)
     {
         // Preparar la consulta SQL de Select
-        $query = "SELECT * FROM usuario ";
+        $query = "SELECT * FROM transaccion ";
 
         // Preparar la declaración
         $stmt = mysqli_prepare($conexion, $query);

@@ -28,6 +28,14 @@
 
 <body>
 
+<?php 
+    if (isset($_REQUEST['cambiar'])) {
+        $id = intval($_REQUEST['cambiar']);
+
+        Usuario::actualizarRolUsuario($id ,$conn->conectar_bd());
+    }
+?>
+
     <!-- HEADER -->
     <?php include '../includes/header.php'; ?>
 

@@ -153,6 +153,7 @@ class Usuario
             }
         }
     }
+    //Funcion para obtener todos los usuarios de base de datos
     public static function consultarUsuarios($conexion)
     {
         // Preparar la consulta SQL de Select
@@ -188,16 +189,18 @@ class Usuario
                 if($usuario->getRol() == 'administrador'){$rolUs = 'Adm';} else $rolUs = 'Usu';
 
                 $html .= "
-                <tr class = 'align-middle text-center'>
-                    <td>" . $usuario->getIdUsuario() ." </td>
-                    <td>" . $usuario->getEmail() ." </td>
-                    <td>" . $rolUs ." </td>
-                    <td>" . $usuario->getFechaAlta() ." </td>
-                    <td> 
-                        <button type='submit' name='cambiar' value='". $usuario->getIdUsuario() . "' class='btn btn-primary'>Cambiar rol</button>
-                        <button type='submit' name='eliminar' value='". $usuario->getIdUsuario() . "' class='btnRed btn btn-primary'>Eliminar</button>
-                    </td>
-                </tr>
+                <form action='./../../views/myAccount/panelControl.php' method='post'>
+                    <tr class = 'align-middle text-center'>
+                        <td>" . $usuario->getIdUsuario() ." </td>
+                        <td>" . $usuario->getEmail() ." </td>
+                        <td>" . $rolUs ." </td>
+                        <td>" . $usuario->getFechaAlta() ." </td>
+                        <td> 
+                            <button type='submit' name='cambiar' value='". $usuario->getIdUsuario() . "' class='btn btn-primary'>Cambiar rol</button>
+                            <button type='submit' name='eliminar' value='". $usuario->getIdUsuario() . "' class='btnRed btn btn-primary'>Eliminar</button>
+                        </td>
+                    </tr>
+                </form>
                 ";
                 // array_push($arrayUsuarios, $usuario);
             }
@@ -205,4 +208,40 @@ class Usuario
             return $html;
         }
     }
+
+    // Funcion para cambiar el rol de usuaro
+    public static function actualizarRolUsuario($id_usuario, $conexion) {
+        // Obtener el rol actual del usuario
+        $sql = "SELECT rol FROM usuario WHERE id_usuario = ?";
+        $stmt = $conexion->prepare($sql);
+        $stmt->bind_param("i", $id_usuario);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $rol_actual = $row['rol'];
+    
+            // Determinar el nuevo rol
+            $nuevo_rol = ($rol_actual === 'administrador') ? 'usuario' : 'administrador';
+    
+            // Actualizar el rol en la base de datos
+            $sql_update = "UPDATE usuario SET rol = ? WHERE id_usuario = ?";
+            $stmt_update = $conexion->prepare($sql_update);
+            $stmt_update->bind_param("si", $nuevo_rol, $id_usuario);
+    
+            if ($stmt_update->execute()) {
+                echo "Rol actualizado exitosamente a: " . $nuevo_rol;
+            } else {
+                echo "Error al actualizar el rol: " . $stmt_update->error;
+            }
+    
+            $stmt_update->close();
+        } else {
+            echo "Usuario no encontrado.";
+        }
+    
+        $stmt->close();
+    }
+
 }
