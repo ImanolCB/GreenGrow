@@ -77,7 +77,8 @@
         <input type="checkbox" name="TBtransaccion" id="chTransaccion" checked> Tabla Transacciones
 
         <div class="container d-flex flex-column align-items-center justify-content-center mt-5">
-            <h1 class="text-center mb-4">Panel de Control</h1>
+            <h1 class="text-center mb-1">Panel de Control</h1>
+            <hr class="w-90">
             <div class="row" id="tablaUsuario">
                 <div class="col-md-12">
                     <h2 class="text-center">Usuarios</h2>
