@@ -144,7 +144,7 @@ class Transaccion
                         <td>" . $email ." </td>
                         <td>" . $producto ." </td>
                         <td>" . $direccion ." </td>
-                        <td>" . $cantidad ." </td>
+                        <td>" . $cantidad ." € </td>
                         <td>" . $estado ." </td>
                         <td> 
                             <button type='submit' name='enviar' value='". $id_cesta . "," . $id_producto . "' class='btn btn-primary'>Enviar</button>

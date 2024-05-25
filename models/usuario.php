@@ -186,7 +186,7 @@ class Usuario
 
                 $usuario = new Usuario($id, $email, $password, $rol, $fecha_alta);
                 $rolUs = '';
-                if($usuario->getRol() == 'administrador'){$rolUs = 'Adm';} else $rolUs = 'Usu';
+                if($usuario->getRol() == 'administrador'){$rolUs = 'Administrador';} else $rolUs = 'Usuario';
 
                 $html .= "
                 <form action='./../../views/myAccount/panelControl.php' method='post'>

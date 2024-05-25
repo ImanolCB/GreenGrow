@@ -6,12 +6,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Green Grow</title>
+    <title>Green Grow - Panel de Control</title>
     <link rel="shortcut icon" href="./../../assets/img/logo.png" type="image/x-icon">
     <!-- Bootsrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+    <script src="./../../assets/js/tablasPanel.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Required PHP -->
@@ -72,16 +72,19 @@
     <!-- MAIN -->
 
     <main class="main mt-4">
+        <div class="container">
+            <input type="checkbox" class="btn-check m-2" id="chUsuario" checked autocomplete="off">
+            <label class="btn" id="lbUsuario" for="chUsuario">No ver usuarios</label>
+            <input type="checkbox" class="btn-check m-2" id="chTransaccion" checked autocomplete="off">
+            <label class="btn" id="lbTransaccion" for="chTransaccion">No ver transacciones</label>
+        </div>
 
-        <input type="checkbox" name="TBusuario" id="chUsuario"> Tabla Usuario
-        <input type="checkbox" name="TBtransaccion" id="chTransaccion" checked> Tabla Transacciones
-
-        <div class="container d-flex flex-column align-items-center justify-content-center mt-5">
+        <div class="container d-flex flex-column align-items-left mt-5">
             <h1 class="text-center mb-1">Panel de Control</h1>
             <hr class="w-90">
             <div class="row" id="tablaUsuario">
                 <div class="col-md-12">
-                    <h2 class="text-center">Usuarios</h2>
+                    <h2 class="text-left text-secondary">Usuarios</h2>
                     <table class="table table-bordered table-striped">
                         <thead class="thead-custom">
                             <tr>
@@ -99,7 +102,7 @@
             </div>
             <div class="row" id="tablaTransaccion">
                 <div class="col-md-12">
-                    <h2 class="text-center">Pedidos</h2>
+                    <h2 class="text-left text-secondary">Pedidos</h2>
                     <table class="table table-bordered table-striped">
                         <thead class="thead-custom">
                             <tr>
@@ -107,7 +110,7 @@
                                 <th>Email</th>
                                 <th>Producto</th>
                                 <th>Direccion</th>
-                                <th>Cantidad</th>
+                                <th>Precio</th>
                                 <th>Estado</th>
                             </tr>
                         </thead>
