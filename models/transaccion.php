@@ -98,61 +98,71 @@ class Transaccion
     {
         $html = '';
 
-            //------------------------ Usuario-------------------------
-            // Consulta de usuarios
-            $query = "
-            SELECT c.id_cesta,cp.id_producto, u.email, p.nombre, t.direccion, t.estado, t.fecha_transaccion,SUM(p.precio) as total
-            FROM producto p, `cesta-producto` cp, cesta c, usuario u, transaccion t
-            WHERE p.id_producto LIKE cp.id_producto
-            AND c.id_cesta = cp.id_cesta
-            AND c.id_usuario = u.id_usuario
-            AND c.id_cesta = t.id_cesta
-            group by cp.id_producto,c.id_cesta,c.id_usuario
-            ORDER BY t.fecha_transaccion ASC
+        //------------------------ Usuario-------------------------
+        // Consulta de usuarios
+        $query = "
+        SELECT c.id_cesta, cp.id_producto, u.email, p.nombre, t.direccion,t.estado, t.fecha_transaccion, p.precio
+        FROM producto p
+        JOIN 
+            `cesta-producto` cp ON p.id_producto = cp.id_producto
+        JOIN 
+            cesta c ON c.id_cesta = cp.id_cesta
+        JOIN 
+            usuario u ON c.id_usuario = u.id_usuario
+        JOIN 
+            transaccion t ON c.id_cesta = t.id_cesta
+        ORDER BY t.fecha_transaccion,t.estado,cp.id_cesta ASC
+    
             ";
 
-            // Preparar la declaración
-            $stmt = mysqli_prepare($conexion, $query);
+        // Preparar la declaración
+        $stmt = mysqli_prepare($conexion, $query);
 
-            // Ejecutar la declaración
-            mysqli_stmt_execute($stmt);
+        // Ejecutar la declaración
+        mysqli_stmt_execute($stmt);
 
-            // Obtener resultados
-            $resultado = mysqli_stmt_get_result($stmt);
-            
+        // Obtener resultados
+        $resultado = mysqli_stmt_get_result($stmt);
 
-            // Verificar si la consulta fue exitosa
-            if (!$resultado) {
-                die("Error al ejecutar la consulta: " . mysqli_error($conexion));
-                return "Error al ejecutar la consulta: " . mysqli_error($conexion);
-            } else {
-                while ($fila = mysqli_fetch_assoc($resultado)) {
-                    $id_cesta = $fila['id_cesta'];
-                    $id_producto = $fila['id_producto'];
-                    $email = $fila['email'];
-                    $producto = $fila['nombre'];
-                    $direccion = $fila['direccion'];
-                    // $provincia = $fila['provincia'];
-                    $fecha = $fila['fecha_transaccion'];
-                    $cantidad = $fila['total'];
-                    $estado = $fila['estado'];
 
+        // Verificar si la consulta fue exitosa
+        if (!$resultado) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return "Error al ejecutar la consulta: " . mysqli_error($conexion);
+        } else {
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $id_cesta = $fila['id_cesta'];
+                $id_producto = $fila['id_producto'];
+                $email = $fila['email'];
+                $producto = $fila['nombre'];
+                $direccion = $fila['direccion'];
+                // $provincia = $fila['provincia'];
+                $fecha = $fila['fecha_transaccion'];
+                $cantidad = $fila['precio'];
+                $estado = $fila['estado'];
+                //Definicion de background
+                // $back = 'rgba('.(strlen($email)*255/100).','.(strlen($direccion)*255/100).','.(strlen($id_cesta)*255/100).','.(random_int(10,50)/100).')';
+
+
+                $html .= "
+                    <tr class='align-middle text-center'>
+                        <td >" . $id_cesta . " </td>
+                        <td >" . $fecha . " </td>
+                        <td >" . $email . " </td>
+                        <td >" . $producto . " </td>
+                        <td >" . $direccion . " </td>
+                        <td >" . $cantidad . " € </td>
+                        <td >" . $estado . " </td>
+                        <td > ";
+                if ($estado == 'enviado') {
+                    $html .= "<p class = 'align-middle text-center text-success'>Ya enviado</p>";
+                } else {
                     $html .= "
-                    <form action='./../../views/myAccount/panelControl.php' method='post'>
-                    <tr class = 'align-middle text-center'>
-                        <td>" . $fecha ." </td>
-                        <td>" . $email ." </td>
-                        <td>" . $producto ." </td>
-                        <td>" . $direccion ." </td>
-                        <td>" . $cantidad ." € </td>
-                        <td>" . $estado ." </td>
-                        <td> 
-                            <button type='submit' name='enviar' value='". $id_cesta . "," . $id_producto . "' class='btn btn-primary'>Enviar</button>
-                        </td>
-                    </tr>
-                </form>
-                    
+                        <form action='./../../views/myAccount/panelControl.php' method='post'>
+                            <button type='submit' name='enviar' value='" . $id_cesta . "' class='btn btn-primary'>Enviar</button>
+                        </form>
                     ";
+                }
             }
             return $html;
         }
@@ -187,5 +197,35 @@ class Transaccion
         }
         $html .= "<li class='list-group-item d-flex justify-content-between'> <span>Total (€)</span> <strong>" . $total . " €</strong> </li>";
         return [$html, $total];
+    }
+
+
+    public static function actualizarEstadoTransaccion($id_cesta, $conexion)
+    {
+        // Consulta para obtener el estado actual
+        $query = "SELECT estado FROM transaccion WHERE id_cesta = ?";
+        $stmt = mysqli_prepare($conexion, $query);
+        mysqli_stmt_bind_param($stmt, 'i', $id_cesta);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_bind_result($stmt, $estado_actual);
+        mysqli_stmt_fetch($stmt);
+        mysqli_stmt_close($stmt);
+
+        // Determinar el nuevo estado
+        $nuevo_estado = '';
+        if ($estado_actual == 'pagado') {
+            $nuevo_estado = 'enviado';
+        } elseif ($estado_actual == 'pendiente') {
+            $nuevo_estado = 'pagado';
+        }
+
+        // Actualizar el estado en la base de datos
+        $update_query = "UPDATE transaccion SET estado = ? WHERE id_cesta = ?";
+        $update_stmt = mysqli_prepare($conexion, $update_query);
+        mysqli_stmt_bind_param($update_stmt, 'si', $nuevo_estado, $id_cesta);
+        $resultado = mysqli_stmt_execute($update_stmt);
+        mysqli_stmt_close($update_stmt);
+
+        return $resultado;
     }
 }

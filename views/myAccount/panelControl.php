@@ -30,7 +30,7 @@
 </head>
 
 <body>
-
+    <!-- Mensaje de alerta -->
     <?php if (isset($_SESSION['mensaje'])) : ?>
         <script>
             Swal.fire({
@@ -60,6 +60,16 @@
         $id = intval($_REQUEST['eliminar']);
         Usuario::borrarUsuario($id, $conn->conectar_bd());
         $_SESSION['mensaje'] = 'El usuario se ha eliminado';
+
+        header('Location: ' . $_SERVER['PHP_SELF']);
+        exit();
+    }
+    //Cuando se cambia el estado de transaccion
+    if (isset($_REQUEST['enviar'])) {
+
+        $id = intval($_REQUEST['enviar']);
+        Transaccion::actualizarEstadoTransaccion($id, $conn->conectar_bd());
+        $_SESSION['mensaje'] = 'La transaccion se ha realizado';
 
         header('Location: ' . $_SERVER['PHP_SELF']);
         exit();
@@ -106,6 +116,7 @@
                     <table class="table table-bordered table-striped">
                         <thead class="thead-custom">
                             <tr>
+                                <th>ID-Cesta</th>
                                 <th>Fecha</th>
                                 <th>Email</th>
                                 <th>Producto</th>
