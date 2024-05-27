@@ -97,14 +97,14 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName">Nombre de pila</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Nombre" name="nombre" required>
+                            <input type="text" class="form-control" id="firstName" placeholder="Nombre" name="firstName" required>
                             <div class="invalid-feedback">
                                 Valid first name is required.
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName">Apellido</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="Apellido" name="apellido" required>
+                            <input type="text" class="form-control" id="lastName" placeholder="Apellido" name="lastName" required>
                             <div class="invalid-feedback">
                                 Valid last name is required.
                             </div>
@@ -180,6 +180,8 @@
                                         },
                                         body: JSON.stringify({
                                             detalles: detalles,
+                                            nombre: document.getElementById('firstName').value,
+                                            apellido: document.getElementById('lastName').value,
                                             direccion: document.getElementById('address').value,
                                             provincia: document.getElementById('address2').value,
                                         })

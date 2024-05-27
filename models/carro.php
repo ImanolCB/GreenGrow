@@ -41,7 +41,7 @@ class Carro
   }
 
   // Funcion para insertar el carrito en la base de datos
-  public static function insertarCarrito($productosCarrito, $conexion, $idUsuario, $metodoPago, $direccion, $provincia, $estado)
+  public static function insertarCarrito($productosCarrito, $conexion, $idUsuario, $nombre, $apellido, $metodoPago, $direccion, $provincia, $estado)
   {
 
     // Iniciar la transacción, con begin se realizan varias operaciones a la vez pudiendo hacer commit alñ final o cancelar con rollback
@@ -75,11 +75,11 @@ class Carro
       
 
       $query = "
-            INSERT INTO transaccion (id_cesta, metodo, direccion, provincia, estado, fecha_transaccion) 
-            VALUES (?, ?, ?, ?, ?, ?)
+            INSERT INTO transaccion (id_cesta,nombre, apellido, metodo, direccion, provincia, estado, fecha_transaccion) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
         ";
       $stmt = $conexion->prepare($query);
-      $stmt->bind_param("isssss", $idCesta, $metodoPago, $direccion, $provincia, $estado, $fechaTransaccion);
+      $stmt->bind_param("isssssss", $idCesta, $nombre, $apellido, $metodoPago, $direccion, $provincia, $estado, $fechaTransaccion);
       $stmt->execute();
 
       // Confirmar la transacción

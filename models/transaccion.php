@@ -97,11 +97,13 @@ class Transaccion
     public static function consultarTransaccion($conexion)
     {
         $html = '';
+        $idActual = null;
+        $estadoAnterior = null;
 
         //------------------------ Usuario-------------------------
         // Consulta de usuarios
         $query = "
-        SELECT c.id_cesta, cp.id_producto, u.email, p.nombre, t.direccion,t.estado, t.fecha_transaccion, p.precio
+        SELECT c.id_cesta, cp.id_producto, u.email, p.nombre, t.direccion,t.estado, t.fecha_transaccion,t.nombre, t.apellido, p.precio
         FROM producto p
         JOIN 
             `cesta-producto` cp ON p.id_producto = cp.id_producto
@@ -132,6 +134,8 @@ class Transaccion
         } else {
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $id_cesta = $fila['id_cesta'];
+                $nombre = $fila['nombre'];
+                $apellido = $fila['apellido'];
                 $id_producto = $fila['id_producto'];
                 $email = $fila['email'];
                 $producto = $fila['nombre'];
@@ -143,27 +147,77 @@ class Transaccion
                 //Definicion de background
                 // $back = 'rgba('.(strlen($email)*255/100).','.(strlen($direccion)*255/100).','.(strlen($id_cesta)*255/100).','.(random_int(10,50)/100).')';
 
-
-                $html .= "
-                    <tr class='align-middle text-center'>
-                        <td >" . $id_cesta . " </td>
-                        <td >" . $fecha . " </td>
-                        <td >" . $email . " </td>
-                        <td >" . $producto . " </td>
-                        <td >" . $direccion . " </td>
-                        <td >" . $cantidad . " € </td>
-                        <td >" . $estado . " </td>
-                        <td > ";
-                if ($estado == 'enviado') {
-                    $html .= "<p class = 'align-middle text-center text-success'>Ya enviado</p>";
+                if ($idActual == $id_cesta) {
+                    $html .= "
+                        <tr class='align-middle text-center'>
+                            <td>" . $id_cesta . " </td>
+                            <td>" . $fecha . " </td>
+                            <td>" . $email . " </td>
+                            <td>" . $producto . " </td>
+                            <td>" . $direccion . " </td>
+                            <td>" . $cantidad . " € </td>
+                            <td>" . $estado . " </td>
+                        </tr>";
+                } else {
+                    if ($idActual !== null) {
+                        // Cerrar la tabla anterior y añadir el botón correspondiente
+                        $html .= "</tbody></table>";
+                        if ($estadoAnterior == 'enviado') {
+                            $html .= "<p class='mb-4 align-middle text-left text-success'>Ya enviado</p>";
+                        } else {
+                            $html .= "
+                                <form action='./../../views/myAccount/panelControl.php' method='post'>
+                                    <button type='submit' name='enviar' value='" . $idActual . "' class='mb-4 btn btn-primary'>Enviar</button>
+                                </form>
+                            ";
+                        }
+                    }
+    
+                    $idActual = $id_cesta;
+                    $estadoAnterior = $estado;
+    
+                    // Comenzar una nueva tabla
+                    $html .= "
+                        <p class='fs-3 mb-1 mt-4'>" . $nombre . " " . $apellido . "</p>
+                        <table class='table table-bordered table-striped mt-0'>
+                            <thead class='thead-custom'>
+                                <tr>
+                                    <th>ID-Cesta</th>
+                                    <th>Fecha</th>
+                                    <th>Correo</th>
+                                    <th>Producto</th>
+                                    <th>Direccion</th>
+                                    <th>Precio</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id='ordersTable'>
+                                <tr class='align-middle text-center'>
+                                    <td>" . $id_cesta . " </td>
+                                    <td>" . $fecha . " </td>
+                                    <td>" . $email . " </td>
+                                    <td>" . $producto . " </td>
+                                    <td>" . $direccion . " </td>
+                                    <td>" . $cantidad . " € </td>
+                                    <td>" . $estado . " </td>
+                                </tr>";
+                }
+            }
+    
+            // Añadir el botón para la última tabla
+            if ($idActual !== null) {
+                $html .= "</tbody></table>";
+                if ($estadoAnterior == 'enviado') {
+                    $html .= "<p class='mb-4 align-middle text-left text-success'>Ya enviado</p>";
                 } else {
                     $html .= "
                         <form action='./../../views/myAccount/panelControl.php' method='post'>
-                            <button type='submit' name='enviar' value='" . $id_cesta . "' class='btn btn-primary'>Enviar</button>
+                            <button type='submit' name='enviar' value='" . $idActual . "' class='mb-4 btn btn-primary'>Enviar</button>
                         </form>
                     ";
                 }
             }
+    
             return $html;
         }
     }

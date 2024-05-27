@@ -23,6 +23,8 @@ $productosCarrito = $_SESSION['carrito'];
 
 if (is_array($datos)) {
     $metodoPago = 'paypal';
+    $nombre = $datos['nombre'];
+    $apellido = $datos['apellido'];
     $direccion = $datos['direccion'];
     $provincia = $datos['provincia'];
     $status = $datos['detalles']['status'];
@@ -30,6 +32,6 @@ if (is_array($datos)) {
     if ($status == 'COMPLETED') {
         $estado = 'pagado';
     } else $estado = 'pendiente';
-    Carro::insertarCarrito($productosCarrito, $conn->conectar_bd(), $userId, $metodoPago, $direccion, $provincia, $estado);
+    Carro::insertarCarrito($productosCarrito, $conn->conectar_bd(), $userId, $nombre, $apellido, $metodoPago, $direccion, $provincia, $estado);
     $_SESSION['carrito'] = [];
 }

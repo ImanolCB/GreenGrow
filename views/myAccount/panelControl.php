@@ -113,22 +113,9 @@
             <div class="row" id="tablaTransaccion">
                 <div class="col-md-12">
                     <h2 class="text-left text-secondary">Pedidos</h2>
-                    <table class="table table-bordered table-striped">
-                        <thead class="thead-custom">
-                            <tr>
-                                <th>ID-Cesta</th>
-                                <th>Fecha</th>
-                                <th>Email</th>
-                                <th>Producto</th>
-                                <th>Direccion</th>
-                                <th>Precio</th>
-                                <th>Estado</th>
-                            </tr>
-                        </thead>
-                        <tbody id="ordersTable">
-                            <?php echo Transaccion::consultarTransaccion($conn->conectar_bd()) ?>
-                        </tbody>
-                    </table>
+
+                    <?php echo Transaccion::consultarTransaccion($conn->conectar_bd()) ?>
+
                 </div>
             </div>
         </div>
