@@ -199,7 +199,7 @@ if (isset($_REQUEST['submit'])) {
                     echo "Error al mover el archivo subido.";
                 }
                 // Si el submit no coincide con ninguno de los casos anteriores, redirige al index
-                header("Location: ./../../views/myAccount/account.php");
+                header("Location: ./../views/myAccount/account.php");
                 exit(); //Asegura de salir del script después de la redirección
                 break;
 

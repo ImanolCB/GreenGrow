@@ -1,6 +1,6 @@
 <?php
 
-require_once './../../models/anotacion.php';
+include './../../models/anotacion.php';
 
 
 class Planta
