@@ -178,8 +178,8 @@ class Transaccion
     
                     // Comenzar una nueva tabla
                     $html .= "
-                        <p class='fs-3 mb-1 mt-4'>" . $nombre . " " . $apellido . "</p>
-                        <table class='table table-bordered table-striped mt-0'>
+                        <p class='fs-3 mb-1 mt-4 searchable-item'>" . $nombre . " " . $apellido . "</p>
+                        <table class='table table-bordered table-striped mt-0 searchable-item'>
                             <thead class='thead-custom'>
                                 <tr>
                                     <th>ID-Cesta</th>
@@ -193,13 +193,13 @@ class Transaccion
                             </thead>
                             <tbody id='ordersTable'>
                                 <tr class='align-middle text-center'>
-                                    <td>" . $id_cesta . " </td>
-                                    <td>" . $fecha . " </td>
-                                    <td>" . $email . " </td>
-                                    <td>" . $producto . " </td>
-                                    <td>" . $direccion . " </td>
-                                    <td>" . $cantidad . " € </td>
-                                    <td>" . $estado . " </td>
+                                <td>" . $id_cesta . " </td>
+                                <td>" . $fecha . " </td>
+                                <td>" . $email . " </td>
+                                <td>" . $producto . " </td>
+                                <td>" . $direccion . " </td>
+                                <td>" . $cantidad . " € </td>
+                                <td>" . $estado . " </td>
                                 </tr>";
                 }
             }
@@ -208,11 +208,11 @@ class Transaccion
             if ($idActual !== null) {
                 $html .= "</tbody></table>";
                 if ($estadoAnterior == 'enviado') {
-                    $html .= "<p class='mb-4 align-middle text-left text-success'>Ya enviado</p>";
+                    $html .= "<p class='mb-4 align-middle text-left text-success searchable-item'>Ya enviado</p>";
                 } else {
                     $html .= "
                         <form action='./../../views/myAccount/panelControl.php' method='post'>
-                            <button type='submit' name='enviar' value='" . $idActual . "' class='mb-4 btn btn-primary'>Enviar</button>
+                            <button type='submit' name='enviar' value='" . $idActual . "' class='mb-4 btn btn-primary searchable-item'>Enviar</button>
                         </form>
                     ";
                 }
