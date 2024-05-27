@@ -14,8 +14,9 @@
     <!-- Required php -->
     <?php
     // require_once '../../views/includes/fonts.php';
-    // require_once './../../models/Producto.php';
-    // // require_once './../../models/conexionBD.php';
+    require_once './../../models/Planta.php';
+    require_once './../../models/conexionBD.php';
+    $conn = new ConexionBD();
     ?>
 
     <!-- Script alert -->
@@ -44,64 +45,34 @@
          */
         ?>
 
-
-        <section class="container mt-4">
-            <form action="./../../controllers/miControlador.php" method="post">
-
-                <!-- Search -->
-                <div class="input-group m-4">
-                    <input id="busqueda" type="text" class="form-control" placeholder="Buscar productos..." aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
+<form action="./../../controllers/miControlador.php" method="post" enctype="multipart/form-data" class="bg-dark ">
+                <div class="container">
+                    <p class="fs-3">Datos para añadir planta</p>
+                    <!-- Datos de planta nueva -->
+                    <div class="input-group m-3">
+                        <input type="text" class="form-control" placeholder="Nombre de planta" name="nombrePlanta" required>
+                    </div>
+                    <div class="input-group m-3">
+                        <input type="file" class="form-control" id="inputGroupFile01" placeholder="Imagen de planta" name="url" required>
+                    </div>
+                    <button type="submit" name="submit" value="plantaAdd" id="btnPlantaAdd" class="btn position-relative m-4">Añadir planta</button>
                 </div>
-                <button type="submit" name="submit" value="plantaAdd" id="btnPlantaAdd" class="btn position-relative m-4">Añadir planta</button>
             </form>
+        <section class="container mt-4">
+            
+            <!-- Search -->
+            <div class="input-group m-4">
+                <input id="busqueda" type="text" class="form-control" placeholder="Buscar productos..." aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
+            </div>
             <!-- Acordeon -->
             <!-- I1 -->
             <div class="accordion accordion-flush mt-4" id="accordionFlushExample">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="flush-1">
-                        <button class="accordion-button collapsed pt-4 fs-4" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                            Mi cactus del balcón
-                        </button>
-                    </h2>
-                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                        <div class="container mt-4 ">
-                            <h4 class="pt-4 fs-6 ">Anotaciones</h4>
-                            <hr>
-                            <div class="row justify-content-between text-center">
-                                <div class="flex col-sm-8">
-                                    <table class="table table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">Fecha de anotación</th>
-                                                <th scope="col">Last</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr id="ID DE ANOTACION">
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>
-                                                    <button class="btn ver m-1" id="btnAnotacion-ID" value="CONTENIDO DE ANOTACION" onclick="ver(this.value)">Ver</button>
-                                                    <button class="btn btnRed m-1" id="btnAnotacion" value="Borrar anotacion">Eliminar</button>
-                                                </td>
-                                            </tr>
-                                            
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <div class="col-sm-3">
-                                    <img src="https://images.unsplash.com/photo-1560453456-387820618020?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-responsive m-3 shadow-md" style="width:100%" alt="Image">
-                                </div>
-                            </div>
-                        </div>
-                        <form action="./../../controllers/miControlador.php" method="post">
-                            <button type="submit" name="submit" value="plantaDelete" id="btnPlantaDelete" class="btn btnRed position-relative m-4">Eliminar</button>
-                        </form>
-                    </div>
-                </div>
+                <?php 
+                    echo Planta::consultarPlantas($conn->conectar_bd(), $_SESSION['user_id'])
+                ?>
             </div>
-            
+
         </section>
 
 

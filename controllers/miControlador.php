@@ -5,6 +5,7 @@ session_start();
 require_once './../models/conexionBD.php';
 require_once './../models/Producto.php';
 require_once './../models/Usuario.php';
+require_once './../models/Planta.php';
 
 
 
@@ -23,7 +24,7 @@ if (isset($_REQUEST['submit'])) {
             case "Iniciar sesion":
                 $emailInicioSesion = $_REQUEST['emailLogin'];
                 $passwordInicioSesion = $_REQUEST['passwordLogin'];
-                $usuarioInicioSesion = new Usuario(0,$emailInicioSesion,$passwordInicioSesion,null,null);
+                $usuarioInicioSesion = new Usuario(0, $emailInicioSesion, $passwordInicioSesion, null, null);
                 // $usuarioInicioSesion->setEmail($emailInicioSesion);
                 // $usuarioInicioSesion->setPassword($passwordInicioSesion);
 
@@ -55,7 +56,7 @@ if (isset($_REQUEST['submit'])) {
                 $emailRegistro = $_REQUEST['emailRegistro'];
                 $passwordRegistro = $_REQUEST['passwordRegistro'];
                 $passwordRegistroRep = $_REQUEST['passwordRegistroRep'];
-                $usuarioRegistro = new Usuario(0,$emailRegistro,$passwordRegistro,null,null);
+                $usuarioRegistro = new Usuario(0, $emailRegistro, $passwordRegistro, null, null);
                 // $usuarioRegistro->setEmail($emailRegistro);
                 // $usuarioRegistro->setPassword($passwordRegistro);
 
@@ -170,9 +171,37 @@ if (isset($_REQUEST['submit'])) {
 
                 //Cuando se pulsa el botón de volver a la página anterior
             case "Volver a tienda":
-
                 header("Location: ./../views/shop/tienda.php");
                 exit(); //Asegura de salir del script después de la redirección
+                break;
+
+                //Cuando se pulsa añadir una planta en la cuenta de usuario
+            case "plantaAdd":
+                $nombre = $_REQUEST['nombrePlanta'];
+                $archivo = $_FILES['url'];
+
+                $n_archivo = $archivo['name'];
+                $tmp_archivo = $archivo['tmp_name'];
+                $destino = "./../assets/imagenesUsuario/";
+
+                // Verificar si el directorio existe, si no, crearlo
+                if (!is_dir($destino)) {
+                    mkdir($destino, 0777, true);
+                }
+
+                $url = $destino . $n_archivo;
+                $base_datos = "assets/imagenesUsuario/" . $n_archivo;
+
+                // Mover el archivo subido al directorio de destino
+                if (move_uploaded_file($tmp_archivo, $url)) {
+                    Planta::insertarPlanta($conn->conectar_bd(), $nombre, $base_datos, $_SESSION['user_id']);
+                } else {
+                    echo "Error al mover el archivo subido.";
+                }
+                // Si el submit no coincide con ninguno de los casos anteriores, redirige al index
+                header("Location: ./../../views/myAccount/account.php");
+                exit(); //Asegura de salir del script después de la redirección
+                break;
 
                 //Cuando el boton pulsado no coincide con ningún caso
             default:
