@@ -129,13 +129,14 @@ class Planta
                                 <td>" . $anotacion->getNota() . "</td>
                                 <td>
                                     <button class='btn ver m-1' id='btnAnotacion-" . $anotacion->getIdAnotacion() . "' value='" . $anotacion->getNota() . "' onclick='ver(this.value)'>Ver</button>
-                                    <button class='btn btnRed m-1' id='btnAnotacionEliminar' value='Borrar anotacion'>Eliminar</button>
+                                    <button class='btn btnRed m-1' id='btnAnotacionEliminar' name='borrarAnotacion' value='" . $anotacion->getIdAnotacion() . "'>Eliminar </button>
                                 </td>
                             </tr>";
                     }
 
                     $html .= "
                     <div class='accordion-item m-2'>
+                        <form action='./../../views/myAccount/account.php' method='post'>
                         <h2 class='accordion-header' id='flush-heading-$idPlanta'>
                             <button class='accordion-button collapsed p-3 fs-6' type='button' data-bs-toggle='collapse' data-bs-target='#flush-collapse-$idPlanta' aria-expanded='false' aria-controls='flush-collapse-$idPlanta'>
                                 $nombre
@@ -145,6 +146,12 @@ class Planta
                             <div class='container mt-4 '>
                                 <h4 class='pt-4 fs-6 '>Anotaciones</h4>
                                 <hr>
+                                <button type='submit' name='anadirNota' value='$idPlanta' id='btnAnadirPlanta' class='btn position-relative m-4'>Añadir Anotacion</button>
+                                
+                                
+                                AÑADIR ANOTACION!!
+
+
                                 <div class='row justify-content-between text-center'>
                                     <div class='flex col-sm-8'>
                                         <table class='table table-hover'>
@@ -164,10 +171,9 @@ class Planta
                                     </div>
                                 </div>
                             </div>
-                            <form action='./../../controllers/miControlador.php' method='post'>
-                                <button type='submit' name='submit' value='plantaDelete' id='btnPlantaDelete' class='btn btnRed position-relative m-4'>Eliminar</button>
-                            </form>
-                        </div>
+                                <button type='submit' name='borrarPlanta' value='$idPlanta' id='btnPlantaDelete' class='btn btnRed position-relative m-4'>Eliminar Planta</button>
+                            </div>
+                        </form>
                     </div>";
                 }
 
@@ -217,6 +223,49 @@ class Planta
             }
         } catch (Exception $exception) {
             echo "Error al consultar anotaciones: " . $exception->getMessage();
+            return false;
+        }
+    }
+
+
+    // Método para eliminar una planta y sus anotaciones relacionadas
+    public static function borrarPlanta($conn, $idPlanta)
+    {
+        try {
+            // Eliminar anotaciones relacionadas
+            $query = "DELETE FROM anotacion WHERE id_planta = ?";
+            $stmt = $conn->prepare($query);
+
+            if ($stmt === false) {
+                throw new Exception("Error en la preparación de la consulta para eliminar anotaciones: " . $conn->error);
+            }
+
+            $stmt->bind_param("i", $idPlanta);
+
+            if (!$stmt->execute()) {
+                throw new Exception("Error en la ejecución de la consulta para eliminar anotaciones: " . $stmt->error);
+            }
+
+            $stmt->close();
+
+            // Eliminar la planta
+            $query = "DELETE FROM planta WHERE id_planta = ?";
+            $stmt = $conn->prepare($query);
+
+            if ($stmt === false) {
+                throw new Exception("Error en la preparación de la consulta para eliminar planta: " . $conn->error);
+            }
+
+            $stmt->bind_param("i", $idPlanta);
+
+            if ($stmt->execute()) {
+                $stmt->close();
+                return true;
+            } else {
+                throw new Exception("Error en la ejecución de la consulta para eliminar planta: " . $stmt->error);
+            }
+        } catch (Exception $exception) {
+            echo "Error al eliminar planta: " . $exception->getMessage();
             return false;
         }
     }

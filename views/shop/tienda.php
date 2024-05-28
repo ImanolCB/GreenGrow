@@ -145,7 +145,6 @@
         </form>
 
 
-
         <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()">
             < </button>
 

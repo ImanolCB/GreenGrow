@@ -37,29 +37,56 @@
 
     <main class="main">
 
-        <!-- ASIDE -->
+        <!-- Mensaje de alerta -->
+        <?php if (isset($_SESSION['mensaje'])) : ?>
+            <script>
+                Swal.fire({
+                    position: 'top-start',
+                    icon: 'success',
+                    title: '<?php echo $_SESSION['mensaje']; ?>',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            </script>
+            <?php unset($_SESSION['mensaje']); ?>
+        <?php endif; ?>
+
         <?php
-        /**
-         * TODO: PENDIENTE AÑADIR EL FORM CON LAS OPCIONES DE FILTROS CORRESPONDIENTES
-         * TODO: PENSAR COMO REALIZAR LA CONSULTA SEGÚN LOS FILTROS SELECCIONADOS
-         */
+        //Cuando se pulsa borrar anotacion
+        if (isset($_REQUEST['borrarAnotacion'])) {
+            $id = intval($_REQUEST['borrarAnotacion']);
+            Anotacion::eliminarAnotacion($conn->conectar_bd(), $id);
+            $_SESSION['mensaje'] = 'La anotacion se ha eliminado';
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit();
+        }
+
+        //Cuando se pulsa borrar planta
+        if (isset($_REQUEST['borrarPlanta'])) {
+            $id = intval($_REQUEST['borrarPlanta']);
+            Planta::borrarPlanta($conn->conectar_bd(), $id);
+            $_SESSION['mensaje'] = 'La planta se ha eliminado';
+            header('Location: ' . $_SERVER['PHP_SELF']);
+            exit();
+        }
         ?>
 
-<form action="./../../controllers/miControlador.php" method="post" enctype="multipart/form-data" class="bg-dark ">
-                <div class="container">
-                    <p class="fs-3">Datos para añadir planta</p>
-                    <!-- Datos de planta nueva -->
-                    <div class="input-group m-3">
-                        <input type="text" class="form-control" placeholder="Nombre de planta" name="nombrePlanta" required>
-                    </div>
-                    <div class="input-group m-3">
-                        <input type="file" class="form-control" id="inputGroupFile01" placeholder="Imagen de planta" name="url" required>
-                    </div>
-                    <button type="submit" name="submit" value="plantaAdd" id="btnPlantaAdd" class="btn position-relative m-4">Añadir planta</button>
+
+        <form action="./../../controllers/miControlador.php" method="post" enctype="multipart/form-data" class="bg-dark ">
+            <div class="container">
+                <p class="fs-3">Datos para añadir planta</p>
+                <!-- Datos de planta nueva -->
+                <div class="input-group m-3">
+                    <input type="text" class="form-control" placeholder="Nombre de planta" name="nombrePlanta" required>
                 </div>
-            </form>
+                <div class="input-group m-3">
+                    <input type="file" class="form-control" id="inputGroupFile01" placeholder="Imagen de planta" name="url" required>
+                </div>
+                <button type="submit" name="submit" value="plantaAdd" id="btnPlantaAdd" class="btn position-relative m-4">Añadir planta</button>
+            </div>
+        </form>
         <section class="container mt-4">
-            
+
             <!-- Search -->
             <div class="input-group m-2 border border-1 w-50 shadow-md">
                 <input id="busqueda" type="text" class="form-control" placeholder="Buscar" aria-describedby="button-addon2">
@@ -68,8 +95,8 @@
             <!-- Acordeon -->
             <!-- I1 -->
             <div class="accordion accordion-flush mt-4" id="accordionFlushExample">
-                <?php 
-                    echo Planta::consultarPlantas($conn->conectar_bd(), $_SESSION['user_id'])
+                <?php
+                echo Planta::consultarPlantas($conn->conectar_bd(), $_SESSION['user_id'])
                 ?>
             </div>
 

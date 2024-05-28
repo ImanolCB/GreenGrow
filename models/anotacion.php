@@ -17,14 +17,38 @@ class Anotacion
     }
 
     // Getters and setters...
-    public function getIdAnotacion() { return $this->id_anotacion; }
-    public function setIdAnotacion($id_anotacion) { $this->id_anotacion = $id_anotacion; }
-    public function getNota() { return $this->nota; }
-    public function setNota($nota) { $this->nota = $nota; }
-    public function getFechaNota() { return $this->fecha_nota; }
-    public function setFechaNota($fecha_nota) { $this->fecha_nota = $fecha_nota; }
-    public function getIdPlanta() { return $this->id_planta; }
-    public function setIdPlanta($id_planta) { $this->id_planta = $id_planta; }
+    public function getIdAnotacion()
+    {
+        return $this->id_anotacion;
+    }
+    public function setIdAnotacion($id_anotacion)
+    {
+        $this->id_anotacion = $id_anotacion;
+    }
+    public function getNota()
+    {
+        return $this->nota;
+    }
+    public function setNota($nota)
+    {
+        $this->nota = $nota;
+    }
+    public function getFechaNota()
+    {
+        return $this->fecha_nota;
+    }
+    public function setFechaNota($fecha_nota)
+    {
+        $this->fecha_nota = $fecha_nota;
+    }
+    public function getIdPlanta()
+    {
+        return $this->id_planta;
+    }
+    public function setIdPlanta($id_planta)
+    {
+        $this->id_planta = $id_planta;
+    }
 
     // Método para consultar anotaciones por id_planta
     public static function consultarAnotaciones($conn, $idPlanta)
@@ -63,5 +87,29 @@ class Anotacion
             return false;
         }
     }
+
+    // Método para eliminar una anotación por id_anotacion
+    public static function eliminarAnotacion($conn, $idAnotacion)
+    {
+        try {
+            $query = "DELETE FROM anotacion WHERE id_anotacion = ?";
+            $stmt = $conn->prepare($query);
+
+            if ($stmt === false) {
+                throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+            }
+
+            $stmt->bind_param("i", $idAnotacion);
+
+            if ($stmt->execute()) {
+                $stmt->close();
+                return true;
+            } else {
+                throw new Exception("Error en la ejecución de la consulta: " . $stmt->error);
+            }
+        } catch (Exception $exception) {
+            echo "Error al eliminar la anotación: " . $exception->getMessage();
+            return false;
+        }
+    }
 }
-?>
