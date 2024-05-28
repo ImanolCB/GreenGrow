@@ -184,7 +184,7 @@
 
 
                     <!-- Contenedor de productos -->
-                    <div id="contenedor" class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-3 justify-content-center p-4">
+                    <div id="contenedor" class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-2 justify-content-center">
 
                         <?php
                             $conn = new ConexionBD;

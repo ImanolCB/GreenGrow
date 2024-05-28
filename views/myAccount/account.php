@@ -61,9 +61,9 @@
         <section class="container mt-4">
             
             <!-- Search -->
-            <div class="input-group m-4">
-                <input id="busqueda" type="text" class="form-control" placeholder="Buscar productos..." aria-describedby="button-addon2">
-                <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button>
+            <div class="input-group m-2 border border-1 w-50 shadow-md">
+                <input id="busqueda" type="text" class="form-control" placeholder="Buscar" aria-describedby="button-addon2">
+                <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button> -->
             </div>
             <!-- Acordeon -->
             <!-- I1 -->

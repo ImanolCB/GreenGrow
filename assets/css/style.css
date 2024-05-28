@@ -3,6 +3,9 @@
   font-weight: 400;
   font-style: normal;
 }
+body{
+  overflow-x: hidden;
+}
 main{
   min-height: 80vh;
 }

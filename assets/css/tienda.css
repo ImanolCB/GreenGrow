@@ -16,9 +16,8 @@
   box-shadow: 0 0 15px #dddddd;
 }
 #btnSideBar {
-  min-height: 5vh;
+  min-height: 50vh;
   max-height: 100vh;
-  min-width: 35px;
   font-weight: bolder;
   border: #507a6400 1px solid;
 }
@@ -58,7 +57,7 @@ span {
 
 .card{
   background-color: #ffff;
-    max-width: 350px;
+    max-width: 340px;
     transition: .3s all;
 }
 

@@ -117,10 +117,11 @@ class Carro
           <li class='list-group-item d-flex justify-content-between lh-condensed'>
               <div>
                   <h6 class='my-0'>" . $producto->nombre . "</h6>
-                  <small class='text-muted'>" . $producto->descripcion . "</small>
-              </div> <span class='text-muted'>" . $producto->precio . "€</span>
+                  <small class='text-muted'>" . $producto->descripcion . "</small><br><br>
+                  <span class='text-muted'>" . $producto->precio . "€</span>
+              </div> 
               <form action='./../../views/shop/carrito.php' method='post'>
-                <button type='submit' name='quitar' value='$producto->id_producto' id='btnVolverTienda' class='btnRed btn position-relative m-4'>Quitar</button>
+                <button type='submit' name='quitar' value='$producto->id_producto' id='btnVolverTienda' class='btnRed btn position-relative m-2'>Quitar</button>
             </form>
           </li>
           ";
