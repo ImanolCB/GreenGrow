@@ -199,11 +199,7 @@
                                         console.error('Error en la solicitud fetch:', error);
                                         window.location.href = "./../../views/error/error.php";
                                     });
-                                    // window.location.href = "./../../views/shop/validarPago.php";
-                                    // Redirige a la página de confirmación
-                                    // window.location.href = "./../../controllers/miControladorPago.php";
                                 })
-
                             },
 
                             onCancel: function(data) {

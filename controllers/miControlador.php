@@ -83,7 +83,7 @@ if (isset($_REQUEST['submit'])) {
 
                 //Cuando se pulse "Mi cuenta" en la barra de navegacion
             case "Mi cuenta":
-                if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
+                if ($_SESSION['usermail'] === null || $_SESSION['user_rol'] === null) {
 
                     header("Location: ./../views/login/login.php");
                     exit(); //Asegura de salir del script después de la redirección
@@ -108,27 +108,20 @@ if (isset($_REQUEST['submit'])) {
 
                 //Cuando se pulsa Promociones en la barra de navegacion
             case "Promociones":
-                //Comprobación que el usuario esta iniciado
-                if ($_SESSION['usermail'] === null && $_SESSION['user_rol'] === null) {
-                    header("Location: ./../index.php");
-                    exit(); //Asegura de salir del script después de la redirección
-                } else {
-                    header("Location: ./../views/shop/promociones.php");
-                    exit(); //Asegura de salir del script después de la redirección
-                }
+                header("Location: ./../views/shop/promociones.php");
+                exit(); //Asegura de salir del script después de la redirección
                 break;
 
-                //Cuando se pulsa Promociones en la barra de navegacion
+                //Cuando se pulsa Tienda en la barra de navegacion
             case "Tienda":
-
                 header("Location: ./../views/shop/tienda.php");
                 exit(); // Asegura de salir del script después de la redirección
-
-
                 break;
+
             case "Sobre nosotros":
                 header("Location: ./../views/about/about.php");
                 exit(); //Asegura de salir del script después de la redirección
+                break;
 
                 //Cuando se pulsa añadir en un producto
             case "anadir":
@@ -161,13 +154,25 @@ if (isset($_REQUEST['submit'])) {
                     header("Location: ./../views/login/login.php");
                     exit(); //Asegura de salir del script después de la redirección
                 }
-
                 break;
 
                 //Cuando se pulsa el botón de volver a la página anterior
             case "Volver a tienda":
                 header("Location: ./../views/shop/tienda.php");
                 exit(); //Asegura de salir del script después de la redirección
+                break;
+                //Cuando se pulsa el botón de volver a la página anterior
+            case "Volver a panel":
+                if ($_SESSION['usermail'] != null && $_SESSION['user_rol'] == 'administrador') {
+
+                    header("Location: ./../views/myAccount/administrarProductos.php");
+                    exit(); //Asegura de salir del script después de la redirección
+
+                } else {
+                    header("Location: ./../index.php");
+                    exit(); //Asegura de salir del script después de la redirección
+                }
+
                 break;
 
                 //Cuando se pulsa añadir una planta en la cuenta de usuario
@@ -195,6 +200,12 @@ if (isset($_REQUEST['submit'])) {
                 }
                 // Si el submit no coincide con ninguno de los casos anteriores, redirige al index
                 header("Location: ./../views/myAccount/account.php");
+                exit(); //Asegura de salir del script después de la redirección
+                break;
+
+            case "administrarProductos":
+                // Si el submit no coincide con ninguno de los casos anteriores, redirige al index
+                header("Location: ./../views/myAccount/administrarProductos.php");
                 exit(); //Asegura de salir del script después de la redirección
                 break;
 

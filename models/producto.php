@@ -256,7 +256,7 @@ class Producto
         if ($cantidad != 0) {
             // Preparar la consulta SQL de Select
             $query = "SELECT * FROM producto WHERE promocion like 'si' LIMIT 4";
-        }else{
+        } else {
             // Preparar la consulta SQL de Select
             $query = "SELECT * FROM producto WHERE promocion like 'si'";
         }
@@ -276,7 +276,7 @@ class Producto
             return "Error al ejecutar la consulta: " . mysqli_error($conexion);
         } else {
             $html = "";
-            
+
             //Muentras tenga resultados se le asocia a una fila un resultado y se hace un objeto
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $id = $fila['id_producto'];
@@ -307,10 +307,10 @@ class Producto
                 $html .= "
                     <div class='col d-flex justify-content-center'>
                       <div class='card' style='width: 18rem;'>
-                        <img src='" . $producto ->getUrl() . "' class='card-img-top' alt='...'>
+                        <img src='" . $producto->getUrl() . "' class='card-img-top' alt='...'>
                         <div class='card-body'>
-                          <h5 class='card-title'>" . $producto ->getNombre() . "</h5>
-                          <p class='card-text'>" . $producto ->getDescripcion() . "</p>
+                          <h5 class='card-title'>" . $producto->getNombre() . "</h5>
+                          <p class='card-text'>" . $producto->getDescripcion() . "</p>
                           
                         </div>
                       </div>
@@ -319,5 +319,36 @@ class Producto
             }
             return $html;
         }
+    }
+
+    // Método estático para insertar un producto en la base de datos
+    public static function insertarProducto($conexion, $nombre, $descripcion, $altura, $epoca, $tipo, $cuidado, $precio, $promocion, $url)
+    {
+        // Preparar la consulta SQL de inserción
+        $query = "INSERT INTO producto (nombre, descripcion, altura, epoca, tipo, cuidado, precio, promocion, url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        // Preparar la declaración
+        $stmt = mysqli_prepare($conexion, $query);
+
+        // Verificar si la preparación fue exitosa
+        if ($stmt === false) {
+            die("Error al preparar la consulta: " . mysqli_error($conexion));
+        }
+
+        // Vincular los parámetros a la declaración
+        mysqli_stmt_bind_param($stmt, "ssisssdss", $nombre, $descripcion, $altura, $epoca, $tipo, $cuidado, $precio, $promocion, $url);
+
+        // Ejecutar la declaración
+        $resultado = mysqli_stmt_execute($stmt);
+
+        // Verificar si la ejecución fue exitosa
+        if ($resultado === false) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+        } else {
+            echo "Producto insertado exitosamente.";
+        }
+
+        // Cerrar la declaración
+        mysqli_stmt_close($stmt);
     }
 }

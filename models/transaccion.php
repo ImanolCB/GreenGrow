@@ -114,7 +114,6 @@ class Transaccion
         JOIN 
             transaccion t ON c.id_cesta = t.id_cesta
         ORDER BY t.fecha_transaccion,t.estado,cp.id_cesta ASC
-    
             ";
 
         // Preparar la declaración

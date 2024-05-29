@@ -76,25 +76,40 @@
     ?>
 
     <!-- HEADER -->
-    <?php include '../includes/header.php'; ?>
+    <?php include './../includes/header.php'; ?>
 
     <!-- MAIN -->
 
     <main class="main mt-4">
-        <div class="container">
-            <div class="input-group">
-                <input id="busqueda" type="text" class="form-control m-3" placeholder="Buscar" aria-describedby="button-addon2">
+        <div class="container d-flex flex-row  justify-content-between">
+
+            <div class="text-end">
+                <h1 class="text-center mb-1">Panel de Control</h1>
             </div>
-            <input type="checkbox" class="btn-check" id="chUsuario" checked autocomplete="off">
-            <label class="btn m-3" id="lbUsuario" for="chUsuario">No ver usuarios</label>
-            <input type="checkbox" class="btn-check" id="chTransaccion" checked autocomplete="off">
-            <label class="btn m-3" id="lbTransaccion" for="chTransaccion">No ver transacciones</label>
-            <!-- Buscador -->
+
+            <form action="./../../controllers/miControlador.php" method="post">
+                <button type="submit" name="submit" value="administrarProductos" class="btn btn-primary">Administrar Productos</button>
+            </form>
+            
+        </div>
+        <hr class="container w-90">
+
+        <div class="container mt-4">
+            <div class="d-flex flex-row justify-content-between">
+                <!-- Buscador -->
+                <div class="input-group">
+                    <input id="busqueda" type="text" class="form-control m-3" placeholder="Buscar" aria-describedby="button-addon2">
+                </div>
+                <input type="checkbox" class="btn-check" id="chUsuario" checked autocomplete="off">
+                <label class="btn m-2" id="lbUsuario" for="chUsuario">No ver usuarios</label>
+                <input type="checkbox" class="btn-check" id="chTransaccion" checked autocomplete="off">
+                <label class="btn m-2" id="lbTransaccion" for="chTransaccion">No ver transacciones</label>
+            </div>
+
+
         </div>
 
-        <div id="contenedor" class="container d-flex flex-column align-items-left mt-5">
-            <h1 class="text-center mb-1">Panel de Control</h1>
-            <hr class="w-90">
+        <div id="contenedor" class="container d-flex flex-column align-items-left mt-2">
             <div class="row" id="tablaUsuario">
                 <div class="col-md-12">
                     <h2 class="text-left text-secondary">Usuarios</h2>
