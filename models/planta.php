@@ -128,7 +128,6 @@ class Planta
                                 <td>" . $anotacion->getFechaNota() . "</td>
                                 <td>" . $anotacion->getNota() . "</td>
                                 <td>
-                                    <button class='btn ver m-1' id='btnAnotacion-" . $anotacion->getIdAnotacion() . "' value='" . $anotacion->getNota() . "' onclick='ver(this.value)'>Ver</button>
                                     <button class='btn btnRed m-1' id='btnAnotacionEliminar' name='borrarAnotacion' value='" . $anotacion->getIdAnotacion() . "'>Eliminar </button>
                                 </td>
                             </tr>";
@@ -143,18 +142,21 @@ class Planta
                             </button>
                         </h2>
                         <div id='flush-collapse-$idPlanta' class='accordion-collapse collapse' aria-labelledby='flush-heading-$idPlanta' data-bs-parent='#accordionFlushExample'>
-                            <div class='container mt-4 '>
+                            <div class='container mt-1 bg-dark text-white'>
                                 <h4 class='pt-4 fs-6 '>Anotaciones</h4>
                                 <hr>
-                                <button type='submit' name='anadirNota' value='$idPlanta' id='btnAnadirPlanta' class='btn position-relative m-4'>Añadir Anotacion</button>
+                                <div class='d-flex m-4'>
+                                    <div class='input-group w-50'>
+                                        <textarea class='form-control' name='anotacion' placeholder='Descrición de nueva anotación'></textarea>
+                                    </div>
+                                    <button type='submit' name='anadirAnotacion' value='$idPlanta' id='btnAnadirPlanta' class='btn position-relative m-4'>Añadir Anotacion</button>
+                                </div>
                                 
-                                
-                                AÑADIR ANOTACION!!
 
 
-                                <div class='row justify-content-between text-center'>
+                                <div class='row justify-content-evenly text-center'>
                                     <div class='flex col-sm-8'>
-                                        <table class='table table-hover'>
+                                        <table class='table text-white'>
                                             <thead>
                                                 <tr>
                                                     <th scope='col'>Fecha de anotación</th>
@@ -167,7 +169,10 @@ class Planta
                                         </table>
                                     </div>
                                     <div class='col-sm-3'>
-                                        <img src='./../../$url' class='img-responsive m-3 shadow-md' style='width:100%' alt='Image'>
+                                        
+                                        <div class='text-center mb-4'>
+                                            <img src='./../../$url' class='rounded' alt='mi Planta'>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

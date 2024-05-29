@@ -103,7 +103,7 @@ class Transaccion
         //------------------------ Usuario-------------------------
         // Consulta de usuarios
         $query = "
-        SELECT c.id_cesta, cp.id_producto, u.email, p.nombre, t.direccion,t.estado, t.fecha_transaccion,t.nombre, t.apellido, p.precio
+        SELECT c.id_cesta, cp.id_producto, u.email, p.nombre, t.direccion,t.estado, t.fecha_transaccion,t.nombre as nomUsuauario, t.apellido, p.precio
         FROM producto p
         JOIN 
             `cesta-producto` cp ON p.id_producto = cp.id_producto
@@ -134,7 +134,7 @@ class Transaccion
         } else {
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $id_cesta = $fila['id_cesta'];
-                $nombre = $fila['nombre'];
+                $nombre = $fila['nomUsuauario'];
                 $apellido = $fila['apellido'];
                 $id_producto = $fila['id_producto'];
                 $email = $fila['email'];

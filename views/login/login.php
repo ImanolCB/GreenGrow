@@ -40,6 +40,17 @@
                     <legend>Inicio de sesión</legend>
                     <p class="text-warning">Necesario para realizar pedidos</p>
                     <hr><br>
+                                        
+                    <!-- Mensaje de error -->
+                    <?php if (isset($_SESSION['error'])) :
+                        echo "
+                        <div class='alert alert-danger' role='alert'>
+                        " . $_SESSION['error'] . "
+                        </div>
+                        ";
+                        unset($_SESSION['error']); ?>
+                    <?php endif; ?>
+                    
                     <div class="mb-3 row">
                         <label for="emailLogin" class="col-form-label col-sm-4">E-mail</label>
                         <div class="col-sm-8">

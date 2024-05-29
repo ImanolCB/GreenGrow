@@ -25,8 +25,6 @@ if (isset($_REQUEST['submit'])) {
                 $emailInicioSesion = $_REQUEST['emailLogin'];
                 $passwordInicioSesion = $_REQUEST['passwordLogin'];
                 $usuarioInicioSesion = new Usuario(0, $emailInicioSesion, $passwordInicioSesion, null, null);
-                // $usuarioInicioSesion->setEmail($emailInicioSesion);
-                // $usuarioInicioSesion->setPassword($passwordInicioSesion);
 
                 // Verificar el usuario
                 $resultadoVerificacion = $usuarioInicioSesion->verificarUsuario($usuarioInicioSesion, $conn->conectar_bd());
@@ -38,16 +36,14 @@ if (isset($_REQUEST['submit'])) {
                     $_SESSION['user_rol'] = $resultadoVerificacion["rol"];
                     $_SESSION['user_id'] = $resultadoVerificacion["id"];
 
-                    // echo "EMAIL " . $_SESSION['usermail'];
-                    // echo "ROL " . $_SESSION['user_rol'];
 
                     // Redirigir a la página de inicio
                     header("Location: ./../index.php");
                     exit();
                 } else {
                     // Si la verificación falla, mostrar mensaje de error y redirigir
-                    echo "No se puede iniciar sesión. Verifique sus credenciales." . $resultadoVerificacion["validado"];
-                    // header("Location: /../views/login/login.php");
+                    $_SESSION['error'] = 'Credenciales incorrectas.';
+                    header("Location: ./../views/login/login.php");
                     exit();
                 }
                 break;
@@ -57,16 +53,14 @@ if (isset($_REQUEST['submit'])) {
                 $passwordRegistro = $_REQUEST['passwordRegistro'];
                 $passwordRegistroRep = $_REQUEST['passwordRegistroRep'];
                 $usuarioRegistro = new Usuario(0, $emailRegistro, $passwordRegistro, null, null);
-                // $usuarioRegistro->setEmail($emailRegistro);
-                // $usuarioRegistro->setPassword($passwordRegistro);
+
 
                 // Verificación de que el usuario todavía no está registrado
                 $resultadoExistencia = $usuarioRegistro->existeUsuario($usuarioRegistro, $conn->conectar_bd());
                 if ($resultadoExistencia) {
-                    /**
-                     * TODO: PENDIENTE AÑADIR MENSAJE DE ERROR
-                     */
-                    echo "Ese usuario ya está registrado. Prueba con otro";
+                    $_SESSION['error'] = 'El usuario ya está en uso';
+                    header("Location: ./../views/login/registro.php");
+                    exit();
                 } else {
                     //Comprobación de que las contraseñas coinciden
                     if ($passwordRegistro == $passwordRegistroRep) {
@@ -75,13 +69,14 @@ if (isset($_REQUEST['submit'])) {
                             header("Location: ./../views/login/login.php");
                             exit();
                         } else {
-                            /**
-                             * TODO: PENDIENTE AÑADIR MENSAJE DE ERROR
-                             */
-                            echo "El usuario no se ha podido registrar en la base de datos";
+                            $_SESSION['error'] = 'No se ha podido registrar el usuario en la base de datos';
+                            header("Location: ./../views/login/registro.php");
+                            exit();
                         }
                     } else {
-                        echo "Las contraseñas no coinciden";
+                        $_SESSION['error'] = 'Las contraseñas no coinciden';
+                        header("Location: ./../views/login/registro.php");
+                        exit();
                     }
                 }
                 break;

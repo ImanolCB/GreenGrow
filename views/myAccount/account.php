@@ -43,7 +43,7 @@
                 Swal.fire({
                     position: 'top-start',
                     icon: 'success',
-                    title: '<?php echo $_SESSION['mensaje']; ?>',
+                    title: "<?php echo $_SESSION['mensaje']; ?>",
                     showConfirmButton: false,
                     timer: 1500
                 });
@@ -51,7 +51,36 @@
             <?php unset($_SESSION['mensaje']); ?>
         <?php endif; ?>
 
+        <!-- Mensaje de error -->
+        <?php if (isset($_SESSION['error'])) : ?>
+            <script>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: "<?php echo $_SESSION['error'] ?>"
+                });
+            </script>
+            <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
+
         <?php
+
+        //Cuando se pulsa añadir anotacion
+        if (isset($_REQUEST['anadirAnotacion'])) {
+            $id = intval($_REQUEST['anadirAnotacion']);
+            $nota = $_REQUEST['anotacion'];
+            if ($nota != '') {
+                Anotacion::anadirAnotacion($conn->conectar_bd(), $nota, date('Y-m-d'), $id);
+                $_SESSION['mensaje'] = 'La anotacion se ha añadida';
+                header('Location: ' . $_SERVER['PHP_SELF']);
+                exit();
+            } else {
+                $_SESSION['error'] = 'Debe rellenar el campo de texto';
+                header('Location: ' . $_SERVER['PHP_SELF']);
+                exit();
+            }
+        }
+
         //Cuando se pulsa borrar anotacion
         if (isset($_REQUEST['borrarAnotacion'])) {
             $id = intval($_REQUEST['borrarAnotacion']);

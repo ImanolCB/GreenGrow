@@ -210,8 +210,8 @@ class Producto
         foreach ($arrayProductos as $producto) {
             $html .= "
          
-             <div class='col producto searchable-item'>
-             <div class='card m-1 h-100' id='" . $producto->getIdProducto() . "'>
+             <div class='col producto searchable-item p-4'>
+             <div class='card h-100' id='" . $producto->getIdProducto() . "'>
                  <img src=' " . $producto->getUrl() . " ' class='card-img-top'alt='" . $producto->getNombre() . "' title='" . $producto->getNombre() . "'>
                  <div class='card-body mt-2  '>
                      <h5 class='card-title searchable-item mb-4 d-flex flex-row justify-content-between'>"   . $producto->getNombre() . "<span class='text-black p-1 border border-success rounded-1'>" . number_format($producto->getPrecio(), 2, ',', '.') . " €</span></h5>

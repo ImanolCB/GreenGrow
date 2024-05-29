@@ -112,4 +112,30 @@ class Anotacion
             return false;
         }
     }
+
+// Método para añadir una nueva anotación
+public static function anadirAnotacion($conn, $nota, $fechaNota, $idPlanta)
+{
+    try {
+        $query = "INSERT INTO anotacion (nota, fecha_nota, id_planta) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($query);
+
+        if ($stmt === false) {
+            throw new Exception("Error en la preparación de la consulta: " . $conn->error);
+        }
+
+        $stmt->bind_param("ssi", $nota, $fechaNota, $idPlanta);
+
+        if ($stmt->execute()) {
+            $stmt->close();
+            return true;
+        } else {
+            throw new Exception("Error en la ejecución de la consulta: " . $stmt->error);
+        }
+    } catch (Exception $exception) {
+        echo "Error al añadir la anotación: " . $exception->getMessage();
+        return false;
+    }
+}
+    
 }
