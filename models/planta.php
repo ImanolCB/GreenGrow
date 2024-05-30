@@ -151,8 +151,6 @@ class Planta
                                     </div>
                                     <button type='submit' name='anadirAnotacion' value='$idPlanta' id='btnAnadirPlanta' class='btn position-relative m-4'>Añadir Anotacion</button>
                                 </div>
-                                
-
 
                                 <div class='row justify-content-evenly text-center'>
                                     <div class='flex col-sm-8'>
@@ -171,7 +169,7 @@ class Planta
                                     <div class='col-sm-3'>
                                         
                                         <div class='text-center mb-4'>
-                                            <img src='./../../$url' class='rounded' alt='mi Planta'>
+                                            <img src='./../../$url' class='img-fluid img-thumbnail rounded' alt='mi Planta'>
                                         </div>
                                     </div>
                                 </div>

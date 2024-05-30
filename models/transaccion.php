@@ -182,6 +182,8 @@ class Transaccion
                             <thead class='thead-custom'>
                                 <tr>
                                     <th>ID-Cesta</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
                                     <th>Fecha</th>
                                     <th>Correo</th>
                                     <th>Producto</th>
@@ -193,6 +195,8 @@ class Transaccion
                             <tbody id='ordersTable'>
                                 <tr class='align-middle text-center'>
                                 <td>" . $id_cesta . " </td>
+                                <td>" . $nombre . " </td>
+                                <td>" . $apellido . " </td>
                                 <td>" . $fecha . " </td>
                                 <td>" . $email . " </td>
                                 <td>" . $producto . " </td>
