@@ -161,11 +161,12 @@ if (isset($_REQUEST['submit'])) {
                 header("Location: ./../views/shop/tienda.php");
                 exit(); //Asegura de salir del script después de la redirección
                 break;
-                //Cuando se pulsa el botón de volver a la página anterior
+
+                //Cuando se pulsa el botón de volver a panel
             case "Volver a panel":
                 if ($_SESSION['usermail'] != null && $_SESSION['user_rol'] == 'administrador') {
 
-                    header("Location: ./../views/myAccount/administrarProductos.php");
+                    header("Location: ./../views/myAccount/panelControl.php");
                     exit(); //Asegura de salir del script después de la redirección
 
                 } else {

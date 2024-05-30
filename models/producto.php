@@ -217,7 +217,7 @@ class Producto
                      <h5 class='card-title searchable-item mb-4 d-flex flex-row justify-content-between'>"   . $producto->getNombre() . "<span class='text-black p-1 border border-success rounded-1'>" . number_format($producto->getPrecio(), 2, ',', '.') . " €</span></h5>
                      <p class='card-text text-start m-1'><span>Nivel de cuidado: </span>" . $producto->getCuidado() . "</p>
                      <p class='card-text text-start m-1'><span>Tipo de planta: </span>" . $producto->getTipo() . "</p>
-                     <p class='card-text text-start m-1'><span>Altura máxima: </span>" . $producto->getAltura() . "</p>
+                     <p class='card-text text-start m-1'><span>Altura máxima: </span>" . $producto->getAltura() . " cm</p>
                      <p class='card-text text-start m-1'><span>Época de floración: </span>" . $producto->getEpoca() . "</p>
                      <p class='card-text text-start mt-3'><span></span>" . $producto->getDescripcion() . "</p>
                      
@@ -346,6 +346,95 @@ class Producto
             die("Error al ejecutar la consulta: " . mysqli_error($conexion));
         } else {
             echo "Producto insertado exitosamente.";
+        }
+
+        // Cerrar la declaración
+        mysqli_stmt_close($stmt);
+    }
+
+
+    //Funcion para obtener todos los usuarios de base de datos
+    public static function consultarProductosAdministrados($conexion)
+    {
+        // Preparar la consulta SQL de Select
+        $query = "SELECT * FROM producto ";
+
+        // Preparar la declaración
+        $stmt = mysqli_prepare($conexion, $query);
+
+        // Ejecutar la declaración
+        mysqli_stmt_execute($stmt);
+
+        // Obtener resultados
+        $resultado = mysqli_stmt_get_result($stmt);
+
+        // Verificar si la consulta fue exitosa
+        if (!$resultado) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return "Error al ejecutar la consulta: " . mysqli_error($conexion);
+        } else {
+            $html = "";
+
+            //Muentras tenga resultados se le asocia a una fila un resultado y se hace un objeto
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                $id = $fila['id_producto'];
+                $nombre = $fila['nombre'];
+                $descripcion = $fila['descripcion'];
+                $altura = $fila['altura'];
+                $epoca = $fila['epoca'];
+                $tipo = $fila['tipo'];
+                $cuidado = $fila['cuidado'];
+                $precio = $fila['precio'];
+                $promocion = $fila['promocion'];
+                $url = $fila['url'];
+
+                $html .= "
+                    <form action='./../../views/myAccount/administrarProductos.php' method='post'>
+                        <tr class = 'align-middle text-center'>
+                            <td> $nombre </td>
+                            <td> $descripcion </td>
+                            <td> $altura cm</td>
+                            <td> $epoca </td>
+                            <td> $tipo </td>
+                            <td> $cuidado </td>
+                            <td> $precio €</td>
+                            <td> $promocion </td>                            
+                            <td> 
+                                <button type='submit' name='cambiar' value='$id' class='btn btn-primary m-1'>Editar</button>
+                                <button type='submit' name='borrarProducto' value='$id' class='btnRed btn btn-primary m-1'>Eliminar</button>
+                            </td>
+                        </tr>
+                    </form>
+                    ";
+            }
+            return $html;
+        }
+    }
+
+    public static function borrarProducto($conexion, $id_producto)
+    {
+        // Preparar la consulta SQL de borrado
+        $query = "DELETE FROM producto WHERE id_producto = ?";
+
+        // Preparar la declaración
+        $stmt = mysqli_prepare($conexion, $query);
+
+        // Verificar si la preparación fue exitosa
+        if ($stmt === false) {
+            die("Error al preparar la consulta: " . mysqli_error($conexion));
+        }
+
+        // Vincular los parámetros a la declaración
+        mysqli_stmt_bind_param($stmt, "i", $id_producto);
+
+        // Ejecutar la declaración
+        $resultado = mysqli_stmt_execute($stmt);
+
+        // Verificar si la ejecución fue exitosa
+        if ($resultado === false) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+        } else {
+            echo "Producto borrado exitosamente.";
         }
 
         // Cerrar la declaración

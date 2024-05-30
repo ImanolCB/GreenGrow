@@ -1,6 +1,6 @@
 'use strict';
 
-window.onload = function () {
+document.addEventListener('DOMContentLoaded', function () {
     const chUsuario = document.getElementById('chUsuario');
     const chTransaccion = document.getElementById('chTransaccion');
     const divUsuario = document.getElementById('tablaUsuario');
@@ -43,4 +43,4 @@ window.onload = function () {
             }
         }
     });
-};
+});
