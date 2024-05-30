@@ -390,18 +390,44 @@ class Producto
 
                 $html .= "
                     <form action='./../../views/myAccount/administrarProductos.php' method='post'>
-                        <tr class = 'align-middle text-center'>
-                            <td> $nombre </td>
-                            <td> $descripcion </td>
-                            <td> $altura cm</td>
-                            <td> $epoca </td>
-                            <td> $tipo </td>
-                            <td> $cuidado </td>
-                            <td> $precio €</td>
-                            <td> $promocion </td>                            
-                            <td> 
-                                <button type='submit' name='cambiar' value='$id' class='btn btn-primary m-1'>Editar</button>
-                                <button type='submit' name='borrarProducto' value='$id' class='btnRed btn btn-primary m-1'>Eliminar</button>
+                        <tr class='align-middle text-center'>
+                            <td><input type='text' name='nombreProducto' value='$nombre' class='form-control'></td>
+                            <td><textarea name='descripcionProducto' class='form-control' style='min-width: 200px; min-height: 100px;'>$descripcion</textarea></td>
+                            <td><input type='number' name='alturaProducto' value='$altura' class='form-control'></td>
+                            <td><select id='inputState' name='epocaProducto' value='$epoca' class='form-select'>
+                                    <option value='$epoca'>$epoca</option>
+                                    <option value='primavera'>Primavera</option>
+                                    <option value='verano'>Verano</option>
+                                    <option value='otoño'>Otoño</option>
+                                    <option value='invierno'>Invierno</option>
+                                </select></td>
+                            <td><select id='inputState' class='form-select' value='$tipo' name='tipoProducto'>
+                                    <option value='$tipo'>$tipo</option>
+                                    <option value='flor'>Flor</option>
+                                    <option value='exotica'>Exótica</option>
+                                    <option value='interior'>Interior</option>
+                                    <option value='arbol'>Arbol</option>
+                                    <option value='cactus'>Cactus</option>
+                                </select></td>
+                            <td><select id='inputState' name='cuidadoProducto' class='form-select'>
+                                    <option value='$cuidado'>$cuidado</option>
+                                    <option value='sencillo'>Sencillo</option>
+                                    <option value='moderado'>Moderado</option>
+                                    <option value='complejo'>Complejo</option>
+                                </select></td>
+                            <td><input type='number' name='precioProducto' value='$precio' class='form-control'></td>
+                            <td>
+                                <input class='form-check-input' type='radio' name='promocionProducto' id='promocionProducto' value='si'";if ($promocion == 'si') {$html .= 'checked';} else {$html .= ' ';}$html .= ">
+                                <label class='form-check-label' for='promocionProducto'>Sí</label>
+                                <input class='form-check-input' type='radio' name='promocionProducto' id='promocionProducto' value='no'";if ($promocion == 'no') {$html .= 'checked';} else {$html .= ' ';}$html .= ">
+                                <label class='form-check-label' for='promocionProducto'>No</label>
+                            </td>
+                            <td><input type='text' name='urlProducto' value='$url' class='form-control' id='urlProducto'></td>
+                            <td>
+                            
+
+                                <button type='submit' name='actualizar' value='$id' class='btn btn-primary m-1'>Actualizar</button>
+                                <button type='submit' name='borrarProducto' value='$id' class='btnRed btn btn-danger m-1'>Eliminar</button>
                             </td>
                         </tr>
                     </form>
@@ -432,12 +458,34 @@ class Producto
 
         // Verificar si la ejecución fue exitosa
         if ($resultado === false) {
-            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return false;
         } else {
-            echo "Producto borrado exitosamente.";
+            return true;
         }
 
         // Cerrar la declaración
+        mysqli_stmt_close($stmt);
+    }
+
+    public static function actualizarDato($conexion, $id_producto, $nombre, $descripcion, $altura, $epoca, $tipo, $cuidado, $precio, $promocion)
+    {
+        $query = "UPDATE producto SET nombre=?, descripcion=?, altura=?, epoca=?, tipo=?, cuidado=?, precio=?, promocion=? WHERE id_producto=?";
+        $stmt = mysqli_prepare($conexion, $query);
+
+        if ($stmt === false) {
+            die("Error al preparar la consulta: " . mysqli_error($conexion));
+        }
+
+        mysqli_stmt_bind_param($stmt, "ssisssdsi", $nombre, $descripcion, $altura, $epoca, $tipo, $cuidado, $precio, $promocion, $id_producto);
+
+        $resultado = mysqli_stmt_execute($stmt);
+
+        if ($resultado === false) {
+            return false;
+        } else {
+            return true;
+        }
+
         mysqli_stmt_close($stmt);
     }
 }

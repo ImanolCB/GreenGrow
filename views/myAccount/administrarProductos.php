@@ -46,10 +46,24 @@
     <?php
 
     //Cuando se pulsa editar producto
-    if (isset($_REQUEST['cambiar'])) {
-        $id = intval($_REQUEST['cambiar']);
-        Usuario::actualizarRolUsuario($id, $conn->conectar_bd());
-        $_SESSION['mensaje'] = 'El rol se ha modificado';
+    if (isset($_REQUEST['actualizar'])) {
+        $id = intval($_REQUEST['actualizar']);
+        $nombreProducto = $_REQUEST['nombreProducto'];
+        $descripcionProducto = $_REQUEST['descripcionProducto'];
+        $alturaProducto = intval($_REQUEST['alturaProducto']);
+        $epocaProducto = $_REQUEST['epocaProducto'];
+        $tipoProducto = $_REQUEST['tipoProducto'];
+        $cuidadoProducto = $_REQUEST['cuidadoProducto'];
+        $precioProducto = floatval($_REQUEST['precioProducto']);
+        $promocionProducto = $_REQUEST['promocionProducto'];
+        $urlProducto = $_REQUEST['urlProducto'];
+
+        if ($nombreProducto != null && $nombreProducto != null && $descripcionProducto != null && $alturaProducto != null && $epocaProducto != null && $tipoProducto != null && $cuidadoProducto != null && $precioProducto != null && $promocionProducto != null && $urlProducto != null) {
+            Producto::actualizarDato($conn->conectar_bd(), $id, $nombreProducto, $descripcionProducto, $alturaProducto, $epocaProducto, $tipoProducto, $cuidadoProducto, $precioProducto, $promocionProducto, $urlProducto);
+            $_SESSION['mensaje'] = 'El producto se ha actualizado correctamente';
+        }else{
+            $_SESSION['error'] = 'Los campos no pueden estar vacíos';
+        }
         header('Location: ' . $_SERVER['PHP_SELF']);
         exit();
     }
@@ -219,16 +233,16 @@
                             <tr>
                                 <th>Nombre</th>
                                 <th>Descripcion</th>
-                                <th>Altura</th>
+                                <th>Altura (cm)</th>
                                 <th>Epoca</th>
                                 <th>Tipo</th>
                                 <th>Cuidado</th>
-                                <th>Precio</th>
+                                <th>Precio(€)</th>
                                 <th>Promocionado</th>
                             </tr>
                         </thead>
                         <tbody id="usersTable">
-                            <?php echo Producto::consultarProductosAdministrados($conn->conectar_bd())?>
+                            <?php echo Producto::consultarProductosAdministrados($conn->conectar_bd()) ?>
                         </tbody>
                     </table>
                 </div>
