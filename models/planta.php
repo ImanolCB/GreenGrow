@@ -134,7 +134,7 @@ class Planta
                     }
 
                     $html .= "
-                    <div class='accordion-item m-2'>
+                    <div class='accordion-item '>
                         <form action='./../../views/myAccount/account.php' method='post'>
                         <h2 class='accordion-header' id='flush-heading-$idPlanta'>
                             <button class='accordion-button collapsed p-3 fs-6' type='button' data-bs-toggle='collapse' data-bs-target='#flush-collapse-$idPlanta' aria-expanded='false' aria-controls='flush-collapse-$idPlanta'>

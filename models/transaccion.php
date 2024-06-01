@@ -179,7 +179,7 @@ class Transaccion
     
                     // Comenzar una nueva tabla
                     $html .= "
-                        <p class='fs-3 mb-1 mt-4 searchable-item'>" . $nombre . " " . $apellido . "</p>
+                        <p class='fs-5 mb-1 mt-4 text-secondary searchable-item'>" . $nombre . " " . $apellido . "</p>
                         <table class='table table-bordered table-striped mt-0 searchable-item'>
                             <thead class='thead-custom'>
                                 <tr>
@@ -286,5 +286,50 @@ class Transaccion
         mysqli_stmt_close($update_stmt);
 
         return $resultado;
+    }
+
+    public static function consultarIngresoMes($conexion)
+    {
+        $html = '';
+        $idActual = null;
+        $estadoAnterior = null;
+
+        //------------------------ Usuario-------------------------
+        // Consulta de usuarios
+        $query = "
+        SELECT SUM(p.precio) AS total_precio
+            FROM transaccion t
+            JOIN `cesta-producto` cp ON t.id_cesta = cp.id_cesta
+            JOIN producto p ON cp.id_producto = p.id_producto
+            WHERE MONTH(t.fecha_transaccion) = MONTH(CURRENT_DATE)
+            AND YEAR(t.fecha_transaccion) = YEAR(CURRENT_DATE);
+
+            ";
+
+        // Preparar la declaración
+        $stmt = mysqli_prepare($conexion, $query);
+
+        // Ejecutar la declaración
+        mysqli_stmt_execute($stmt);
+
+        // Obtener resultados
+        $resultado = mysqli_stmt_get_result($stmt);
+
+
+        // Verificar si la consulta fue exitosa
+        if (!$resultado) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return "Error al ejecutar la consulta: " . mysqli_error($conexion);
+        } else {
+            if (mysqli_num_rows($resultado) == 1) {
+                $fila = mysqli_fetch_assoc($resultado);
+                $total = $fila['total_precio'];
+                $html .= " $total";
+            } else {
+                $html .= " 0";
+            }
+    
+            return $html;
+        }
     }
 }

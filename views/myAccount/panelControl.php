@@ -112,7 +112,7 @@
         <div id="contenedor" class="container d-flex flex-column align-items-left mt-2">
             <div class="row" id="tablaUsuario">
                 <div class="col-md-12">
-                    <h2 class="text-left text-secondary">Usuarios</h2>
+                    <h2 class="text-left text-success fs-3">Usuarios</h2>
                     <table class="table table-bordered table-striped">
                         <thead class="thead-custom">
                             <tr>
@@ -130,7 +130,11 @@
             </div>
             <div class="row" id="tablaTransaccion">
                 <div class="col-md-12">
-                    <h2 class="text-left text-secondary">Pedidos</h2>
+                    <h2 class="text-left text-success fs-3">Pedidos
+                        <span class="fs-6 text-secondary">
+                            <?php echo 'Total, este mes: '. Transaccion::consultarIngresoMes($conn->conectar_bd()) .' €' ?>
+                        </span> 
+                    </h2>
 
                     <?php echo Transaccion::consultarTransaccion($conn->conectar_bd()) ?>
 

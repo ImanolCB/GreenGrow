@@ -101,9 +101,17 @@
         ?>
 
 
-        <form action="./../../controllers/miControlador.php" method="post" enctype="multipart/form-data" class="bg-dark ">
+        <div class="cabecera p-4">
             <div class="container">
-                <p class="fs-3">Datos para añadir planta</p>
+                <p class="fs-3 w-50">Mis plantas</p>
+                <p class="w-50">En este apartado podrás llevar un registro de tus propias plantas del hogar,
+                    añadiendo notas sobre cualquier cosa que quieras anotar del mantenimiento de tus plantas
+                </p>
+            </div>
+        </div>
+
+        <form action="./../../controllers/miControlador.php" method="post" enctype="multipart/form-data" class="bg-dark ">
+            <div class="container p-2">
                 <!-- Datos de planta nueva -->
                 <div class="input-group m-3">
                     <input type="text" class="form-control" placeholder="Nombre de planta" name="nombrePlanta" required>
@@ -116,14 +124,9 @@
         </form>
         <section class="container mt-4">
 
-            <!-- Search -->
-            <div class="input-group m-2 border border-1 w-50 shadow-md">
-                <input id="busqueda" type="text" class="form-control" placeholder="Buscar" aria-describedby="button-addon2">
-                <!-- <button class="btn btn-outline-secondary" type="button" id="button-addon2">Buscar</button> -->
-            </div>
             <!-- Acordeon -->
             <!-- I1 -->
-            <div class="accordion accordion-flush mt-4" id="accordionFlushExample">
+            <div class="accordion accordion-flush m-4" id="accordionFlushExample">
                 <?php
                 echo Planta::consultarPlantas($conn->conectar_bd(), $_SESSION['user_id'])
                 ?>
@@ -138,9 +141,6 @@
 
     <!-- FOOTER -->
     <?php include './../includes/footer.php' ?>
-
-    <!-- SCRIPTS -->
-    <script src="./../../assets/js/verAnotacion.js"></script>
 
 </body>
 
