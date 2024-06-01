@@ -3,7 +3,7 @@ window.onload = function () {
     const productContainer = document.getElementById('contenedor');
     const searchableItems = productContainer.getElementsByClassName('searchable-item');
 
-    searchInput.addEventListener('keyup', () => {
+    searchInput.addEventListener('keypress', () => {
         const filter = searchInput.value.toLowerCase();
 
         for (let i = 0; i < searchableItems.length; i++) {

@@ -150,6 +150,8 @@ class Transaccion
                     $html .= "
                         <tr class='align-middle text-center'>
                             <td>" . $id_cesta . " </td>
+                            <td>" . $nombre . " </td>
+                            <td>" . $apellido . " </td>
                             <td>" . $fecha . " </td>
                             <td>" . $email . " </td>
                             <td>" . $producto . " </td>
