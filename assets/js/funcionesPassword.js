@@ -4,6 +4,7 @@
  * Función para mostrar u ocultar el texto de la contraseña
  * @param {*} inputId
  */
+document.addEventListener("DOMContentLoaded", function() {
 function togglePasswordVisibile(inputId) {
   var input = document.getElementById(inputId);
   if (input.type === "password") {
@@ -25,4 +26,4 @@ function keyPressPasswordValidacion(inputId) {
     }
 
 }
-
+})

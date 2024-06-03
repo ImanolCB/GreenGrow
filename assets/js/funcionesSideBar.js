@@ -1,5 +1,6 @@
 "use strict";
 
+document.addEventListener("DOMContentLoaded", function() {
 function mostrarOcultar() {
   const btnSideBar = document.querySelector("#btnSideBar");
   const sidebar = document.querySelector(".sidebar");
@@ -20,3 +21,4 @@ function rangoFiltro() {
     precioMostrado.textContent = rango.value;
   });
 }
+})

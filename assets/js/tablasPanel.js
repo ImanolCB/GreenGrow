@@ -1,6 +1,6 @@
 'use strict'
 
-function inicio() {
+document.addEventListener("DOMContentLoaded", function() {
     const chUsuario = document.getElementById('chUsuario')
     const chTransaccion = document.getElementById('chTransaccion')
     const divUsuario = document.getElementById('tablaUsuario')
@@ -27,10 +27,8 @@ function inicio() {
             lbTransaccion.textContent = 'Ver transacciones';
         }
     });
-}
+})
 
-
-window.onload = inicio;
 
 
 

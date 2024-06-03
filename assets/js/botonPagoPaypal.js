@@ -1,5 +1,5 @@
 'use strict';
-
+document.addEventListener("DOMContentLoaded", function() {
         var divPayPal = document.getElementById('paypal-button-container');
         var inputs = [
             document.getElementById('firstName'),
@@ -20,3 +20,4 @@
 
         inputs.forEach(input => input.addEventListener('input', checkInputs));
         checkInputs();
+    });

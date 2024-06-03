@@ -1,4 +1,4 @@
-window.onload = function () {
+document.addEventListener("DOMContentLoaded", function() {
     const searchInput = document.getElementById('busqueda');
     const productContainer = document.getElementById('contenedor');
     const searchableItems = productContainer.getElementsByClassName('searchable-item');
@@ -15,4 +15,4 @@ window.onload = function () {
             }
         }
     });
-};
+})
