@@ -12,51 +12,52 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <!-- Required PHP -->
-    <?php 
-        require_once './../../views/includes/fonts.php';
-        require_once './../../models/Producto.php';
-        require_once './../../models/conexionBD.php';
+    <?php
+    require_once './../../views/includes/fonts.php';
+    require_once './../../models/Producto.php';
+    require_once './../../models/conexionBD.php';
 
     ?>
 
     <!-- CSS -->
     <link rel="stylesheet" href="./../../assets/css/style.css">
-    <link rel="stylesheet" href="./../../assets/css/tienda.css">
+    <link rel="stylesheet" href="./../../assets/css/promociones.css">
 
 </head>
 
 <body>
 
     <!-- HEADER -->
-    <?php include './../includes/header.php';?>
+    <?php include './../includes/header.php'; ?>
 
     <!-- MAIN -->
-
     <main class="main">
+        <!-- Video de fondo en bucle -->
+        <video class="video-background" autoplay loop muted>
+            <source src="https://cdn.pixabay.com/video/2023/11/13/188912-884171167_large.mp4" type="video/mp4">
+            Tu navegador no admite el elemento de video.
+        </video>
 
-        <!-- ASIDE -->
-        <?php
-        /**
-         * TODO: PENDIENTE AÑADIR EL FORM CON LAS OPCIONES DE FILTROS CORRESPONDIENTES
-         * TODO: PENSAR COMO REALIZAR LA CONSULTA SEGÚN LOS FILTROS SELECCIONADOS
-         */
-        ?>
+        <!-- CONTENEDOR -->
+        <div class="cabecera text-center">
+            <h1 class="text-white pt-4 fs-1">Promoción de primavera</h1>
+            <p class="m-auto w-75 text-white p-2 fs-4">
+                ¡Bienvenida la Primavera con Nuestra Gran Promoción de Plantas! 🌷🌿
+            </p>
 
-        <button id="btnSideBar" type="button" class="d-lg-none" onclick="mostrarOcultar()"><</button>
+            <p class="m-auto w-75 text-white p-1 fs-4">
+                La primavera está aquí y no hay mejor momento para llenar tu hogar y jardín de vida y color.
+                En nuestra tienda online, queremos celebrar esta hermosa temporada contigo ofreciendo una promoción especial en nuestra amplia variedad de plantas.
+            </p>
+        </div>
 
-                <!-- CONTENEDOR -->
-                <div class="container text-center">
-                    <h2>En desarrollo ...</h2>
-                    <div class="m-auto gap-2 justify-content-evenly row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  row-cols-xxl-5">
-                <?php
-                /**
-                 * Bucle que genera 5 estructuras de promociones
-                 */
-                $conn = new ConexionBD;
-                    echo Producto::crearPromocion($conn->conectar_bd(),0);
-                ?>
-            </div>
-                </div>
+        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-3 g-4 justify-content-center">
+            <?php
+            $conn = new ConexionBD;
+            echo Producto::crearPromocion($conn->conectar_bd(), 0);
+            ?>
+        </div>
+
     </main>
 
     <!-- FOOTER -->

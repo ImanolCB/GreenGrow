@@ -3,12 +3,24 @@
   font-weight: 400;
   font-style: normal;
 }
+::selection {
+  background: #df9f2f7c; /* Color de fondo para la selección */
+  color: #000;         /* Color del texto seleccionado */
+}
+
+::-moz-selection {
+  background: #df9f2f7c; /* Color de fondo para la selección en Firefox */
+  color: #000;         /* Color del texto seleccionado en Firefox */
+}
+
 body{
   overflow-x: hidden;
 }
+
 main{
   min-height: 80vh;
 }
+
 /*HEADER*/
 header {
   box-shadow: 0 0 15px #dddddd;

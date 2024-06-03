@@ -303,19 +303,30 @@ class Producto
                     $promocion,
                     $url
                 );
-
                 $html .= "
-                    <div class='col d-flex justify-content-center'>
-                      <div class='card' style='width: 18rem;'>
-                        <img src='" . $producto->getUrl() . "' class='card-img-top' alt='...'>
-                        <div class='card-body'>
-                          <h5 class='card-title'>" . $producto->getNombre() . "</h5>
-                          <p class='card-text'>" . $producto->getDescripcion() . "</p>
-                          
+                <div class='container mt-5'>
+                    <div class='card text-bg-dark card-custom'>
+                        <img src='" . $producto->getUrl() . "' class='img-fluid promo' alt='" . $producto->getNombre() . "'>
+                        <div class='card-img-overlay'>
+                            <h5 class='card-title'>" . strtoupper($producto->getNombre()) . "</h5>
+                            <p class='card-text'>" . $producto->getDescripcion() . "</p>
                         </div>
-                      </div>
                     </div>
-        ";
+                </div>
+                ";
+
+        //         $html .= "
+        //             <div class='col d-flex justify-content-center'>
+        //               <div class='card' style='width: 18rem;'>
+        //                 <img src='" . $producto->getUrl() . "' class='card-img-top' alt='...'>
+        //                 <div class='card-body'>
+        //                   <h5 class='card-title'>" . $producto->getNombre() . "</h5>
+        //                   <p class='card-text'>" . $producto->getDescripcion() . "</p>
+                          
+        //                 </div>
+        //               </div>
+        //             </div>
+        // ";
             }
             return $html;
         }
