@@ -163,6 +163,33 @@ if (isset($_REQUEST['submit'])) {
                 break;
 
                 //Cuando se pulsa el botón de volver a panel
+            case "Volver a mis plantas":
+                if ($_SESSION['usermail'] != null && $_SESSION['user_rol'] != null) {
+
+                    header("Location: ./../views/myAccount/account.php");
+                    exit(); //Asegura de salir del script después de la redirección
+
+                } else {
+                    header("Location: ./../index.php");
+                    exit(); //Asegura de salir del script después de la redirección
+                }
+
+                break;
+                //Cuando se pulsa el botón de volver a panel
+            case "Ver pedidos":
+                if ($_SESSION['usermail'] != null && $_SESSION['user_rol'] != null) {
+
+                    header("Location: ./../views/myAccount/misPedidos.php");
+                    exit(); //Asegura de salir del script después de la redirección
+
+                } else {
+                    header("Location: ./../index.php");
+                    exit(); //Asegura de salir del script después de la redirección
+                }
+
+                break;
+
+                //Cuando se pulsa el botón de volver a panel
             case "Volver a panel":
                 if ($_SESSION['usermail'] != null && $_SESSION['user_rol'] == 'administrador') {
 
@@ -181,27 +208,35 @@ if (isset($_REQUEST['submit'])) {
                 $nombre = $_REQUEST['nombrePlanta'];
                 $archivo = $_FILES['url'];
 
-                $n_archivo = $archivo['name'];
-                $tmp_archivo = $archivo['tmp_name'];
-                $destino = "./../assets/imagenesUsuario/";
+                if (trim($nombre) != null && trim($archivo) != null) {
+                    $n_archivo = $archivo['name'];
+                    $tmp_archivo = $archivo['tmp_name'];
+                    $destino = "./../assets/imagenesUsuario/";
 
-                // Verificar si el directorio existe, si no, crearlo
-                if (!is_dir($destino)) {
-                    mkdir($destino, 0777, true);
-                }
+                    // Verificar si el directorio existe, si no, crearlo
+                    if (!is_dir($destino)) {
+                        mkdir($destino, 0777, true);
+                    }
 
-                $url = $destino . $n_archivo;
-                $base_datos = "assets/imagenesUsuario/" . $n_archivo;
+                    $url = $destino . $n_archivo;
+                    $base_datos = "assets/imagenesUsuario/" . $n_archivo;
 
-                // Mover el archivo subido al directorio de destino
-                if (move_uploaded_file($tmp_archivo, $url)) {
-                    Planta::insertarPlanta($conn->conectar_bd(), $nombre, $base_datos, $_SESSION['user_id']);
+                    // Mover el archivo subido al directorio de destino
+                    if (move_uploaded_file($tmp_archivo, $url)) {
+                        Planta::insertarPlanta($conn->conectar_bd(), $nombre, $base_datos, $_SESSION['user_id']);
+                    } else {
+                        echo "Error al mover el archivo subido.";
+                    }
+
+                    header("Location: ./../views/myAccount/account.php");
+                    exit(); //Asegura de salir del script después de la redirección
                 } else {
-                    echo "Error al mover el archivo subido.";
+                    $_SESSION['error'] = 'No se puede añadir una planta vacía';
+                    header("Location: ./../views/myAccount/account.php");
+                    exit();
                 }
-                // Si el submit no coincide con ninguno de los casos anteriores, redirige al index
-                header("Location: ./../views/myAccount/account.php");
-                exit(); //Asegura de salir del script después de la redirección
+
+
                 break;
 
             case "administrarProductos":

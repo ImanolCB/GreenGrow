@@ -110,14 +110,14 @@
             </div>
         </div>
 
-        <form action="./../../controllers/miControlador.php" method="post" enctype="multipart/form-data" class="bg-dark ">
+        <form action="./../../controllers/miControlador.php" method="post" enctype="multipart/form-data" class="bg-dark d-flex">
             <div class="container p-2">
                 <!-- Datos de planta nueva -->
                 <div class="input-group m-3">
-                    <input type="text" class="form-control" placeholder="Nombre de planta" name="nombrePlanta" required>
+                    <input type="text" class="form-control" placeholder="Nombre de planta" name="nombrePlanta">
                 </div>
                 <div class="input-group m-3">
-                    <input type="file" class="form-control" id="inputGroupFile01" placeholder="Imagen de planta" name="url" required>
+                    <input type="file" class="form-control" id="inputGroupFile01" placeholder="Imagen de planta" name="url">
                 </div>
                 <button type="submit" name="submit" value="plantaAdd" id="btnPlantaAdd" class="btn position-relative m-4">Añadir planta</button>
             </div>

@@ -15,7 +15,6 @@
 
     <!-- Required PHP -->
     <?php
-    // require_once './../views/includes/fonts.php';
     require_once './../../models/Usuario.php';
     require_once './../../models/Producto.php';
     require_once './../../models/conexionBD.php';

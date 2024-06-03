@@ -173,10 +173,10 @@ class Transaccion
                             ";
                         }
                     }
-    
+
                     $idActual = $id_cesta;
                     $estadoAnterior = $estado;
-    
+
                     // Comenzar una nueva tabla
                     $html .= "
                         <p class='fs-5 mb-1 mt-4 text-secondary searchable-item'>" . $nombre . " " . $apellido . "</p>
@@ -208,7 +208,7 @@ class Transaccion
                                 </tr>";
                 }
             }
-    
+
             // Añadir el botón para la última tabla
             if ($idActual !== null) {
                 $html .= "</tbody></table>";
@@ -222,7 +222,7 @@ class Transaccion
                     ";
                 }
             }
-    
+
             return $html;
         }
     }
@@ -288,11 +288,10 @@ class Transaccion
         return $resultado;
     }
 
+    //Funcion para consultar el dinero ingresado en un mes 
     public static function consultarIngresoMes($conexion)
     {
         $html = '';
-        $idActual = null;
-        $estadoAnterior = null;
 
         //------------------------ Usuario-------------------------
         // Consulta de usuarios
@@ -328,8 +327,93 @@ class Transaccion
             } else {
                 $html .= " 0";
             }
-    
+
             return $html;
         }
+    }
+
+    // Función para mostrar las compras de un usuario por su ID
+    public static function mostrarCompras($id_usuario, $conexion)
+    {
+        // Verificar conexión
+        if ($conexion->connect_error) {
+            die("Conexión fallida: " . $conexion->connect_error);
+        }
+
+        // Consulta SQL para obtener el id de cesta, el estado, el precio total y los productos asociados
+        $query = "
+            SELECT c.id_cesta, t.estado, t.fecha_transaccion, SUM(p.precio) AS precio_total, GROUP_CONCAT(p.nombre SEPARATOR ', ') AS productos
+            FROM cesta c
+            JOIN 
+                transaccion t ON c.id_cesta = t.id_cesta
+            JOIN 
+                `cesta-producto` cp ON c.id_cesta = cp.id_cesta
+            JOIN 
+                producto p ON cp.id_producto = p.id_producto
+            WHERE 
+                c.id_usuario = ?
+            GROUP BY 
+                c.id_cesta, t.estado";
+
+        // Preparar la declaración
+        $stmt = $conexion->prepare($query);
+        if ($stmt === false) {
+            die("Error al preparar la consulta: " . $conexion->error);
+        }
+
+        // Vincular parámetros
+        $stmt->bind_param("i", $id_usuario);
+
+        // Ejecutar la declaración
+        if (!$stmt->execute()) {
+            die("Error al ejecutar la consulta: " . $stmt->error);
+        }
+
+        // Obtener resultados
+        $resultado = $stmt->get_result();
+
+        // Verificar si hay resultados
+        if ($resultado->num_rows === 0) {
+            return "<p>No se encontraron compras para el usuario con ID $id_usuario.</p>";
+        }
+
+
+        $html = "
+            <table class='table '>
+                <thead>
+                    <tr>
+                        <th>ID Cesta</th>
+                        <th>Fecha de entrega</th>
+                        <th>Productos</th>
+                        <th>Precio Total</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+            <tbody>";
+
+        while ($fila = $resultado->fetch_assoc()) {
+            $entrega = new DateTime($fila['fecha_transaccion']);
+            $entrega->modify('+7 days');
+            $fecha_entrega = $entrega->format('d/m/Y');
+
+            $html .= "
+                <tr>
+                    <td class='p-4'>{$fila['id_cesta']}</td>
+                    <td class='p-4'>{$fecha_entrega}</td>
+                    <td class='p-4'>{$fila['productos']}</td>
+                    <td class='p-4'>{$fila['precio_total']} €</td>
+                    <td class='p-4'>{$fila['estado']}</td>
+                </tr>";
+        }
+
+        $html .= "
+                </tbody>
+            </table>";
+
+        // Cerrar la declaración
+        $stmt->close();
+
+        // Devolver el HTML
+        return $html;
     }
 }

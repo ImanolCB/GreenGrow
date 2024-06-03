@@ -9,6 +9,9 @@ if (!isset($_SESSION['usermail']) && !isset($_SESSION['user_rol'])) {
 // Obtiene el nombre de la ruta del archivo en el que esta el usuario actualmente
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
+<style>
+    
+</style>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
         <div class="container-fluid">
@@ -16,17 +19,17 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <a class="navbar-brand" href="./../../index.php">
                     <img src="./../../assets/img/logo.png" alt="logo" width="80" height="80">
                 </a>
-                <?php }else {?>
+            <?php } else { ?>
                 <a class="navbar-brand" href="./index.php">
                     <img src="./assets/img/logo.png" alt="logo" width="80" height="80">
                 </a>
-                <?php } ?>
+            <?php } ?>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
             <?php
-            
+
             // echo basename($_SERVER['PHP_SELF']);
             // Verifica si estamos en la página inical o subdirectorio
             if ($current_page != 'index.php') {
@@ -54,6 +57,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
                             <li class="nav-item m-2">
                                 <button id="linkNav" type="submit" name="submit" value="Sobre nosotros" class="btn btn-primary">Sobre nosotros</button>
                             </li>
+                            <?php if ($current_page == 'account.php') { ?>
+                                <li class="nav-item m-2">
+                                    <button id="linkNav" type="submit" name="submit" value="Ver pedidos" class="btn btn-primary text-secondary">Ver pedidos</button>
+                                </li>
+                            <?php } ?>
                         </ul>
                         <div class="d-flex m-3">
                             <!-- Muestra el nombre del usuario cuando esta registrado -->
@@ -68,8 +76,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
                             </div>
 
                             <?php
-                            // Obtiene el nombre del archivo en el que esta el usuario actualmente
-                            $current_page = basename($_SERVER['PHP_SELF']);
 
                             // Verifica si estamos en la página de inicio de sesión o registro
                             if ($current_page != 'login.php' && $current_page != 'registro.php') {
