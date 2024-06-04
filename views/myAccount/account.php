@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        <form action="./../../controllers/miControlador.php" method="post" enctype="multipart/form-data" class="bg-dark d-flex">
+        <form action="./../../controllers/miControlador.php" method="post" enctype="multipart/form-data" class="formulario d-flex">
             <div class="container p-2">
                 <!-- Datos de planta nueva -->
                 <div class="input-group m-3">

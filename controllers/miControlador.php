@@ -208,7 +208,7 @@ if (isset($_REQUEST['submit'])) {
                 $nombre = $_REQUEST['nombrePlanta'];
                 $archivo = $_FILES['url'];
 
-                if (trim($nombre) != null && trim($archivo) != null) {
+                if ($nombre != null && $archivo != null) {
                     $n_archivo = $archivo['name'];
                     $tmp_archivo = $archivo['tmp_name'];
                     $destino = "./../assets/imagenesUsuario/";
