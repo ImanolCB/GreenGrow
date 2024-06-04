@@ -375,7 +375,7 @@ class Transaccion
 
         // Verificar si hay resultados
         if ($resultado->num_rows === 0) {
-            return "<p>No se encontraron compras para el usuario con ID $id_usuario.</p>";
+            return "<p>No se encontraron compras para este usuario .</p>";
         }
 
 
@@ -393,9 +393,19 @@ class Transaccion
             <tbody>";
 
         while ($fila = $resultado->fetch_assoc()) {
+            //Obtencion de fecha de entrega sumando 7 dias
             $entrega = new DateTime($fila['fecha_transaccion']);
             $entrega->modify('+7 days');
             $fecha_entrega = $entrega->format('d/m/Y');
+
+            //Muetra de estado entregado
+            
+            if ($fila['estado'] == 'enviado' ) {
+                $recibo = ucfirst('recibido');
+            }
+            else{
+                $recibo = ucfirst($fila['estado']);
+            }
 
             $html .= "
                 <tr>
@@ -403,7 +413,7 @@ class Transaccion
                     <td class='p-4'>{$fecha_entrega}</td>
                     <td class='p-4'>{$fila['productos']}</td>
                     <td class='p-4'>{$fila['precio_total']} €</td>
-                    <td class='p-4'>{$fila['estado']}</td>
+                    <td class='p-4'>{$recibo}</td>
                 </tr>";
         }
 

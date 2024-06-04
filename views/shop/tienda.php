@@ -45,26 +45,29 @@
                 $cuidado = isset($_REQUEST['cuidado']) ? $_REQUEST['cuidado'] : [];
                 $epoca = isset($_REQUEST['epoca']) ? $_REQUEST['epoca'] : [];
             
+                // Almacenamiento de los filtros que se van a emplear en sentencia
                 $filtros = [];
+                //Almacenamiento de los valores con los que se va a filtrar
                 $parametros = [];
             
+                //Habiendo precio establecido
                 if (!empty($precio)) {
                     $filtros[] = "precio <= ?";
                     $parametros[] = $precio;
                 }
-            
+                //Habiendo tipo de planta establecido
                 if (!empty($tipo)) {
                     $tipoPlaceholders = implode(',', array_fill(0, count($tipo), '?'));
                     $filtros[] = "tipo IN ($tipoPlaceholders)";
                     $parametros = array_merge($parametros, $tipo);
                 }
-            
+                //Habiendo tipo de cuidado de planta establecido
                 if (!empty($cuidado)) {
                     $cuidadoPlaceholders = implode(',', array_fill(0, count($cuidado), '?'));
                     $filtros[] = "cuidado IN ($cuidadoPlaceholders)";
                     $parametros = array_merge($parametros, $cuidado);
                 }
-            
+                //Habiendo epoca del año establecido
                 if (!empty($epoca)) {
                     $epocaPlaceholders = implode(',', array_fill(0, count($epoca), '?'));
                     $filtros[] = "epoca IN ($epocaPlaceholders)";
@@ -79,7 +82,6 @@
             }
             ?>
             
-        ?>
 
 
 
@@ -187,7 +189,7 @@
                 
         <!-- CONTENEDOR -->
 
-        <div class="d-md-flex flex-column ">
+        <div class="contenedor d-md-flex flex-column w-100">
             <div class="container d-flex justify-content-center align-items-center mt-4 mb-4">
                 <!-- Buscador -->
                 <div class="input-group">

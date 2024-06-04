@@ -29,18 +29,18 @@
             <div class="col-xs-12 col-md-6 col-lg-3">
                 <p class="h5 mb-3">Comunidad</p>
                 <div class="mb-2">
-                    <a href="#" class=" text-decoration-none" id="linkFooter">
+                    <a href="https://www.instagram.com" class=" text-decoration-none" id="linkFooter">
                         <img src="https://cdn.icon-icons.com/icons2/792/PNG/512/INSTAGRAM_icon-icons.com_65535.png" alt="Instagram" class="img-fluid me-2" style="max-width: 20px;">Instagram
                     </a>
                 </div>
                 <div class="mb-2">
-                    <a href="#" class=" text-decoration-none" id="linkFooter">
+                    <a href="https://www.youtube.com/@greengarden8386/videos" class=" text-decoration-none" id="linkFooter">
                         <img src="https://cdn.icon-icons.com/icons2/792/PNG/512/YOUTUBE_icon-icons.com_65537.png" alt="Youtube" class="img-fluid me-2" style="max-width: 20px;">Youtube
                     </a>
                 </div>
                 <div class="mb-2">
-                    <a href="#" class=" text-decoration-none" id="linkFooter">
-                        <img src="https://cdn.icon-icons.com/icons2/792/PNG/512/PINTEREST_icon-icons.com_65539.png" alt="Youtube" class="img-fluid me-2" style="max-width: 20px;">Pinterest
+                    <a href="https://www.pinterest.es" class=" text-decoration-none" id="linkFooter">
+                        <img src="https://cdn.icon-icons.com/icons2/792/PNG/512/PINTEREST_icon-icons.com_65539.png" alt="Pinteres" class="img-fluid me-2" style="max-width: 20px;">Pinterest
                     </a>
                 </div>
             </div>
