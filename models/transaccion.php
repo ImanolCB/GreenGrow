@@ -94,6 +94,7 @@ class Transaccion
         $this->fecha_transaccion = $fecha_transaccion;
     }
 
+    //Funcion para obtener los datos de las transacciones realizadas
     public static function consultarTransaccion($conexion)
     {
         $html = '';
@@ -116,17 +117,17 @@ class Transaccion
         ORDER BY t.fecha_transaccion,t.estado,cp.id_cesta ASC
             ";
 
-        // Preparar la declaración
+        // Prepara la sentencia
         $stmt = mysqli_prepare($conexion, $query);
 
-        // Ejecutar la declaración
+        // Ejecutar la sentencia
         mysqli_stmt_execute($stmt);
 
-        // Obtener resultados
+        // Obtencion de resultados
         $resultado = mysqli_stmt_get_result($stmt);
 
 
-        // Verificar si la consulta fue exitosa
+        // Verifica si la consulta fue exitosa y contruye la estructura de datos
         if (!$resultado) {
             die("Error al ejecutar la consulta: " . mysqli_error($conexion));
             return "Error al ejecutar la consulta: " . mysqli_error($conexion);
@@ -258,7 +259,7 @@ class Transaccion
         return [$html, $total];
     }
 
-
+//Funcion para cambiar el estado de compra
     public static function actualizarEstadoTransaccion($id_cesta, $conexion)
     {
         // Consulta para obtener el estado actual

@@ -201,12 +201,83 @@ class Producto
         }
     }
 
-    //Método para crear la estructura de productos
+    //Funcion para obtener los productos con los filtros establecidos
+    public static function consultarProductosFiltrados($conexion, $filtro,  $parametros)
+    {
+        // Preparar la consulta SQL de Select
+        $query = "SELECT * FROM producto $filtro";
 
+        // Preparar la declaración
+        $stmt = mysqli_prepare($conexion, $query);
+
+        //comprueba que la sentencia se preparo correctamente
+        if ($stmt === false) {
+            die("Error al preparar la consulta: " . mysqli_error($conexion));
+            return "Error al preparar la consulta: " . mysqli_error($conexion);
+        }
+
+        // Vincula los parámetros a la sentencia
+        if (!empty($parametros)) {
+            // Crear una cadena de tipos para los parámetros
+            $types = str_repeat('s', count($parametros)); // Asumiendo que todos los parámetros son de tipo string
+            mysqli_stmt_bind_param($stmt, $types, ...$parametros);
+        }
+
+        // Ejecutar la declaración
+        mysqli_stmt_execute($stmt);
+
+        // Obtener resultados
+        $resultado = mysqli_stmt_get_result($stmt);
+
+        // Verificar si la consulta fue exitosa
+        if (!$resultado) {
+            die("Error al ejecutar la consulta: " . mysqli_error($conexion));
+            return "Error al ejecutar la consulta: " . mysqli_error($conexion);
+        } else {
+            $arrayProductos = [];
+            //Muentras tenga resultados se le asocia a una fila un resultado y se hace un objeto
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                // var_dump($fila);
+                $id = $fila['id_producto'];
+                $nombre = $fila['nombre'];
+                $descripcion = $fila['descripcion'];
+                $altura = $fila['altura'];
+                $epoca = $fila['epoca'];
+                $tipo = $fila['tipo'];
+                $cuidado = $fila['cuidado'];
+                $precio = $fila['precio'];
+                $promocion = $fila['promocion'];
+                $url = $fila['url'];
+
+                $producto = new Producto;
+                $producto->__construct(
+                    $id,
+                    $nombre,
+                    $descripcion,
+                    $altura,
+                    $epoca,
+                    $tipo,
+                    $cuidado,
+                    $precio,
+                    $promocion,
+                    $url
+                );
+                array_push($arrayProductos, $producto);
+            }
+            // Verificar qué datos se están agregando al array
+
+
+            // var_dump($arrayProductos);
+            return $arrayProductos;
+        }
+    }
+
+    //Método para crear la estructura de productos
     public static function crearProductos($arrayProductos)
     {
         $html = '';
 
+        //Concatenacion de estructura html con los datos obtenidos de la base de datos
         foreach ($arrayProductos as $producto) {
             $html .= "
          
@@ -314,19 +385,6 @@ class Producto
                     </div>
                 </div>
                 ";
-
-        //         $html .= "
-        //             <div class='col d-flex justify-content-center'>
-        //               <div class='card' style='width: 18rem;'>
-        //                 <img src='" . $producto->getUrl() . "' class='card-img-top' alt='...'>
-        //                 <div class='card-body'>
-        //                   <h5 class='card-title'>" . $producto->getNombre() . "</h5>
-        //                   <p class='card-text'>" . $producto->getDescripcion() . "</p>
-                          
-        //                 </div>
-        //               </div>
-        //             </div>
-        // ";
             }
             return $html;
         }
@@ -346,13 +404,13 @@ class Producto
             die("Error al preparar la consulta: " . mysqli_error($conexion));
         }
 
-        // Vincular los parámetros a la declaración
+        // Asocia los parámetros con un tipo de dato
         mysqli_stmt_bind_param($stmt, "ssisssdss", $nombre, $descripcion, $altura, $epoca, $tipo, $cuidado, $precio, $promocion, $url);
 
-        // Ejecutar la declaración
+        // Ejecución de la sentencia
         $resultado = mysqli_stmt_execute($stmt);
 
-        // Verificar si la ejecución fue exitosa
+        // Verificar si la ejecución se ha realizado correctamente
         if ($resultado === false) {
             die("Error al ejecutar la consulta: " . mysqli_error($conexion));
         } else {
@@ -367,26 +425,26 @@ class Producto
     //Funcion para obtener todos los usuarios de base de datos
     public static function consultarProductosAdministrados($conexion)
     {
-        // Preparar la consulta SQL de Select
+        // Preparacion de la consulta SQL de Select
         $query = "SELECT * FROM producto ";
 
-        // Preparar la declaración
+        // Se prepara la sentencia con la conexion 
         $stmt = mysqli_prepare($conexion, $query);
 
-        // Ejecutar la declaración
+        // Se ejecuta la sentencia 
         mysqli_stmt_execute($stmt);
 
-        // Obtener resultados
+        // Se obtienen los resultados
         $resultado = mysqli_stmt_get_result($stmt);
 
-        // Verificar si la consulta fue exitosa
+        // Verificacion si la consulta fue exitosa
         if (!$resultado) {
             die("Error al ejecutar la consulta: " . mysqli_error($conexion));
             return "Error al ejecutar la consulta: " . mysqli_error($conexion);
         } else {
             $html = "";
 
-            //Muentras tenga resultados se le asocia a una fila un resultado y se hace un objeto
+            //Mientras tenga resultados se le asocia a una fila un resultado y se hace un objeto
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 $id = $fila['id_producto'];
                 $nombre = $fila['nombre'];
@@ -399,6 +457,7 @@ class Producto
                 $promocion = $fila['promocion'];
                 $url = $fila['url'];
 
+                //Se concatenan las estructuras html con los datos obtenidos de la consulta
                 $html .= "
                     <form action='./../../views/myAccount/administrarProductos.php' method='post'>
                         <tr class='align-middle text-center'>
@@ -428,9 +487,21 @@ class Producto
                                 </select></td>
                             <td><input type='number' name='precioProducto' value='$precio' class='form-control'></td>
                             <td>
-                                <input class='form-check-input' type='radio' name='promocionProducto' id='promocionProducto' value='si'";if ($promocion == 'si') {$html .= 'checked';} else {$html .= ' ';}$html .= ">
+                                <input class='form-check-input' type='radio' name='promocionProducto' id='promocionProducto' value='si'";
+                if ($promocion == 'si') {
+                    $html .= 'checked';
+                } else {
+                    $html .= ' ';
+                }
+                $html .= ">
                                 <label class='form-check-label' for='promocionProducto'>Sí</label>
-                                <input class='form-check-input' type='radio' name='promocionProducto' id='promocionProducto' value='no'";if ($promocion == 'no') {$html .= 'checked';} else {$html .= ' ';}$html .= ">
+                                <input class='form-check-input' type='radio' name='promocionProducto' id='promocionProducto' value='no'";
+                if ($promocion == 'no') {
+                    $html .= 'checked';
+                } else {
+                    $html .= ' ';
+                }
+                $html .= ">
                                 <label class='form-check-label' for='promocionProducto'>No</label>
                             </td>
                             <td><input type='text' name='urlProducto' value='$url' class='form-control' id='urlProducto'></td>
@@ -448,15 +519,16 @@ class Producto
         }
     }
 
+    //Funcion para borrar un producto de la base de datos
     public static function borrarProducto($conexion, $id_producto)
     {
-        // Preparar la consulta SQL de borrado
+        // Prepara la consulta SQL de borrado
         $query = "DELETE FROM producto WHERE id_producto = ?";
 
-        // Preparar la declaración
+        // Prepara la sentencia con la conexion
         $stmt = mysqli_prepare($conexion, $query);
 
-        // Verificar si la preparación fue exitosa
+        // Verifica si la preparación se ha realizado correctamente
         if ($stmt === false) {
             die("Error al preparar la consulta: " . mysqli_error($conexion));
         }
@@ -464,39 +536,47 @@ class Producto
         // Vincular los parámetros a la declaración
         mysqli_stmt_bind_param($stmt, "i", $id_producto);
 
-        // Ejecutar la declaración
+        // Ejecucion de la sentencia
         $resultado = mysqli_stmt_execute($stmt);
 
-        // Verificar si la ejecución fue exitosa
+        // Verifica si la ejecución fue exitosa
         if ($resultado === false) {
             return false;
         } else {
             return true;
         }
 
-        // Cerrar la declaración
+        // Se cierra la sentencia preparada
         mysqli_stmt_close($stmt);
     }
 
+    //Funcion para modificar los datos de un producto
     public static function actualizarDato($conexion, $id_producto, $nombre, $descripcion, $altura, $epoca, $tipo, $cuidado, $precio, $promocion)
     {
+        //Preparación de la sentencia 
         $query = "UPDATE producto SET nombre=?, descripcion=?, altura=?, epoca=?, tipo=?, cuidado=?, precio=?, promocion=? WHERE id_producto=?";
+        //Preparacion de sentencia con conexion
         $stmt = mysqli_prepare($conexion, $query);
 
+        //Comprobación para ver si la sentencia se ha preparado correctamente
         if ($stmt === false) {
             die("Error al preparar la consulta: " . mysqli_error($conexion));
         }
 
+        //Asignación del tipo de dato a cada parámetro de la sentencia
         mysqli_stmt_bind_param($stmt, "ssisssdsi", $nombre, $descripcion, $altura, $epoca, $tipo, $cuidado, $precio, $promocion, $id_producto);
 
+        //Obtencion del resultado de la consulta
         $resultado = mysqli_stmt_execute($stmt);
 
+        //Comprobación que se ha obtenido un resultado de la consulta
         if ($resultado === false) {
             return false;
         } else {
             return true;
         }
 
+        //Se cierra la preparación de sentencias
         mysqli_stmt_close($stmt);
     }
 }

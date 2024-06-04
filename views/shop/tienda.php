@@ -16,6 +16,7 @@
     require_once './../../views/includes/fonts.php';
     require_once './../../models/producto.php';
     require_once './../../models/conexionBD.php';
+    $conn = new ConexionBD;
 
     ?>
 
@@ -35,16 +36,54 @@
     <main class="main">
 
         <!-- ASIDE -->
+        
         <?php
-        /**
-         * TODO: PENDIENTE AÑADIR EL FORM CON LAS OPCIONES DE FILTROS CORRESPONDIENTES
-         * TODO: PENSAR COMO REALIZAR LA CONSULTA SEGÚN LOS FILTROS SELECCIONADOS
-         */
+            
+            if (isset($_REQUEST['filtrar'])) {
+                $precio = $_REQUEST['precio'];
+                $tipo = isset($_REQUEST['tipo']) ? $_REQUEST['tipo'] : [];
+                $cuidado = isset($_REQUEST['cuidado']) ? $_REQUEST['cuidado'] : [];
+                $epoca = isset($_REQUEST['epoca']) ? $_REQUEST['epoca'] : [];
+            
+                $filtros = [];
+                $parametros = [];
+            
+                if (!empty($precio)) {
+                    $filtros[] = "precio <= ?";
+                    $parametros[] = $precio;
+                }
+            
+                if (!empty($tipo)) {
+                    $tipoPlaceholders = implode(',', array_fill(0, count($tipo), '?'));
+                    $filtros[] = "tipo IN ($tipoPlaceholders)";
+                    $parametros = array_merge($parametros, $tipo);
+                }
+            
+                if (!empty($cuidado)) {
+                    $cuidadoPlaceholders = implode(',', array_fill(0, count($cuidado), '?'));
+                    $filtros[] = "cuidado IN ($cuidadoPlaceholders)";
+                    $parametros = array_merge($parametros, $cuidado);
+                }
+            
+                if (!empty($epoca)) {
+                    $epocaPlaceholders = implode(',', array_fill(0, count($epoca), '?'));
+                    $filtros[] = "epoca IN ($epocaPlaceholders)";
+                    $parametros = array_merge($parametros, $epoca);
+                }
+            
+                $filtro = !empty($filtros) ? "WHERE " . implode(' AND ', $filtros) : "";
+                
+                $listaProductos = Producto::consultarProductosFiltrados($conn->conectar_bd(), $filtro, $parametros);
+            } else {
+                $listaProductos = Producto::consultarProductos($conn->conectar_bd());
+            }
+            ?>
+            
         ?>
 
 
 
-        <form action="./../../controllers/miControlador.php" method="post">
+        <form action="./../../views/shop/tienda.php" method="post">
             <div id="sidebar" class=" p-3 sidebar d-lg-block">
 
                 <!-- <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"> -->
@@ -66,31 +105,31 @@
 
                         <div class="col-sm-8 flex-column "><br>
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="tipo" name="tipo" value="arbol"><br>
+                                <input type="checkbox" id="tipo" name="tipo[]" value="arbol"><br>
                                 <label class="m-1">Arbol</label>
                             </div>
 
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="tipo" name="tipo" value="arbusto"><br>
+                                <input type="checkbox" id="tipo" name="tipo[]" value="arbusto"><br>
                                 <label class="m-1">Arbusto</label>
                             </div>
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="tipo" name="tipo" value="cactus"><br>
+                                <input type="checkbox" id="tipo" name="tipo[]" value="cactus"><br>
                                 <label class="m-1">Cactus</label>
                             </div>
 
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="tipo" name="tipo" value="flor"><br>
+                                <input type="checkbox" id="tipo" name="tipo[]" value="flor"><br>
                                 <label class="m-1">Flor</label>
                             </div>
 
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="tipo" name="tipo" value="exotica"><br>
+                                <input type="checkbox" id="tipo" name="tipo[]" value="exotica"><br>
                                 <label class="m-1">Planta exótica</label>
                             </div>
 
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="tipo" name="tipo" value="interior"><br>
+                                <input type="checkbox" id="tipo" name="tipo[]" value="interior"><br>
                                 <label class="m-1">Planta interior</label>
                             </div>
 
@@ -102,16 +141,16 @@
 
                         <div class="col-sm-8 flex-column "><br>
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="sencillo" name="sencillo" value="sencillo"><br>
+                                <input type="checkbox" id="sencillo" name="cuidado[]" value="sencillo"><br>
                                 <label class="m-1">Sencillo</label>
                             </div>
 
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="moderado" name="moderado" value="moderado"><br>
+                                <input type="checkbox" id="moderado" name="cuidado[]" value="moderado"><br>
                                 <label class="m-1">Moderado</label>
                             </div>
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="complejo" name="complejo" value="complejo"><br>
+                                <input type="checkbox" id="complejo" name="cuidado[]" value="complejo"><br>
                                 <label class="m-1">Complejo</label>
                             </div>
                         </div>
@@ -121,25 +160,25 @@
                         <label for="tipo" class="col-form-label col-sm-10"><b>Epoca de floración</b></label>
                         <div class="col-sm-8 flex-column "><br>
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="primavera" name="primavera" value="primavera"><br>
+                                <input type="checkbox" id="primavera" name="epoca[]" value="primavera"><br>
                                 <label class="m-1">Primavera</label>
                             </div>
 
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="verano" name="verano" value="verano"><br>
+                                <input type="checkbox" id="verano" name="epoca[]" value="verano"><br>
                                 <label class="m-1">Verano</label>
                             </div>
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="otono" name="otono" value="otono"><br>
+                                <input type="checkbox" id="otono" name="epoca[]" value="otono"><br>
                                 <label class="m-1">Otoño</label>
                             </div>
                             <div class="d-flex justify-content-left">
-                                <input type="checkbox" id="invierno" name="invierno" value="invierno"><br>
+                                <input type="checkbox" id="invierno" name="epoca[]" value="invierno"><br>
                                 <label class="m-1">Invierno</label>
                             </div>
                         </div>
                     </li>
-                    <button type="submit" name="submit" value="Filtrar" class="btn btn-primary">Filtrar</button>
+                    <button type="submit" name="filtrar" value="Filtrar" class="btn btn-primary">Filtrar</button>
                 </ul>
             </div>
         </form>
@@ -174,8 +213,6 @@
             <!-- Contenedor de productos -->
             <div id="contenedor" class="row row-cols-1 row-cols-md-4 row-cols-lg-4 g-2 justify-content-center">
                 <?php
-                    $conn = new ConexionBD;
-                    $listaProductos = Producto::consultarProductos($conn->conectar_bd());
                     echo Producto::crearProductos($listaProductos);
                 ?>
             </div>
