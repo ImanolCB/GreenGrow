@@ -39,7 +39,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <?php
             } else {
                 ?>
-                    <form class="form-nav w-100" action="./controllers/miControlador.php" method="post">
+                <form class="form-nav w-100" action="./controllers/miControlador.php" method="post">
                     <?php } ?>
                     <!-- Lista de los enlaces de las distintas partes de la página -->
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -95,10 +95,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                 }
                             }
                             ?>
-
+                            
                         </div>
                     </div>
-                    </form>
+                </form>
         </div>
     </nav>
 </header>

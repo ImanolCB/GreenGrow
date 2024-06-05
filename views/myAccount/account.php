@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php session_start(); 
+
+//Inicia el buffer de salida.
+//Cualquier salida generada después de llamar
+//a esta función se almacenará en un buffer interno
+//en lugar de enviarse directamente al navegador.
+ob_start();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -31,7 +38,7 @@
 <body>
 
     <!-- HEADER -->
-    <?php include './../includes/header.php'; ?>
+    <?php include_once './../includes/header.php'; ?>
 
     <!-- MAIN -->
 
@@ -72,7 +79,7 @@
             if ($nota != '') {
                 Anotacion::anadirAnotacion($conn->conectar_bd(), $nota, date('Y-m-d'), $id);
                 $_SESSION['mensaje'] = 'La anotacion se ha añadida';
-                header('Location: ' . $_SERVER['PHP_SELF']);
+                header('Location: ' . $_SERVER['PHP_SELF']);                
                 exit();
             } else {
                 $_SESSION['error'] = 'Debe rellenar el campo de texto';
@@ -133,15 +140,15 @@
             </div>
 
         </section>
-
-
-
-
     </main>
 
     <!-- FOOTER -->
     <?php include './../includes/footer.php' ?>
 
 </body>
-
 </html>
+
+<?php
+//Envía el contenido del buffer al navegador y detiene el buffering.
+//Esto asegura que todo el contenido almacenado en el buffer se envíe al cliente.
+ ob_end_flush(); ?>
