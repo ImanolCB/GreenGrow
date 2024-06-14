@@ -281,6 +281,18 @@ class Usuario
                 throw new Exception("Error al preparar la consulta de eliminación de plantas: " . $conexion->error);
             }
 
+            // Eliminacion de las transacciones relacionadas a las cestas del usuario
+            $sql = "DELETE t FROM transaccion t
+                    JOIN cesta c ON t.id_cesta = c.id_cesta
+                    WHERE c.id_usuario = ?";
+            if ($stmt = $conexion->prepare($sql)) {
+                $stmt->bind_param("i", $id_usuario);
+                $stmt->execute();
+                $stmt->close();
+            } else {
+                throw new Exception("Error al preparar la consulta de eliminación de transacciones: " . $conexion->error);
+            }
+
             // Eliminacion de la relacion de la tabla intermedia
             $sql = "DELETE cp FROM `cesta-producto` cp
                     JOIN cesta c ON cp.id_cesta = c.id_cesta
@@ -310,9 +322,9 @@ class Usuario
                 $stmt->execute();
 
                 if ($stmt->affected_rows > 0) {
-                    echo "Usuario con ID $id_usuario eliminado exitosamente.";
+                    $_SESSION['mensaje'] = 'El usuario se ha eliminado';
                 } else {
-                    echo "No se encontró ningún usuario con el ID $id_usuario.";
+                    $_SESSION['error'] = 'No se encontró ningún usuario con el ID $id_usuario.';
                 }
                 //Se cierra la preparación de sentencias
                 $stmt->close();

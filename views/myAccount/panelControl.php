@@ -43,6 +43,18 @@
         <?php unset($_SESSION['mensaje']); ?>
     <?php endif; ?>
 
+    <!-- Mensaje de error -->
+    <?php if (isset($_SESSION['error'])) : ?>
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "<?php echo $_SESSION['error'] ?>"
+            });
+        </script>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
     <?php
 
     //Cuando se pulsa cambiar rol
@@ -58,8 +70,6 @@
 
         $id = intval($_REQUEST['eliminar']);
         Usuario::borrarUsuario($id, $conn->conectar_bd());
-        $_SESSION['mensaje'] = 'El usuario se ha eliminado';
-
         header('Location: ' . $_SERVER['PHP_SELF']);
         exit();
     }
@@ -90,7 +100,7 @@
             <form action="./../../controllers/miControlador.php" method="post">
                 <button type="submit" name="submit" value="administrarProductos" class="btn btn-primary">Administrar Productos</button>
             </form>
-            
+
         </div>
         <hr class="container w-90">
 
@@ -112,7 +122,8 @@
         <div id="contenedor" class="container d-flex flex-column align-items-left mt-2">
             <div class="row" id="tablaUsuario">
                 <div class="col-md-12">
-                    <h2 class="text-left text-success fs-3">Usuarios</h2>
+                    <h2 class="text-left text-success fs-3 mt-5">Usuarios</h2>
+                    <hr>
                     <table class="table table-bordered table-striped">
                         <thead class="thead-custom">
                             <tr>
@@ -130,12 +141,12 @@
             </div>
             <div class="row" id="tablaTransaccion">
                 <div class="col-md-12">
-                    <h2 class="text-left text-success fs-3">Pedidos
+                    <h2 class="text-left text-success fs-3 mt-5">Pedidos
                         <span class="fs-6 text-secondary">
-                            <?php echo 'Total, este mes: '. Transaccion::consultarIngresoMes($conn->conectar_bd()) .' €' ?>
-                        </span> 
+                            <?php echo 'Total, este mes: ' . Transaccion::consultarIngresoMes($conn->conectar_bd()) . ' €' ?>
+                        </span>
                     </h2>
-
+                    <hr>
                     <?php echo Transaccion::consultarTransaccion($conn->conectar_bd()) ?>
 
                 </div>
