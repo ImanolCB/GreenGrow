@@ -21,3 +21,5 @@ home/:              Vistas específicas para la sección de inicio.
 .gitignore:         Archivo que especifica qué archivos y carpetas se deben ignorar en el control de versiones Git.
 index.php:          Punto de entrada principal de la aplicación donde se manejan todas las solicitudes.
 config.php:         Archivo de configuración donde se pueden definir variables de configuración globales.
+
+Proyecto realizado durante la formación académica y presebtado como proyecto de TFG de fin de grado. 
